@@ -657,32 +657,57 @@ export default function ThreeDModelViewer({
     camera.lookAt(0, 0.8, 0);
     cameraRef.current = camera;
 
-    // 3. WebGL Renderer with Opaque Background (Zero Alpha Blending Jitter)
+    // 3. WebGL Renderer with Logarithmic Depth Buffer & Opaque Background (Zero Flickering)
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: false, // Prevents alpha-buffer frame flickering on canvas
       powerPreference: "high-performance",
+      logarithmicDepthBuffer: true, // Eliminates Z-fighting across all camera angles and zoom levels!
+      precision: "highp",
+      stencil: false,
     });
     renderer.setClearColor(0xf5f1eb, 1.0); // Solid matching luxury background
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height, false);
+    renderer.setPixelRatio(Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, 1.75));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.08;
+
+    // Explicit Touch & Selection Styling on Canvas (Prevents browser touch fighting)
+    renderer.domElement.style.touchAction = "none";
+    renderer.domElement.style.userSelect = "none";
+    renderer.domElement.style.webkitUserSelect = "none";
+    renderer.domElement.style.outline = "none";
+    renderer.domElement.style.display = "block";
+    renderer.domElement.style.width = "100%";
+    renderer.domElement.style.height = "100%";
+
     container.replaceChildren(renderer.domElement);
     rendererRef.current = renderer;
 
-    // 4. OrbitControls with Expanded Zoom Range (Min 6 to Max 85!)
+    // 4. OrbitControls with Expanded Zoom Range & Dedicated Touch Handling
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
+    controls.dampingFactor = 0.08;
     controls.maxPolarAngle = Math.PI / 2 - 0.08; // Stay above floor horizon
     controls.minDistance = 6;
     controls.maxDistance = 85; // Allows zooming out significantly more as requested!
     controls.target.set(0, 0.8, 0);
     controls.autoRotate = isAutoRotating;
     controls.autoRotateSpeed = 0.8;
+
+    // Explicit touch gesture assignment (1-finger rotate, 2-finger zoom/pan)
+    controls.touches = {
+      ONE: THREE.TOUCH.ROTATE,
+      TWO: THREE.TOUCH.DOLLY_PAN,
+    };
+
+    // Stop programmatic camera lerp immediately when user touches/interacts!
+    controls.addEventListener("start", () => {
+      cameraTargetRef.current.inProgress = false;
+    });
+
     controlsRef.current = controls;
 
     // 5. Lighting Setup with Anti-Chatter Shadow Bias
@@ -693,16 +718,16 @@ export default function ThreeDModelViewer({
     const sunLight = new THREE.DirectionalLight(0xfff5e6, 1.85);
     sunLight.position.set(24, 30, 20);
     sunLight.castShadow = true;
-    sunLight.shadow.mapSize.width = 2048;
-    sunLight.shadow.mapSize.height = 2048;
+    sunLight.shadow.mapSize.width = 1024;
+    sunLight.shadow.mapSize.height = 1024;
     sunLight.shadow.camera.near = 5;
     sunLight.shadow.camera.far = 70;
     sunLight.shadow.camera.left = -18;
     sunLight.shadow.camera.right = 18;
     sunLight.shadow.camera.top = 18;
     sunLight.shadow.camera.bottom = -18;
-    sunLight.shadow.bias = -0.0003;
-    sunLight.shadow.normalBias = 0.06; // Generous normal bias eliminates shadow acne entirely
+    sunLight.shadow.bias = -0.0004;
+    sunLight.shadow.normalBias = 0.04; // Smooth normal bias eliminates shadow acne entirely
     scene.add(sunLight);
     sunLightRef.current = sunLight;
 
@@ -726,6 +751,12 @@ export default function ThreeDModelViewer({
 
     setLoading(false);
 
+    // Cancel camera animation on touch to prevent dual-source camera jitter
+    const handleTouchStart = () => {
+      cameraTargetRef.current.inProgress = false;
+    };
+    container.addEventListener("touchstart", handleTouchStart, { passive: true });
+
     // Render loop
     const animate = () => {
       animFrameIdRef.current = requestAnimationFrame(animate);
@@ -748,18 +779,26 @@ export default function ThreeDModelViewer({
     };
     animate();
 
+    // Debounced resize handler (Prevents buffer re-allocation jitter on mobile address-bar shifts)
+    let lastW = width;
+    let lastH = height;
     const handleResize = () => {
       if (!container) return;
       const w = container.clientWidth;
       const h = container.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
+      if (Math.abs(w - lastW) > 6 || Math.abs(h - lastH) > 6) {
+        lastW = w;
+        lastH = h;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h, false);
+      }
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
+      container.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("resize", handleResize);
       if (animFrameIdRef.current) cancelAnimationFrame(animFrameIdRef.current);
       controls.dispose();
@@ -834,9 +873,16 @@ export default function ThreeDModelViewer({
   };
 
   return (
-    <div className="relative w-full aspect-[16/10] min-h-[380px] sm:min-h-[440px] md:min-h-[530px] bg-[#FAF7F2] rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E8E4DC] select-none flex flex-col shadow-lg">
-      {/* ── 3D Canvas Mount ─────────────────────────────────────────── */}
-      <div ref={containerRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
+    <div
+      className="relative w-full aspect-[16/10] min-h-[380px] sm:min-h-[440px] md:min-h-[530px] bg-[#FAF7F2] rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E8E4DC] select-none flex flex-col shadow-lg touch-none"
+      style={{ touchAction: "none" }}
+    >
+      {/* ── 3D Canvas Mount (Touch-Action None prevents browser gesture conflict) ── */}
+      <div
+        ref={containerRef}
+        className="w-full h-full cursor-grab active:cursor-grabbing touch-none select-none"
+        style={{ touchAction: "none", WebkitTouchCallout: "none" }}
+      />
 
       {/* Loading overlay */}
       {loading && (

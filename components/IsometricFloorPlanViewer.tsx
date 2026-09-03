@@ -336,7 +336,7 @@ export default function IsometricFloorPlanViewer({
       <div className="p-3 sm:p-5 md:p-8 bg-white">
         {viewMode === "3d" ? (
           /* ── 3D INTERACTIVE THREE.JS MODEL ──────────────────────────── */
-          <div className="w-full">
+          <div className="w-full touch-none select-none" style={{ touchAction: "none" }}>
             <ThreeDModelViewer
               bhk={unit.bhk}
               projectName={unit.project_name}
