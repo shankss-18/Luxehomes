@@ -1,0 +1,115 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  darkMode: "class",
+  theme: {
+    extend: {
+      // ─── Stitch Design Tokens ──────────────────────────────────────────────
+      colors: {
+        // Brand custom
+        "brass":           "#B08D57",
+        "charcoal":        "#14130F",
+        "ivory":           "#FAF7F2",
+        "ghost":           "#E8E4DC",
+        "emerald-deep":    "#2F4538",
+        // Stitch Material color system
+        "surface":                    "#fdf8f7",
+        "surface-dim":                "#ddd9d8",
+        "surface-bright":             "#fdf8f7",
+        "surface-container-lowest":   "#ffffff",
+        "surface-container-low":      "#f7f3f1",
+        "surface-container":          "#f1edec",
+        "surface-container-high":     "#ebe7e6",
+        "surface-container-highest":  "#e5e2e0",
+        "surface-variant":            "#e5e2e0",
+        "surface-tint":               "#5f5e5b",
+        "on-surface":                 "#1c1b1b",
+        "on-surface-variant":         "#474741",
+        "on-background":              "#1c1b1b",
+        "background":                 "#fdf8f7",
+        "inverse-surface":            "#313030",
+        "inverse-on-surface":         "#f4f0ef",
+        "outline":                    "#787770",
+        "outline-variant":            "#c8c7be",
+        "primary":                    "#5f5e5b",
+        "on-primary":                 "#ffffff",
+        "primary-container":          "#faf7f2",
+        "on-primary-container":       "#72716d",
+        "primary-fixed":              "#e5e2dd",
+        "primary-fixed-dim":          "#c8c6c2",
+        "on-primary-fixed":           "#1c1c19",
+        "on-primary-fixed-variant":   "#474743",
+        "inverse-primary":            "#c8c6c2",
+        "secondary":                  "#605e59",
+        "on-secondary":               "#ffffff",
+        "secondary-container":        "#e4dfd8",
+        "on-secondary-container":     "#65625d",
+        "secondary-fixed":            "#e7e2db",
+        "secondary-fixed-dim":        "#cac6bf",
+        "on-secondary-fixed":         "#1d1c17",
+        "on-secondary-fixed-variant": "#494741",
+        "tertiary":                   "#B08D57",  // Custom muted gold
+        "on-tertiary":                "#ffffff",
+        "tertiary-container":         "#fff6ee",
+        "on-tertiary-container":      "#8c6c39",
+        "tertiary-fixed":             "#ffdeae",
+        "tertiary-fixed-dim":         "#e8c086",
+        "on-tertiary-fixed":          "#281800",
+        "on-tertiary-fixed-variant":  "#5d4213",
+        "error":                      "#ba1a1a",
+        "on-error":                   "#ffffff",
+        "error-container":            "#ffdad6",
+        "on-error-container":         "#93000a",
+      },
+      // ─── Typography ───────────────────────────────────────────────────────
+      fontFamily: {
+        "display-lg":         ["Playfair Display", "serif"],
+        "headline-lg":        ["Playfair Display", "serif"],
+        "headline-lg-mobile": ["Playfair Display", "serif"],
+        "headline-md":        ["Playfair Display", "serif"],
+        "body-lg":            ["Inter", "sans-serif"],
+        "body-md":            ["Inter", "sans-serif"],
+        "label-caps":         ["Inter", "sans-serif"],
+        "button":             ["Inter", "sans-serif"],
+      },
+      fontSize: {
+        "display-lg":         ["72px",  { lineHeight: "84px",  letterSpacing: "-0.02em", fontWeight: "400" }],
+        "headline-lg":        ["48px",  { lineHeight: "56px",  fontWeight: "400" }],
+        "headline-lg-mobile": ["32px",  { lineHeight: "40px",  fontWeight: "400" }],
+        "headline-md":        ["32px",  { lineHeight: "40px",  fontWeight: "400" }],
+        "body-lg":            ["18px",  { lineHeight: "32px",  fontWeight: "400" }],
+        "body-md":            ["16px",  { lineHeight: "24px",  fontWeight: "400" }],
+        "label-caps":         ["12px",  { lineHeight: "16px",  letterSpacing: "0.15em", fontWeight: "600" }],
+        "button":             ["14px",  { lineHeight: "20px",  letterSpacing: "0.05em", fontWeight: "500" }],
+      },
+      // ─── Spacing ──────────────────────────────────────────────────────────
+      spacing: {
+        "stack-sm":           "8px",
+        "stack-md":           "16px",
+        "stack-lg":           "32px",
+        "gutter":             "24px",
+        "margin-mobile":      "20px",
+        "margin-desktop":     "80px",
+        "section-v-padding":  "120px",
+      },
+      // ─── Border Radius ────────────────────────────────────────────────────
+      borderRadius: {
+        DEFAULT: "0.125rem",
+        lg:      "0.25rem",
+        xl:      "0.5rem",
+        full:    "0.75rem",
+      },
+      // ─── Max width ────────────────────────────────────────────────────────
+      maxWidth: {
+        "content": "1440px",
+      },
+    },
+  },
+  plugins: [],
+};
+export default config;

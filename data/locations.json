@@ -1,0 +1,171 @@
+{
+  "flagship": {
+    "name": "Kokapet",
+    "subLocality": "Neopolis Corridor",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "pincode": "500075",
+    "officeAddress": "The Luxe Tower, Neopolis Corridor, Kokapet, Hyderabad, Telangana 500075",
+    "avgPriceSqFt": "₹12,800/sq.ft",
+    "connectivity": [
+      {
+        "hub": "Outer Ring Road (ORR)",
+        "duration": "3 min",
+        "description": "Direct exit to ORR toll plaza connecting seamlessly to the airport and HITEC City"
+      },
+      {
+        "hub": "Financial District",
+        "duration": "5 min",
+        "description": "Immediate access to Nanakramguda, US Consulate, and major institutional towers"
+      },
+      {
+        "hub": "Gachibowli IT Hub",
+        "duration": "8 min",
+        "description": "Effortless commute to Microsoft, Google, Amazon, and DLF Cyber City campuses"
+      }
+    ]
+  },
+  "localities": [
+    { "id": "kokapet", "name": "Kokapet (Neopolis Corridor)", "badge": "Flagship Corridor", "avgPriceSqFt": 12800 },
+    { "id": "financial-district", "name": "Financial District (Nanakramguda)", "badge": "IT & Corporate Core", "avgPriceSqFt": 13200 },
+    { "id": "gachibowli", "name": "Gachibowli", "badge": "Tech Commercial Hub", "avgPriceSqFt": 12500 },
+    { "id": "banjara-hills", "name": "Banjara Hills", "badge": "Heritage Prestige", "avgPriceSqFt": 16500 },
+    { "id": "jubilee-hills", "name": "Jubilee Hills", "badge": "Elite Enclave", "avgPriceSqFt": 18000 },
+    { "id": "tellapur", "name": "Tellapur", "badge": "Green Residential Buffer", "avgPriceSqFt": 10500 }
+  ],
+  "facilities": {
+    "schools": [
+      {
+        "name": "Oakridge International School",
+        "locality": "Gachibowli",
+        "distance": "6.5 km · 10 min",
+        "type": "IB & CBSE Curricula",
+        "icon": "school"
+      },
+      {
+        "name": "CHIREC International School",
+        "locality": "Gachibowli / Kondapur",
+        "distance": "7.8 km · 12 min",
+        "type": "Cambridge & IB World School",
+        "icon": "school"
+      }
+    ],
+    "hospitals": [
+      {
+        "name": "Continental Hospitals",
+        "locality": "Financial District (Nanakramguda)",
+        "distance": "4.2 km · 6 min",
+        "type": "Multi-Specialty Tertiary Care",
+        "icon": "local_hospital"
+      },
+      {
+        "name": "AIG Hospitals",
+        "locality": "Gachibowli",
+        "distance": "7.1 km · 10 min",
+        "type": "Premier Healthcare & Research",
+        "icon": "local_hospital"
+      }
+    ],
+    "retail": [
+      {
+        "name": "Phoenix Arena & High-Street",
+        "locality": "Kokapet (Upcoming)",
+        "distance": "1.2 km · 2 min",
+        "type": "Curated Luxury Retail & Dining",
+        "icon": "storefront"
+      },
+      {
+        "name": "Sarath City Capital Mall",
+        "locality": "Kondapur / Gachibowli",
+        "distance": "8.5 km · 14 min",
+        "type": "Premier Shopping & Entertainment",
+        "icon": "shopping_bag"
+      }
+    ],
+    "itParks": [
+      {
+        "name": "Financial District (Nanakramguda)",
+        "locality": "Nanakramguda",
+        "distance": "3.5 km · 5 min",
+        "type": "Waverock, Capgemini, Apple & Continental",
+        "icon": "corporate_fare"
+      },
+      {
+        "name": "Wipro Circle & Gachibowli Hub",
+        "locality": "Gachibowli",
+        "distance": "5.8 km · 8 min",
+        "type": "Wipro, Infosys, Microsoft & ICICI Towers",
+        "icon": "domain"
+      }
+    ]
+  },
+  "hyderabadLocations": [
+    {
+      "name": "Kokapet (Neopolis Corridor)",
+      "badge": "Flagship Corridor",
+      "tagline": "Hyderabad's most premium new-supply residential corridor, part of the HMDA-planned Neopolis master plan.",
+      "avgPrice": "₹12,800/sq.ft",
+      "driveTimes": [
+        "3 min to ORR",
+        "5 min to Financial District",
+        "8 min to Gachibowli"
+      ],
+      "status": "Under Active Development"
+    },
+    {
+      "name": "Financial District",
+      "badge": "Corporate Core",
+      "tagline": "Walk-to-work culture amidst global conglomerates and direct connectivity to ORR.",
+      "avgPrice": "₹13,200/sq.ft",
+      "driveTimes": [
+        "2 min to Nanakramguda",
+        "8 min to Kokapet"
+      ],
+      "status": "Active Residences"
+    },
+    {
+      "name": "Banjara Hills",
+      "badge": "Heritage Luxury",
+      "tagline": "The timeless benchmark of prestige living, close to top luxury retail and serene leafy avenues.",
+      "avgPrice": "₹16,500/sq.ft",
+      "driveTimes": [
+        "15 min to Jubilee Hills",
+        "20 min to Financial District"
+      ],
+      "status": "Completed Portfolio"
+    },
+    {
+      "name": "Jubilee Hills",
+      "badge": "Elite Enclave",
+      "tagline": "Elevated topography with panoramic vistas of Durgam Cheruvu and the IT corridor.",
+      "avgPrice": "₹18,000/sq.ft",
+      "driveTimes": [
+        "10 min to HITEC City",
+        "12 min to Gachibowli"
+      ],
+      "status": "Private Estates"
+    },
+    {
+      "name": "Gachibowli",
+      "badge": "Commercial Tech Hub",
+      "tagline": "Adjacent to major international tech campuses, sports complexes, and universities.",
+      "avgPrice": "₹12,500/sq.ft",
+      "driveTimes": [
+        "5 min to Financial District",
+        "10 min to Kokapet"
+      ],
+      "status": "Modern Residences"
+    },
+    {
+      "name": "Tellapur",
+      "badge": "Green Residential Zone",
+      "tagline": "Tranquil master-planned villa and high-rise developments with pristine green buffers.",
+      "avgPrice": "₹10,500/sq.ft",
+      "driveTimes": [
+        "10 min to Kokapet ORR",
+        "15 min to Financial District"
+      ],
+      "status": "Upcoming Enclaves"
+    }
+  ]
+}

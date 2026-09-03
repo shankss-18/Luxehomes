@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+/* ─── Base Styles ─────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FAF7F2;
+  color: #1c1b1b;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Typography Utility Classes ─────────────────────────────────────────── */
+.font-serif-luxury {
+  font-family: "Playfair Display", Georgia, serif;
+}
+
+.font-sans-luxury {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ─── Material Symbols ────────────────────────────────────────────────────── */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  vertical-align: middle;
+}
+
+/* ─── Luxury Brand Colors & Utilities ────────────────────────────────────── */
+:root {
+  --lux-gold: #B08D57;
+  --lux-gold-hover: #967645;
+  --lux-dark: #1c1b1b;
+  --lux-charcoal: #14130F;
+  --lux-ivory: #FAF7F2;
+  --lux-border: #E8E4DC;
+  --lux-muted: #72716d;
+}
+
+.text-gold {
+  color: #B08D57;
+}
+.bg-gold {
+  background-color: #B08D57;
+}
+.border-gold {
+  border-color: #B08D57;
+}
+
+/* ─── Glassmorphism & Borders ────────────────────────────────────────────── */
+.glass-panel {
+  background: rgba(253, 248, 247, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(232, 228, 220, 0.6);
+}
+
+.glass-card {
+  background: rgba(250, 247, 242, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(232, 228, 220, 0.6);
+}
+
+.ghost-border {
+  border: 1px solid #E8E4DC;
+}
+
+/* ─── Luxury Buttons ──────────────────────────────────────────────────────── */
+.btn-gold {
+  background-color: #B08D57;
+  color: #ffffff;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.18em;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.btn-gold:hover {
+  background-color: #967645;
+  box-shadow: 0 10px 25px -5px rgba(176, 141, 87, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-outline-dark {
+  border: 1px solid #1c1b1b;
+  color: #1c1b1b;
+  background-color: transparent;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.18em;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.btn-outline-dark:hover {
+  background-color: #1c1b1b;
+  color: #ffffff;
+}
+
+.btn-brochure {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: rgba(28, 27, 27, 0.45);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.18em;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.btn-brochure:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.85);
+  transform: translateY(-1px);
+}
+
+/* ─── Animations & Transitions ────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulse-ring {
+  animation: pulseRing 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.animate-float-gentle {
+  animation: floatGentle 3s ease-in-out infinite;
+}
+
+/* Scroll reveal helper classes */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-slide-left {
+  opacity: 0;
+  transform: translateX(-35px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-slide-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-slide-right {
+  opacity: 0;
+  transform: translateX(35px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-slide-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ─── Luxury Arch Pattern (User-Provided Design) ────────────────────────── */
+.bg-luxury-pattern {
+  background-color: #FAF7F2;
+  background-image: url("/luxury-arch-pattern.svg");
+  background-repeat: repeat;
+  background-size: 140px 140px;
+}
+
+.bg-luxury-pattern-subtle {
+  background-color: #FAF7F2;
+  background-image: 
+    radial-gradient(ellipse at center, rgba(250, 247, 242, 0.84) 0%, rgba(250, 247, 242, 0.97) 100%),
+    url("/luxury-arch-pattern.svg");
+  background-repeat: repeat;
+  background-size: 140px 140px;
+}
+

@@ -1,0 +1,564 @@
+{
+  "localityBenchmark": {
+    "primaryLocality": "Kokapet",
+    "corridor": "Neopolis Corridor",
+    "city": "Hyderabad",
+    "avgPriceSqFt": 12800,
+    "source": "2026 Hyderabad Real Estate Market Intelligence"
+  },
+  "trustStats": {
+    "reraStatus": "RERA Registered: TBD",
+    "hmdaStatus": "HMDA Master Plan Approved",
+    "acresDeveloped": "6 Acres Developed",
+    "locationsCount": "3 Hyderabad Locations",
+    "yearsOfTrust": "15+ Years of Trust"
+  },
+  "units": [
+    {
+      "id": "botanika-greens-t1-2bhk",
+      "project_name": "Botanika Greens",
+      "tower": "Tower A",
+      "unit_number": "A-402",
+      "bhk": 2,
+      "type": "flat",
+      "locality": "Kokapet (Neopolis Corridor)",
+      "carpet_area_sqft": 1180,
+      "built_up_area_sqft": 1475,
+      "total_price_inr": 15104000,
+      "display_price": "₹1.51 Cr*",
+      "facing": "East",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "GROUND FLOOR",
+          "callouts": [
+            { "label": "Living lounge with Italian marble", "x": 32, "y": 55 },
+            { "label": "Modular kitchen with utility balcony", "x": 58, "y": 32 },
+            { "label": "Master suite with attached bath", "x": 78, "y": 42 },
+            { "label": "Sunset balcony deck with planters", "x": 16, "y": 68 }
+          ],
+          "rooms": [
+            { "name": "Living & Dining Room", "dim_ft": "18'6\" x 12'0\"", "dim_m": "5.64m x 3.66m" },
+            { "name": "Kitchen with Utility", "dim_ft": "8'8\" x 8'2\"", "dim_m": "2.64m x 2.49m" },
+            { "name": "Master Bedroom", "dim_ft": "14'0\" x 12'0\"", "dim_m": "4.27m x 3.66m" },
+            { "name": "Bedroom 2", "dim_ft": "12'0\" x 11'0\"", "dim_m": "3.66m x 3.35m" },
+            { "name": "Balcony Deck", "dim_ft": "12'0\" x 5'0\"", "dim_m": "3.66m x 1.52m" }
+          ]
+        }
+      ],
+      "floor_plan_image": "/images/floorplans/isometric_2bhk.jpg"
+    },
+    {
+      "id": "one-neopolis-tb-2bhk",
+      "project_name": "One Neopolis",
+      "tower": "Tower B",
+      "unit_number": "B-604",
+      "bhk": 2,
+      "type": "flat",
+      "locality": "Kokapet (Neopolis Corridor)",
+      "carpet_area_sqft": 1260,
+      "built_up_area_sqft": 1575,
+      "total_price_inr": 16128000,
+      "display_price": "₹1.61 Cr*",
+      "facing": "North-East",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "GROUND FLOOR",
+          "callouts": [
+            { "label": "Living & dining hall with marble finish", "x": 35, "y": 52 },
+            { "label": "L-shaped modular kitchen & utility", "x": 58, "y": 28 },
+            { "label": "Master bedroom with ensuite bathroom", "x": 80, "y": 45 },
+            { "label": "Corner view balcony with railing", "x": 15, "y": 66 }
+          ],
+          "rooms": [
+            { "name": "Living & Family Lounge", "dim_ft": "19'2\" x 12'6\"", "dim_m": "5.84m x 3.81m" },
+            { "name": "Kitchen", "dim_ft": "9'4\" x 8'6\"", "dim_m": "2.84m x 2.59m" },
+            { "name": "Master Suite", "dim_ft": "14'6\" x 12'4\"", "dim_m": "4.42m x 3.76m" },
+            { "name": "Guest Bedroom", "dim_ft": "12'6\" x 11'2\"", "dim_m": "3.81m x 3.40m" },
+            { "name": "Panoramic Balcony", "dim_ft": "12'6\" x 5'6\"", "dim_m": "3.81m x 1.68m" }
+          ]
+        }
+      ],
+      "floor_plan_image": "/images/floorplans/isometric_2bhk.jpg"
+    },
+    {
+      "id": "cyber-vista-t1-2bhk",
+      "project_name": "Cyber Vista",
+      "tower": "Tower 1",
+      "unit_number": "T1-802",
+      "bhk": 2,
+      "type": "flat",
+      "locality": "Gachibowli",
+      "carpet_area_sqft": 1350,
+      "built_up_area_sqft": 1680,
+      "total_price_inr": 17280000,
+      "display_price": "₹1.73 Cr*",
+      "facing": "West",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "GROUND FLOOR",
+          "callouts": [
+            { "label": "Sunset-facing wide balcony corridor", "x": 15, "y": 65 },
+            { "label": "Modular kitchen with utility provisions", "x": 58, "y": 30 },
+            { "label": "Master bedroom suite with glass shower", "x": 78, "y": 42 }
+          ],
+          "rooms": [
+            { "name": "Living Room", "dim_ft": "20'0\" x 13'0\"", "dim_m": "6.10m x 3.96m" },
+            { "name": "Kitchen", "dim_ft": "10'0\" x 8'6\"", "dim_m": "3.05m x 2.59m" },
+            { "name": "Master Bedroom", "dim_ft": "15'0\" x 12'6\"", "dim_m": "4.57m x 3.81m" },
+            { "name": "Bedroom 2", "dim_ft": "13'0\" x 11'6\"", "dim_m": "3.96m x 3.51m" },
+            { "name": "Balcony", "dim_ft": "13'0\" x 6'0\"", "dim_m": "3.96m x 1.83m" }
+          ]
+        }
+      ],
+      "floor_plan_image": "/images/floorplans/isometric_2bhk.jpg"
+    },
+    {
+      "id": "tellapur-green-t3-2bhk",
+      "project_name": "Tellapur Green Suites",
+      "tower": "Tower 3",
+      "unit_number": "T3-301",
+      "bhk": 2,
+      "type": "flat",
+      "locality": "Tellapur",
+      "carpet_area_sqft": 1150,
+      "built_up_area_sqft": 1440,
+      "total_price_inr": 14720000,
+      "display_price": "₹1.47 Cr*",
+      "facing": "North",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "GROUND FLOOR",
+          "callouts": [
+            { "label": "Living area overlooking green buffer", "x": 34, "y": 55 },
+            { "label": "Compact kitchen with separate wash area", "x": 56, "y": 28 },
+            { "label": "Master bedroom with attached bath", "x": 78, "y": 42 }
+          ],
+          "rooms": [
+            { "name": "Living Room", "dim_ft": "18'0\" x 11'8\"", "dim_m": "5.49m x 3.56m" },
+            { "name": "Kitchen", "dim_ft": "8'6\" x 8'0\"", "dim_m": "2.59m x 2.44m" },
+            { "name": "Master Bedroom", "dim_ft": "13'8\" x 11'8\"", "dim_m": "4.17m x 3.56m" },
+            { "name": "Bedroom 2", "dim_ft": "11'8\" x 11'0\"", "dim_m": "3.56m x 3.35m" },
+            { "name": "Balcony", "dim_ft": "11'8\" x 4'8\"", "dim_m": "3.56m x 1.42m" }
+          ]
+        }
+      ],
+      "floor_plan_image": "/images/floorplans/isometric_2bhk.jpg"
+    },
+    {
+      "id": "botanika-greens-ta-3bhk",
+      "project_name": "Botanika Greens",
+      "tower": "Tower A",
+      "unit_number": "A-901",
+      "bhk": 3,
+      "type": "flat",
+      "locality": "Kokapet (Neopolis Corridor)",
+      "carpet_area_sqft": 1580,
+      "built_up_area_sqft": 1975,
+      "total_price_inr": 20224000,
+      "display_price": "₹2.02 Cr*",
+      "facing": "East",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "GROUND FLOOR",
+          "callouts": [
+            { "label": "Living & dining hall with Italian marble", "x": 62, "y": 55 },
+            { "label": "Dedicated Vastu Prayer Mandir", "x": 44, "y": 56 },
+            { "label": "Modular kitchen with utility & dishwasher", "x": 68, "y": 25 },
+            { "label": "Primary master suite with teak flooring", "x": 28, "y": 72 },
+            { "label": "Deep sit-out balcony with skyline view", "x": 78, "y": 72 }
+          ],
+          "rooms": [
+            { "name": "Kitchen & Utility", "dim_ft": "10'4\" x 8'6\"", "dim_m": "3.15m x 2.59m" },
+            { "name": "Dining Area (8-Seater)", "dim_ft": "15'2\" x 11'1\"", "dim_m": "4.62m x 3.38m" },
+            { "name": "Family Drawing Room", "dim_ft": "19'0\" x 14'4\"", "dim_m": "5.79m x 4.37m" },
+            { "name": "Vastu Puja Room", "dim_ft": "6'0\" x 5'6\"", "dim_m": "1.83m x 1.68m" },
+            { "name": "Master Bedroom Suite", "dim_ft": "16'0\" x 13'6\"", "dim_m": "4.88m x 4.11m" },
+            { "name": "Bedroom 2 (Guest Suite)", "dim_ft": "13'6\" x 12'0\"", "dim_m": "4.11m x 3.66m" },
+            { "name": "Bedroom 3 (Kids Room)", "dim_ft": "12'6\" x 11'4\"", "dim_m": "3.81m x 3.45m" },
+            { "name": "Panoramic Sunset Deck", "dim_ft": "22'0\" x 6'6\"", "dim_m": "6.71m x 1.98m" }
+          ]
+        }
+      ],
+      "floor_plan_image": "/images/floorplans/isometric_3bhk.jpg"
+    },
+    {
+      "id": "neopolis-sig-tc-3bhk",
+      "project_name": "The Neopolis Signature",
+      "tower": "Tower C",
+      "unit_number": "C-1204",
+      "bhk": 3,
+      "type": "flat",
+      "locality": "Kokapet (Neopolis Corridor)",
+      "carpet_area_sqft": 1750,
+      "built_up_area_sqft": 2185,
+      "total_price_inr": 22400000,
+      "display_price": "₹2.24 Cr*",
+      "facing": "North",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "GROUND FLOOR",
+          "callouts": [
+            { "label": "Expansive living & dining hall", "x": 62, "y": 55 },
+            { "label": "Vastu prayer mandir niche", "x": 44, "y": 56 },
+            { "label": "Gourmet parallel modular kitchen", "x": 68, "y": 25 },
+            { "label": "Master suite with walk-in wardrobe", "x": 28, "y": 72 },
+            { "label": "Panoramic sit-out deck", "x": 78, "y": 72 }
+          ],
+          "rooms": [
+            { "name": "Living & Dining Grand Corridor", "dim_ft": "22'0\" x 14'6\"", "dim_m": "6.71m x 4.42m" },
+            { "name": "Gourmet Kitchen with Utility", "dim_ft": "11'0\" x 9'0\"", "dim_m": "3.35m x 2.74m" },
+            { "name": "Puja Room", "dim_ft": "6'6\" x 5'6\"", "dim_m": "1.98m x 1.68m" },
+            { "name": "Master Bedroom", "dim_ft": "16'6\" x 13'8\"", "dim_m": "5.03m x 4.17m" },
+            { "name": "Bedroom 2", "dim_ft": "14'0\" x 12'4\"", "dim_m": "4.27m x 3.76m" },
+            { "name": "Bedroom 3", "dim_ft": "13'0\" x 12'0\"", "dim_m": "3.96m x 3.66m" },
+            { "name": "Sky Deck Balcony", "dim_ft": "16'0\" x 6'0\"", "dim_m": "4.88m x 1.83m" }
+          ]
+        }
+      ],
+      "floor_plan_image": "/images/floorplans/isometric_3bhk.jpg"
+    },
+    {
+      "id": "waverock-t2-3bhk",
+      "project_name": "Waverock Residences",
+      "tower": "Tower 2",
+      "unit_number": "W2-703",
+      "bhk": 3,
+      "type": "flat",
+      "locality": "Financial District (Nanakramguda)",
+      "carpet_area_sqft": 1880,
+      "built_up_area_sqft": 2350,
+      "total_price_inr": 24064000,
+      "display_price": "₹2.41 Cr*",
+      "facing": "East",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "GROUND FLOOR",
+          "callouts": [
+            { "label": "Corporate walk-to-work view deck", "x": 78, "y": 72 },
+            { "label": "Wet & dry modular kitchen counters", "x": 68, "y": 25 },
+            { "label": "Vastu mandir shrine corner", "x": 44, "y": 56 },
+            { "label": "Master suite with dressing corridor", "x": 28, "y": 72 }
+          ],
+          "rooms": [
+            { "name": "Formal Living Room", "dim_ft": "21'4\" x 14'0\"", "dim_m": "6.50m x 4.27m" },
+            { "name": "Dining Space", "dim_ft": "14'0\" x 12'0\"", "dim_m": "4.27m x 3.66m" },
+            { "name": "Kitchen", "dim_ft": "11'6\" x 9'4\"", "dim_m": "3.51m x 2.84m" },
+            { "name": "Master Suite", "dim_ft": "17'0\" x 14'0\"", "dim_m": "5.18m x 4.27m" },
+            { "name": "Bedroom 2", "dim_ft": "14'4\" x 12'6\"", "dim_m": "4.37m x 3.81m" },
+            { "name": "Bedroom 3", "dim_ft": "13'4\" x 12'0\"", "dim_m": "4.06m x 3.66m" }
+          ]
+        }
+      ],
+      "floor_plan_image": "/images/floorplans/isometric_3bhk.jpg"
+    },
+    {
+      "id": "arbor-crest-tb-3bhk",
+      "project_name": "The Arbor Crest",
+      "tower": "Tower B",
+      "unit_number": "B-401",
+      "bhk": 3,
+      "type": "flat",
+      "locality": "Banjara Hills",
+      "carpet_area_sqft": 1950,
+      "built_up_area_sqft": 2440,
+      "total_price_inr": 24960000,
+      "display_price": "₹2.50 Cr*",
+      "facing": "North-East",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "GROUND FLOOR",
+          "callouts": [
+            { "label": "Heritage tree-canopy view deck", "x": 78, "y": 72 },
+            { "label": "Traditional teak Vastu puja mandir", "x": 44, "y": 56 },
+            { "label": "Imported marble kitchen & pantry", "x": 68, "y": 25 },
+            { "label": "Grand master suite with ensuite bath", "x": 28, "y": 72 }
+          ],
+          "rooms": [
+            { "name": "Grand Hall", "dim_ft": "23'0\" x 15'0\"", "dim_m": "7.01m x 4.57m" },
+            { "name": "Kitchen & Store", "dim_ft": "12'0\" x 9'6\"", "dim_m": "3.66m x 2.90m" },
+            { "name": "Master Bedroom", "dim_ft": "17'6\" x 14'4\"", "dim_m": "5.33m x 4.37m" },
+            { "name": "Bedroom 2", "dim_ft": "15'0\" x 12'8\"", "dim_m": "4.57m x 3.86m" },
+            { "name": "Bedroom 3", "dim_ft": "14'0\" x 12'4\"", "dim_m": "4.27m x 3.76m" },
+            { "name": "Balcony Corridor", "dim_ft": "18'0\" x 6'0\"", "dim_m": "5.49m x 1.83m" }
+          ]
+        }
+      ],
+      "floor_plan_image": "/images/floorplans/isometric_3bhk.jpg"
+    },
+    {
+      "id": "celestia-sky-ta-4bhk",
+      "project_name": "Celestia Sky Villas",
+      "tower": "Tower A",
+      "unit_number": "A-1801 (Duplex)",
+      "bhk": 4,
+      "type": "duplex",
+      "locality": "Kokapet (Neopolis Corridor)",
+      "carpet_area_sqft": 2480,
+      "built_up_area_sqft": 3100,
+      "total_price_inr": 31744000,
+      "display_price": "₹3.17 Cr*",
+      "facing": "East",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "GROUND FLOOR",
+          "callouts": [
+            { "label": "Double-height formal drawing room", "x": 28, "y": 48 },
+            { "label": "Vastu Prayer Mandir pavilion", "x": 52, "y": 38 },
+            { "label": "Dry & wet modular kitchens", "x": 75, "y": 42 },
+            { "label": "Servant room with separate entrance", "x": 78, "y": 62 },
+            { "label": "Landscape deck with water feature", "x": 20, "y": 68 }
+          ],
+          "rooms": [
+            { "name": "Formal Living Room", "dim_ft": "24'0\" x 16'0\"", "dim_m": "7.32m x 4.88m" },
+            { "name": "Dining Pavilion (10-Seater)", "dim_ft": "16'0\" x 14'0\"", "dim_m": "4.88m x 4.27m" },
+            { "name": "Dry & Wet Kitchen", "dim_ft": "14'0\" x 10'6\"", "dim_m": "4.27m x 3.20m" },
+            { "name": "Vastu Prayer Mandir", "dim_ft": "8'0\" x 6'0\"", "dim_m": "2.44m x 1.83m" },
+            { "name": "Ground Guest Suite", "dim_ft": "18'0\" x 14'6\"", "dim_m": "5.49m x 4.42m" },
+            { "name": "Servant / Staff Room", "dim_ft": "10'0\" x 8'0\"", "dim_m": "3.05m x 2.44m" },
+            { "name": "Private Water Deck", "dim_ft": "24'0\" x 8'0\"", "dim_m": "7.32m x 2.44m" }
+          ]
+        },
+        {
+          "level_name": "LEVEL ONE",
+          "callouts": [
+            { "label": "Upper family lounge & library", "x": 62, "y": 55 },
+            { "label": "Presidential master suite with walk-in closet", "x": 28, "y": 72 },
+            { "label": "Ensuite children's luxury bedrooms", "x": 38, "y": 35 },
+            { "label": "Private sunset plunge terrace", "x": 78, "y": 72 }
+          ],
+          "rooms": [
+            { "name": "Presidential Master Suite", "dim_ft": "20'0\" x 16'0\"", "dim_m": "6.10m x 4.88m" },
+            { "name": "Walk-in Wardrobe & Bath", "dim_ft": "12'0\" x 10'0\"", "dim_m": "3.66m x 3.05m" },
+            { "name": "Upper Family Mezzanine", "dim_ft": "18'0\" x 14'0\"", "dim_m": "5.49m x 4.27m" },
+            { "name": "Bedroom 3 (Ensuite)", "dim_ft": "16'0\" x 13'6\"", "dim_m": "4.88m x 4.11m" },
+            { "name": "Bedroom 4 (Ensuite)", "dim_ft": "15'0\" x 13'0\"", "dim_m": "4.57m x 3.96m" },
+            { "name": "Private Plunge Deck", "dim_ft": "18'0\" x 8'0\"", "dim_m": "5.49m x 2.44m" }
+          ]
+        }
+      ],
+      "floor_plan_image": "/images/floorplans/isometric_4bhk_ground.jpg"
+    },
+    {
+      "id": "one-neopolis-sky-4bhk",
+      "project_name": "One Neopolis",
+      "tower": "Sky Block",
+      "unit_number": "SB-2201",
+      "bhk": 4,
+      "type": "flat",
+      "locality": "Kokapet (Neopolis Corridor)",
+      "carpet_area_sqft": 2650,
+      "built_up_area_sqft": 3310,
+      "total_price_inr": 33920000,
+      "display_price": "₹3.39 Cr*",
+      "facing": "West",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "GROUND FLOOR",
+          "callouts": [
+            { "label": "Formal drawing room with double-height glass", "x": 28, "y": 48 },
+            { "label": "Vastu prayer mandir pavilion", "x": 52, "y": 38 },
+            { "label": "Dry & wet kitchens with servant quarter", "x": 75, "y": 42 },
+            { "label": "Panoramic landscape deck", "x": 20, "y": 68 }
+          ],
+          "rooms": [
+            { "name": "Grand Salon Living", "dim_ft": "26'0\" x 16'6\"", "dim_m": "7.92m x 5.03m" },
+            { "name": "Chef's Kitchen", "dim_ft": "14'6\" x 11'0\"", "dim_m": "4.42m x 3.35m" },
+            { "name": "Master Suite", "dim_ft": "19'0\" x 15'0\"", "dim_m": "5.79m x 4.57m" },
+            { "name": "Junior Suite 2", "dim_ft": "16'6\" x 13'6\"", "dim_m": "5.03m x 4.11m" },
+            { "name": "Bedroom 3", "dim_ft": "15'0\" x 13'0\"", "dim_m": "4.57m x 3.96m" },
+            { "name": "Bedroom 4", "dim_ft": "14'0\" x 12'6\"", "dim_m": "4.27m x 3.81m" }
+          ]
+        }
+      ],
+      "floor_plan_image": "/images/floorplans/isometric_4bhk_ground.jpg"
+    },
+    {
+      "id": "aura-penthouses-tp-4bhk",
+      "project_name": "Aura Penthouses",
+      "tower": "Tower Pinnacle",
+      "unit_number": "P-3101 (Duplex)",
+      "bhk": 4,
+      "type": "duplex",
+      "locality": "Jubilee Hills",
+      "carpet_area_sqft": 2890,
+      "built_up_area_sqft": 3610,
+      "total_price_inr": 36992000,
+      "display_price": "₹3.70 Cr*",
+      "facing": "North-East",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "GROUND FLOOR",
+          "callouts": [
+            { "label": "Palatial reception hall with marble floors", "x": 28, "y": 48 },
+            { "label": "Vastu mandir sanctuary", "x": 52, "y": 38 },
+            { "label": "Dry & wet gourmet kitchens", "x": 75, "y": 42 },
+            { "label": "Landscape plunge terrace", "x": 20, "y": 68 }
+          ],
+          "rooms": [
+            { "name": "Grand Reception", "dim_ft": "28'0\" x 18'0\"", "dim_m": "8.53m x 5.49m" },
+            { "name": "Dining Pavilion", "dim_ft": "18'0\" x 15'0\"", "dim_m": "5.49m x 4.57m" },
+            { "name": "Artisanal Kitchen", "dim_ft": "15'0\" x 12'0\"", "dim_m": "4.57m x 3.66m" },
+            { "name": "Executive Study / Bedroom 4", "dim_ft": "16'0\" x 14'0\"", "dim_m": "4.88m x 4.27m" }
+          ]
+        },
+        {
+          "level_name": "LEVEL ONE",
+          "callouts": [
+            { "label": "Presidential master suite with lake vistas", "x": 28, "y": 72 },
+            { "label": "Upper library mezzanine", "x": 62, "y": 55 },
+            { "label": "Infinity sky terrace with heated jacuzzi", "x": 78, "y": 72 }
+          ],
+          "rooms": [
+            { "name": "Presidential Master Suite", "dim_ft": "22'0\" x 17'0\"", "dim_m": "6.71m x 5.18m" },
+            { "name": "Bedroom 2", "dim_ft": "17'0\" x 14'6\"", "dim_m": "5.18m x 4.42m" },
+            { "name": "Bedroom 3", "dim_ft": "16'0\" x 14'0\"", "dim_m": "4.88m x 4.27m" },
+            { "name": "Sky Terrace & Spa", "dim_ft": "24'0\" x 12'0\"", "dim_m": "7.32m x 3.66m" }
+          ]
+        }
+      ],
+      "floor_plan_image": "/images/floorplans/isometric_4bhk_ground.jpg"
+    },
+    {
+      "id": "continental-heights-t1-4bhk",
+      "project_name": "Continental Heights",
+      "tower": "Tower 1",
+      "unit_number": "T1-1402",
+      "bhk": 4,
+      "type": "flat",
+      "locality": "Financial District (Nanakramguda)",
+      "carpet_area_sqft": 2550,
+      "built_up_area_sqft": 3190,
+      "total_price_inr": 32640000,
+      "display_price": "₹3.26 Cr*",
+      "facing": "North",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "GROUND FLOOR",
+          "callouts": [
+            { "label": "Executive living lounge with skyline views", "x": 28, "y": 48 },
+            { "label": "Prayer mandir niche", "x": 52, "y": 38 },
+            { "label": "Dry & wet kitchens with utility", "x": 75, "y": 42 },
+            { "label": "Landscape view balcony", "x": 20, "y": 68 }
+          ],
+          "rooms": [
+            { "name": "Living & Dining Room", "dim_ft": "25'0\" x 16'0\"", "dim_m": "7.62m x 4.88m" },
+            { "name": "Kitchen", "dim_ft": "14'0\" x 10'6\"", "dim_m": "4.27m x 3.20m" },
+            { "name": "Master Suite", "dim_ft": "18'6\" x 14'6\"", "dim_m": "5.64m x 4.42m" },
+            { "name": "Bedroom 2", "dim_ft": "15'6\" x 13'0\"", "dim_m": "4.72m x 3.96m" },
+            { "name": "Bedroom 3", "dim_ft": "14'6\" x 12'6\"", "dim_m": "4.42m x 3.81m" },
+            { "name": "Bedroom 4", "dim_ft": "13'6\" x 12'0\"", "dim_m": "4.11m x 3.66m" }
+          ]
+        }
+      ],
+      "floor_plan_image": "/images/floorplans/isometric_4bhk_ground.jpg"
+    },
+    {
+      "id": "neopolis-plots-p1",
+      "project_name": "The Neopolis Estate Plots",
+      "tower": "Phase 1",
+      "unit_number": "Plot 14",
+      "bhk": null,
+      "type": "plot",
+      "locality": "Kokapet (Neopolis Corridor)",
+      "carpet_area_sqft": 2700,
+      "built_up_area_sqft": 2700,
+      "total_price_inr": null,
+      "display_price": "Price on Request / TBD",
+      "facing": "East",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "PLOT MASTERPLAN",
+          "callouts": [
+            { "label": "60-foot wide internal avenue frontage", "x": 35, "y": 45 },
+            { "label": "North-East corner orientation with green buffer", "x": 65, "y": 25 },
+            { "label": "Underground utility & fiber optic ducting", "x": 78, "y": 62 }
+          ],
+          "rooms": [
+            { "name": "Total Land Extent", "dim_ft": "300 sq.yds (2,700 sq.ft)", "dim_m": "250.84 sq.m" },
+            { "name": "Road Frontage", "dim_ft": "45'0\" frontage", "dim_m": "13.72m" },
+            { "name": "Permissible Built-Up", "dim_ft": "Up to G+3 Floors (HMDA)", "dim_m": "—" },
+            { "name": "Setback Clearances", "dim_ft": "Per HMDA Neopolis Guidelines", "dim_m": "—" }
+          ]
+        }
+      ],
+      "floor_plan_image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCt3Z5LiCb1EG5rzEVkFJjWqiPCp01kUo74Kn9Tl-8mjWVOJ_b68oH1kfrVoYZWtvciz8Zz38EIauqpD8uNKMVuw8MSaqpURhsltZN5dvp_QXZhQW2YK1cF6hI7lvb0CuVPlaLL5z46pPzn-7-mD1yxUbwFl2_MamaSd-htzHSF4DCI2m04v5qAT2LXQgjqL_dDINN6Xdjva92K_r5HlMM3Ok9sswX3L4wk9p6n6KTNyXxNSipVIegj"
+    },
+    {
+      "id": "neopolis-plots-p2",
+      "project_name": "The Neopolis Estate Plots",
+      "tower": "Phase 2",
+      "unit_number": "Plot 28",
+      "bhk": null,
+      "type": "plot",
+      "locality": "Kokapet (Neopolis Corridor)",
+      "carpet_area_sqft": 3600,
+      "built_up_area_sqft": 3600,
+      "total_price_inr": null,
+      "display_price": "Price on Request / TBD",
+      "facing": "North",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "PLOT MASTERPLAN",
+          "callouts": [
+            { "label": "Direct avenue access to central park", "x": 40, "y": 42 },
+            { "label": "100% Vastu aligned square dimension", "x": 68, "y": 28 },
+            { "label": "Dedicated EV charging & utility connection", "x": 75, "y": 60 }
+          ],
+          "rooms": [
+            { "name": "Total Land Extent", "dim_ft": "400 sq.yds (3,600 sq.ft)", "dim_m": "334.45 sq.m" },
+            { "name": "Road Frontage", "dim_ft": "52'0\" frontage", "dim_m": "15.85m" },
+            { "name": "Permissible Built-Up", "dim_ft": "Up to G+3 Floors (HMDA)", "dim_m": "—" },
+            { "name": "Setback Clearances", "dim_ft": "Per HMDA Neopolis Guidelines", "dim_m": "—" }
+          ]
+        }
+      ],
+      "floor_plan_image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCt3Z5LiCb1EG5rzEVkFJjWqiPCp01kUo74Kn9Tl-8mjWVOJ_b68oH1kfrVoYZWtvciz8Zz38EIauqpD8uNKMVuw8MSaqpURhsltZN5dvp_QXZhQW2YK1cF6hI7lvb0CuVPlaLL5z46pPzn-7-mD1yxUbwFl2_MamaSd-htzHSF4DCI2m04v5qAT2LXQgjqL_dDINN6Xdjva92K_r5HlMM3Ok9sswX3L4wk9p6n6KTNyXxNSipVIegj"
+    },
+    {
+      "id": "jubilee-reserve-plots-p3",
+      "project_name": "Jubilee Reserve Plots",
+      "tower": "Phase 3",
+      "unit_number": "Plot 07",
+      "bhk": null,
+      "type": "plot",
+      "locality": "Jubilee Hills",
+      "carpet_area_sqft": 4500,
+      "built_up_area_sqft": 4500,
+      "total_price_inr": null,
+      "display_price": "Price on Request / TBD",
+      "facing": "West",
+      "status": "Available",
+      "levels": [
+        {
+          "level_name": "PLOT MASTERPLAN",
+          "callouts": [
+            { "label": "Elevated ridge view over Durgam Cheruvu", "x": 38, "y": 40 },
+            { "label": "Private cul-de-sac with gated security", "x": 66, "y": 30 },
+            { "label": "Custom architectural estate freedom", "x": 80, "y": 64 }
+          ],
+          "rooms": [
+            { "name": "Total Land Extent", "dim_ft": "500 sq.yds (4,500 sq.ft)", "dim_m": "418.06 sq.m" },
+            { "name": "Road Frontage", "dim_ft": "60'0\" frontage", "dim_m": "18.29m" },
+            { "name": "Permissible Built-Up", "dim_ft": "Custom Luxury Villa (GHMC/HMDA)", "dim_m": "—" },
+            { "name": "Setback Clearances", "dim_ft": "Per Elite Zoning Guidelines", "dim_m": "—" }
+          ]
+        }
+      ],
+      "floor_plan_image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCt3Z5LiCb1EG5rzEVkFJjWqiPCp01kUo74Kn9Tl-8mjWVOJ_b68oH1kfrVoYZWtvciz8Zz38EIauqpD8uNKMVuw8MSaqpURhsltZN5dvp_QXZhQW2YK1cF6hI7lvb0CuVPlaLL5z46pPzn-7-mD1yxUbwFl2_MamaSd-htzHSF4DCI2m04v5qAT2LXQgjqL_dDINN6Xdjva92K_r5HlMM3Ok9sswX3L4wk9p6n6KTNyXxNSipVIegj"
+    }
+  ]
+}
