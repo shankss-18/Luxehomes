@@ -232,6 +232,36 @@ body {
 .animate-hero-pan      { animation: heroPan 18s ease-in-out infinite; }
 .animate-border-pulse  { animation: borderPulse 3s ease-in-out infinite; }
 
+/* Sleek floating chat pop-up spring entrance */
+@keyframes chatSpringIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.02) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-chat-spring {
+  animation: chatSpringIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: bottom right;
+}
+
+/* Custom Hide Scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Stagger delays for reveal items */
 .reveal-delay-1 { transition-delay: 80ms !important; }
 .reveal-delay-2 { transition-delay: 160ms !important; }
