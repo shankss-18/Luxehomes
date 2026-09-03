@@ -100,15 +100,15 @@ export default function HomeGalleryMarquee() {
         </Link>
       </div>
 
-      {/* Marquee Outer Box */}
-      <div className="relative w-full overflow-hidden group">
+      {/* Marquee Outer Box with Vertical Padding so top border & shadow are never clipped */}
+      <div className="relative w-full overflow-hidden py-3.5 -my-1 group">
         {/* Soft Lateral Gradient Edge Masks */}
         <div className="absolute left-0 top-0 bottom-0 w-20 md:w-44 bg-gradient-to-r from-[#FAF7F2] to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-20 md:w-44 bg-gradient-to-l from-[#FAF7F2] to-transparent z-10 pointer-events-none" />
 
-        {/* Gliding Track with Generous Gap */}
+        {/* Gliding Track with Generous Gap & Vertical Room */}
         <div
-          className="flex items-center gap-8 md:gap-10 w-max group-hover:[animation-play-state:paused]"
+          className="flex items-center gap-8 md:gap-10 w-max py-2 group-hover:[animation-play-state:paused]"
           style={{
             animation: "marqueeGlideHalf 42s linear infinite",
             willChange: "transform",
@@ -118,7 +118,7 @@ export default function HomeGalleryMarquee() {
             <Link
               key={`${item.id}-${idx}`}
               href="/gallery"
-              className="inline-flex items-center gap-5 px-5 py-3 rounded-2xl bg-white border border-[#E8E4DC] hover:border-[#B08D57] shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-pointer shrink-0 group/card min-w-[340px] md:min-w-[420px] justify-between"
+              className="inline-flex items-center gap-5 px-5 py-3.5 rounded-2xl bg-white border border-[#E8E4DC] hover:border-[#B08D57] hover:ring-1 hover:ring-[#B08D57] shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer shrink-0 group/card min-w-[340px] md:min-w-[420px] justify-between relative z-10 hover:z-20"
             >
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-2">

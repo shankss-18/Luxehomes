@@ -119,13 +119,12 @@ export default function FloatingContactWidgets() {
       {/* ───────────────────────────────────────────────────────────────── */}
       {/* 1. FLOATING LUXURY CONCIERGE DOCK (BOTTOM-RIGHT)                  */}
       {/* ───────────────────────────────────────────────────────────────── */}
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2.5 pointer-events-auto select-none">
+      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 pointer-events-auto select-none">
 
-        {/* WhatsApp Direct Concierge Button (Refined Quiet Luxury Styling) */}
+        {/* WhatsApp Direct Concierge Button (Official Brand Logo) */}
         <div className="relative group">
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b]/95 backdrop-blur-md text-white text-[10.5px] font-medium tracking-wide px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center gap-1.5 border border-[#B08D57]/30">
-            <span className="size-1.5 rounded-full bg-emerald-400" />
-            <span>Private WhatsApp Concierge</span>
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b] text-white text-[11px] font-medium tracking-wide px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center gap-1.5 border border-white/10">
+            <span>Chat on WhatsApp · Private Concierge</span>
           </div>
 
           <a
@@ -133,45 +132,48 @@ export default function FloatingContactWidgets() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Chat on WhatsApp"
-            className="size-11 md:size-12 rounded-full bg-[#1c1b1b] hover:bg-[#25D366] text-[#25D366] hover:text-white border border-[#B08D57]/50 hover:border-[#25D366] shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer relative group/wa"
+            className="size-12 md:size-13 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-lg hover:shadow-2xl hover:shadow-emerald-500/35 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer"
           >
-            {/* Subtle live status dot */}
-            <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-emerald-500 border border-[#1c1b1b]" />
-
-            {/* Refined WhatsApp SVG Icon */}
+            {/* Official WhatsApp Logo SVG */}
             <svg
-              className="size-5 fill-current transition-transform duration-300 group-hover/wa:scale-110"
+              className="size-7 fill-white"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2ZM12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.16 12.04 20.16C10.66 20.16 9.3 19.8 8.09 19.11L7.81 18.95L4.69 19.77L5.52 16.73L5.34 16.44C4.56 15.19 4.14 13.75 4.14 11.91C4.14 7.37 7.84 3.67 12.04 3.67ZM8.63 7.38C8.44 7.38 8.24 7.39 8.07 7.74C7.86 8.16 7.28 8.71 7.28 9.83C7.28 10.95 8.1 12.03 8.21 12.18C8.33 12.33 9.79 14.71 12.09 15.63C14 16.39 14.39 16.24 14.81 16.2C15.23 16.16 16.14 15.65 16.33 15.12C16.52 14.59 16.52 14.13 16.46 14.03C16.4 13.93 16.25 13.87 15.89 13.69C15.53 13.51 13.78 12.65 13.45 12.53C13.13 12.41 12.89 12.35 12.66 12.71C12.42 13.06 11.75 13.87 11.54 14.1C11.34 14.34 11.13 14.37 10.77 14.19C10.41 14.01 9.25 13.63 7.88 12.41C6.8 11.45 6.07 10.27 5.86 9.91C5.66 9.55 5.84 9.36 6.02 9.18C6.18 9.02 6.38 8.76 6.56 8.55C6.74 8.34 6.8 8.19 6.92 7.95C7.04 7.71 6.98 7.5 6.89 7.32C6.8 7.14 6.13 5.48 5.85 4.81C5.58 4.16 5.3 4.25 5.09 4.24L4.44 4.23C4.24 4.23 3.91 4.31 3.64 4.6C3.36 4.89 2.58 5.62 2.58 7.1C2.58 8.58 3.66 10.01 3.81 10.21C3.96 10.41 5.92 13.44 8.93 14.74C11.94 16.04 11.94 15.61 12.48 15.57C13.02 15.53 14.23 14.86 14.48 14.15C14.73 13.44 14.73 12.83 14.66 12.71C14.58 12.59 14.39 12.51 14.03 12.33L8.63 7.38Z" />
+              <path d="M17.472 14.382c-.301-.15-1.78-.877-2.056-.977-.275-.1-.476-.15-.676.15-.2.3-.777.977-.952 1.177-.176.2-.351.226-.652.075-.301-.15-1.272-.469-2.423-1.496-.895-.798-1.5-1.784-1.676-2.085-.175-.301-.019-.464.132-.613.136-.134.301-.351.451-.527.151-.175.201-.3.302-.501.1-.2.05-.376-.025-.526-.075-.15-.677-1.631-.927-2.233-.244-.587-.492-.507-.677-.517-.175-.009-.376-.01-.577-.01s-.527.075-.802.376c-.276.301-1.053 1.028-1.053 2.508s1.078 2.91 1.229 3.111c.15.2 2.122 3.24 5.14 4.544.718.31 1.279.495 1.716.634.721.229 1.378.197 1.897.119.579-.087 1.78-.727 2.031-1.429.251-.702.251-1.303.176-1.429-.076-.125-.276-.201-.577-.351zM12.004 21.75c-1.737 0-3.441-.453-4.945-1.314l-.354-.202-3.676.964.981-3.584-.222-.353a9.718 9.718 0 01-1.492-5.187c0-5.385 4.381-9.766 9.768-9.766 2.609 0 5.061 1.017 6.906 2.862a9.713 9.713 0 012.86 6.904c0 5.386-4.382 9.766-9.826 9.766zm8.334-16.671A11.666 11.666 0 0012.004.25C5.522.25.247 5.526.247 12.009c0 2.07.54 4.09 1.565 5.869L0 24l6.287-1.65a11.724 11.724 0 005.717 1.474h.005c6.481 0 11.757-5.275 11.757-11.759 0-3.14-1.222-6.092-3.428-8.295z" />
             </svg>
           </a>
         </div>
 
-        {/* AI Concierge Chatbot Trigger Button (Refined Luxury Styling) */}
+        {/* AI Concierge Chatbot Trigger Button (Official AI Bot Vector Icon) */}
         <div className="relative group">
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b]/95 backdrop-blur-md text-white text-[10.5px] font-medium tracking-wide px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center gap-1.5 border border-[#B08D57]/30">
-            <span className="size-1.5 rounded-full bg-[#B08D57]" />
-            <span>Luxe AI Concierge</span>
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b] text-white text-[11px] font-medium tracking-wide px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center gap-1.5 border border-white/10">
+            <span>Luxe AI Concierge · Live Assistant</span>
           </div>
 
           <button
             onClick={() => setChatOpen((prev) => !prev)}
             aria-label="Toggle AI Concierge Chat"
-            className={`size-11 md:size-12 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 border cursor-pointer relative ${
-              chatOpen
-                ? "bg-[#B08D57] text-white border-[#B08D57]"
-                : "bg-[#1c1b1b] text-[#B08D57] hover:bg-[#B08D57] hover:text-white border-[#B08D57]/50 hover:border-[#B08D57]"
-            }`}
+            className="size-12 md:size-13 rounded-full bg-[#1c1b1b] hover:bg-[#282420] text-white border-2 border-[#B08D57] shadow-lg hover:shadow-2xl hover:shadow-[#B08D57]/30 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer"
           >
             {chatOpen ? (
-              <span className="material-symbols-outlined text-lg">close</span>
+              <svg className="size-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
             ) : (
-              <div className="relative flex items-center justify-center">
-                <span className="material-symbols-outlined text-xl">auto_awesome</span>
-                <span className="absolute -top-1 -right-1 size-1.5 rounded-full bg-[#B08D57]" />
-              </div>
+              /* Authentic Modern AI Chatbot Vector Logo */
+              <svg className="size-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="6" width="18" height="14" rx="5" fill="#1c1b1b" stroke="#B08D57" strokeWidth="1.8"/>
+                <line x1="12" y1="2" x2="12" y2="6" stroke="#B08D57" strokeWidth="1.8" strokeLinecap="round"/>
+                <circle cx="12" cy="2" r="1.5" fill="#B08D57"/>
+                <rect x="1" y="10" width="2" height="6" rx="1" fill="#B08D57"/>
+                <rect x="21" y="10" width="2" height="6" rx="1" fill="#B08D57"/>
+                <rect x="6.5" y="9.5" width="11" height="4" rx="2" fill="#FAF7F2"/>
+                <circle cx="9.2" cy="11.5" r="1.2" fill="#B08D57"/>
+                <circle cx="14.8" cy="11.5" r="1.2" fill="#B08D57"/>
+                <path d="M9 16C10 17 14 17 15 16" stroke="#B08D57" strokeWidth="1.6" strokeLinecap="round"/>
+              </svg>
             )}
           </button>
         </div>
