@@ -42,14 +42,20 @@ export default function HomePage() {
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -30px 0px" }
     );
 
-    const elements = document.querySelectorAll(".reveal-item, .reveal-slide-left, .reveal-slide-right");
-    elements.forEach((el) => observer.observe(el));
+    // Small timeout so React flushes new DOM nodes (e.g. after filter tab change)
+    const timer = setTimeout(() => {
+      const elements = document.querySelectorAll(".reveal-item, .reveal-slide-left, .reveal-slide-right");
+      elements.forEach((el) => observer.observe(el));
+    }, 60);
 
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, [activeFacilityCategory]);
 
   // ─── Dynamic Data Filtering & Computed Summary Stats (Live from properties.json) ───
   const unitsByTab = useMemo(() => {
@@ -618,45 +624,48 @@ export default function HomePage() {
 
             {/* 4 Feature Columns / Facility Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {filteredFacilities.map((facility, idx) => (
-                <div
-                  key={facility.name}
-                  onMouseEnter={() => setActiveFacilityPin(facility.name)}
-                  onMouseLeave={() => setActiveFacilityPin(null)}
-                  className="bg-white p-6 rounded-xl border border-[#E8E4DC] shadow-sm hover:shadow-lg hover:border-[#B08D57] transition-all duration-300 flex flex-col justify-between group"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="w-10 h-10 rounded-lg bg-[#FAF7F2] border border-[#E8E4DC] text-[#B08D57] flex items-center justify-center group-hover:bg-[#B08D57] group-hover:text-white transition-colors">
-                        <span className="material-symbols-outlined text-xl">
-                          {facility.icon}
+              {filteredFacilities.map((facility, idx) => {
+                const delayClass = ["reveal-delay-1","reveal-delay-2","reveal-delay-3","reveal-delay-4","reveal-delay-5"][idx % 4];
+                return (
+                  <div
+                    key={facility.name}
+                    onMouseEnter={() => setActiveFacilityPin(facility.name)}
+                    onMouseLeave={() => setActiveFacilityPin(null)}
+                    className={`reveal-item ${delayClass} bg-white p-6 rounded-xl border border-[#E8E4DC] shadow-sm hover:shadow-xl hover:border-[#B08D57] hover:-translate-y-1.5 hover:scale-[1.015] transition-all duration-400 flex flex-col justify-between group cursor-default`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="w-10 h-10 rounded-lg bg-[#FAF7F2] border border-[#E8E4DC] text-[#B08D57] flex items-center justify-center group-hover:bg-[#B08D57] group-hover:text-white transition-all duration-300">
+                          <span className="material-symbols-outlined text-xl">
+                            {facility.icon}
+                          </span>
+                        </div>
+                        <span className="text-[10px] uppercase font-bold tracking-widest px-2.5 py-1 rounded bg-[#FAF7F2] text-[#B08D57] border border-[#E8E4DC] group-hover:bg-[#B08D57]/10 transition-colors duration-300">
+                          {facility.distance}
                         </span>
                       </div>
-                      <span className="text-[10px] uppercase font-bold tracking-widest px-2.5 py-1 rounded bg-[#FAF7F2] text-[#B08D57] border border-[#E8E4DC]">
-                        {facility.distance}
-                      </span>
+
+                      <h4
+                        className="text-lg font-normal text-[#1c1b1b] mb-1 group-hover:text-[#B08D57] transition-colors duration-300"
+                        style={{ fontFamily: "'Cormorant Garant', serif", fontWeight: 400 }}
+                      >
+                        {facility.name}
+                      </h4>
+
+                      <p className="text-xs text-[#72716d] mb-3">
+                        {facility.locality}
+                      </p>
                     </div>
 
-                    <h4
-                      className="text-lg font-normal text-[#1c1b1b] mb-1 group-hover:text-[#B08D57] transition-colors"
-                      style={{ fontFamily: "'Playfair Display', serif" }}
-                    >
-                      {facility.name}
-                    </h4>
-
-                    <p className="text-xs text-[#72716d] mb-3">
-                      {facility.locality}
-                    </p>
+                    <div className="pt-3 border-t border-[#E8E4DC]/60 text-xs text-[#474741] font-medium flex items-center justify-between">
+                      <span>{facility.type}</span>
+                      <span className="material-symbols-outlined text-sm text-[#B08D57] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-0 group-hover:translate-x-1">
+                        arrow_forward
+                      </span>
+                    </div>
                   </div>
-
-                  <div className="pt-3 border-t border-[#E8E4DC]/60 text-xs text-[#474741] font-medium flex items-center justify-between">
-                    <span>{facility.type}</span>
-                    <span className="material-symbols-outlined text-sm text-[#B08D57] opacity-0 group-hover:opacity-100 transition-opacity">
-                      arrow_forward
-                    </span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Topography Map & Corridor Placement */}
