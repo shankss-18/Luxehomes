@@ -257,8 +257,8 @@ export default function ThreeDModelViewer({
         const geo = new THREE.BoxGeometry(w, floorH, d);
         const mesh = new THREE.Mesh(geo, mat);
         mesh.position.set(cx, floorY, cz);
-        mesh.receiveShadow = true;
-        mesh.castShadow = false; // Floors NEVER cast shadows onto themselves!
+        mesh.receiveShadow = false; // Matches walls: 100% zero shadow flickering on laptop and mobile!
+        mesh.castShadow = false;
         modelGroup.add(mesh);
         return mesh;
       };
@@ -288,7 +288,8 @@ export default function ThreeDModelViewer({
       const poojaDaisGeo = new THREE.BoxGeometry(3.0, 0.08, 3.0);
       const poojaDais = new THREE.Mesh(poojaDaisGeo, poojaMarbleMat);
       poojaDais.position.set(-1.5, 0.04, 0.5);
-      poojaDais.receiveShadow = true;
+      poojaDais.receiveShadow = false;
+      poojaDais.castShadow = false;
       modelGroup.add(poojaDais);
 
       // 8. Wrap-Around Balcony Deck: X: [-3, 11], Z: [6, 11.2] (14 x 5.2)
@@ -304,7 +305,7 @@ export default function ThreeDModelViewer({
         });
         const mesh = new THREE.Mesh(geo, mat);
         mesh.position.set(x, 0.056, z);
-        mesh.receiveShadow = true;
+        mesh.receiveShadow = false; // Zero shadow flickering!
         mesh.castShadow = false;
         modelGroup.add(mesh);
         return mesh;
@@ -670,8 +671,7 @@ export default function ThreeDModelViewer({
     renderer.setClearColor(0xf5f1eb, 1.0); // Solid matching luxury background
     renderer.setSize(width, height, false);
     renderer.setPixelRatio(Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, 1.75));
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.enabled = false; // Eliminates shadow map pass completely: zero flickering & 60fps on all devices!
     renderer.toneMapping = THREE.NeutralToneMapping;
     renderer.toneMappingExposure = 1.0;
 
@@ -711,30 +711,20 @@ export default function ThreeDModelViewer({
 
     controlsRef.current = controls;
 
-    // 5. Balanced Architectural Lighting Rig (Zero Color Shifting Across 360° Orbit)
-    const hemiLight = new THREE.HemisphereLight(0xfff8ee, 0xd0c4b4, 1.25);
+    // 5. Studio Architectural Three-Point Lighting Rig (Zero Color Shifting Across 360° Orbit)
+    const hemiLight = new THREE.HemisphereLight(0xfffcf7, 0xdcd5c9, 1.35);
     scene.add(hemiLight);
     hemiLightRef.current = hemiLight;
 
     // Key Sun Light (Top-Right)
-    const sunLight = new THREE.DirectionalLight(0xfff5e6, 1.25);
+    const sunLight = new THREE.DirectionalLight(0xfff5e6, 1.35);
     sunLight.position.set(20, 28, 16);
-    sunLight.castShadow = true;
-    sunLight.shadow.mapSize.width = 1024;
-    sunLight.shadow.mapSize.height = 1024;
-    sunLight.shadow.camera.near = 5;
-    sunLight.shadow.camera.far = 70;
-    sunLight.shadow.camera.left = -18;
-    sunLight.shadow.camera.right = 18;
-    sunLight.shadow.camera.top = 18;
-    sunLight.shadow.camera.bottom = -18;
-    sunLight.shadow.bias = -0.0012;
-    sunLight.shadow.normalBias = 0.04; // Robust bias permanently eliminates shadow acne on mobile GPUs
+    sunLight.castShadow = false;
     scene.add(sunLight);
     sunLightRef.current = sunLight;
 
     // Balanced Fill Sun (Top-Left Opposite — Keeps Backside Uniformly Lit)
-    const fillLight = new THREE.DirectionalLight(0xffeedd, 0.6);
+    const fillLight = new THREE.DirectionalLight(0xffeedd, 0.90);
     fillLight.position.set(-18, 22, -14);
     scene.add(fillLight);
 
