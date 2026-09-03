@@ -85,17 +85,18 @@ export default function HomeGalleryMarquee() {
 
   return (
     <section className="relative w-full bg-[#FAF7F2] border-y border-[#E8E4DC] py-5 overflow-hidden select-none">
-      {/* Editorial Header Cue */}
-      <div className="max-w-[1240px] mx-auto px-6 mb-3 flex items-center justify-between text-[10px] tracking-[0.25em] uppercase font-semibold text-[#72716d]">
-        <div className="flex items-center gap-2.5">
-          <span className="size-1.5 rounded-full bg-[#B08D57] animate-pulse" />
-          <span className="text-[#1c1b1b]">Available Residences &amp; 3D Masterplans</span>
+      {/* Editorial Header Cue (Compact & Elegant on Mobile) */}
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 mb-2 sm:mb-3 flex items-center justify-between text-[8.5px] sm:text-[10px] tracking-[0.12em] sm:tracking-[0.25em] uppercase font-semibold text-[#72716d]">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="size-1.5 rounded-full bg-[#B08D57] animate-pulse shrink-0" />
+          <span className="text-[#1c1b1b] truncate">Available Residences &amp; 3D Plans</span>
         </div>
         <Link
           href="/gallery"
-          className="text-[#B08D57] hover:text-[#967645] flex items-center gap-1 transition-colors"
+          className="text-[#B08D57] hover:text-[#967645] flex items-center gap-1 transition-colors shrink-0 font-semibold"
         >
-          <span>VIEW COMPLETE GALLERY</span>
+          <span className="hidden sm:inline">VIEW COMPLETE GALLERY</span>
+          <span className="sm:hidden">VIEW GALLERY</span>
           <span className="material-symbols-outlined text-xs">arrow_forward</span>
         </Link>
       </div>

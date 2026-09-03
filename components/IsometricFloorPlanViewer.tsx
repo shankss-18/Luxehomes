@@ -56,7 +56,8 @@ export default function IsometricFloorPlanViewer({
 
   // Store uploaded custom renderings
   const [uploadedImages, setUploadedImages] = useState<Record<string, string>>({});
-  const [mobileAccordionOpen, setMobileAccordionOpen] = useState(true);
+  const [mobileAccordionOpen, setMobileAccordionOpen] = useState(false);
+  const [activePerspective, setActivePerspective] = useState<"cutaway" | "living" | "bedroom">("cutaway");
 
   const handleImageUpload = (levelName: string, file: File) => {
     const reader = new FileReader();
@@ -92,8 +93,16 @@ export default function IsometricFloorPlanViewer({
   };
   const facingAngle = facingAngles[unit.facing] ?? 45;
 
+  const perspectives = [
+    { id: "cutaway", label: "Masterplan Cutaway", icon: "view_in_ar", src: unit.floor_plan_image || "/images/floorplans/isometric_3bhk.jpg" },
+    { id: "living", label: "Living & Dining Salon", icon: "chair", src: "/images/floorplans/luxe_living_dining.jpg" },
+    { id: "bedroom", label: "Master Bedroom Suite", icon: "bed", src: "/images/floorplans/luxe_master_suite.jpg" },
+  ];
+
   const imageKey = `${unit.project_name}_${unit.tower}_${currentLevel?.level_name}`;
-  const activeImage = uploadedImages[imageKey] || unit.floor_plan_image || null;
+  const uploaded = uploadedImages[imageKey];
+  const currentPerspective = perspectives.find((p) => p.id === activePerspective) || perspectives[0];
+  const activeImage = uploaded || currentPerspective.src;
 
   return (
     /* ── SINGLE UNIFIED CONTAINER ───────────────────────────────────────── */
@@ -335,7 +344,7 @@ export default function IsometricFloorPlanViewer({
       </div>
 
       {/* ── 3. CENTER 3D STAGE VIEWPORT ─────────────────────────────────── */}
-      <div className="p-4 md:p-8 bg-white">
+      <div className="p-3 sm:p-5 md:p-8 bg-white">
         {viewMode === "3d" ? (
           /* ── 3D INTERACTIVE THREE.JS MODEL ──────────────────────────── */
           <div className="w-full">
@@ -350,85 +359,111 @@ export default function IsometricFloorPlanViewer({
           </div>
         ) : (
           /* ── ARCHITECTURAL CUTAWAY RENDER (PHOTO WITH HOTSPOTS) ──────── */
-          <div className="relative w-full aspect-[16/10] bg-[#FAF7F2] rounded-2xl overflow-hidden border border-[#E8E4DC] flex items-center justify-center group">
-            {activeImage ? (
-              <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={activeImage}
-                  alt={`${unit.project_name} ${unit.tower} ${currentLevel?.level_name} Floor Plan`}
-                  className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-[1.02]"
-                />
+          <div className="flex flex-col gap-3">
+            <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] min-h-[280px] sm:min-h-[380px] bg-[#FAF7F2] rounded-2xl overflow-hidden border border-[#E8E4DC] flex items-center justify-center group shadow-inner">
+              {activeImage ? (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={activeImage}
+                    alt={`${unit.project_name} ${unit.tower} ${currentPerspective.label}`}
+                    className="w-full h-full object-cover sm:object-contain p-1 sm:p-3 transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
 
-                {/* Hotspot callouts */}
-                {currentLevel?.callouts &&
-                  currentLevel.callouts.slice(0, 5).map((callout, calloutIdx) => (
-                    <div
-                      key={calloutIdx}
-                      className="absolute pointer-events-none transition-all duration-300 z-10"
-                      style={{
-                        left: `${callout.x}%`,
-                        top: `${callout.y}%`,
-                      }}
-                    >
-                      <div className="relative flex items-center">
-                        <span className="size-2 rounded-full bg-[#1c1b1b] ring-2 ring-white shadow" />
-                        <span className="w-8 h-px bg-[#1c1b1b]/70" />
-                        <span
-                          className="text-[10px] md:text-[11px] text-[#1c1b1b] font-medium tracking-wide whitespace-nowrap pl-1 drop-shadow-sm select-none"
-                          style={{ fontFamily: "'Inter', sans-serif" }}
-                        >
-                          {callout.label}
-                        </span>
+                  {/* Hotspot callouts (shown on cutaway perspective) */}
+                  {activePerspective === "cutaway" &&
+                    currentLevel?.callouts &&
+                    currentLevel.callouts.slice(0, 4).map((callout, calloutIdx) => (
+                      <div
+                        key={calloutIdx}
+                        className="absolute pointer-events-none transition-all duration-300 z-10 hidden sm:block"
+                        style={{
+                          left: `${callout.x}%`,
+                          top: `${callout.y}%`,
+                        }}
+                      >
+                        <div className="relative flex items-center">
+                          <span className="size-2 rounded-full bg-[#1c1b1b] ring-2 ring-white shadow" />
+                          <span className="w-8 h-px bg-[#1c1b1b]/70" />
+                          <span
+                            className="text-[10px] md:text-[11px] text-[#1c1b1b] font-medium tracking-wide whitespace-nowrap pl-1 drop-shadow-sm select-none bg-white/85 px-1.5 py-0.5 rounded shadow-xs"
+                            style={{ fontFamily: "'Inter', sans-serif" }}
+                          >
+                            {callout.label}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-              </>
-            ) : (
-              <div className="flex flex-col items-center justify-center p-8 text-center select-none w-full h-full relative">
-                <div className="size-14 rounded-full bg-white border border-[#E8E4DC] flex items-center justify-center text-[#B08D57] shadow-sm mb-3">
-                  <span className="material-symbols-outlined text-2xl">view_in_ar</span>
+                    ))}
+                </>
+              ) : (
+                <div className="flex flex-col items-center justify-center p-8 text-center select-none w-full h-full relative">
+                  <div className="size-14 rounded-full bg-white border border-[#E8E4DC] flex items-center justify-center text-[#B08D57] shadow-sm mb-3">
+                    <span className="material-symbols-outlined text-2xl">view_in_ar</span>
+                  </div>
+                  <p
+                    className="text-base font-normal text-[#1c1b1b] mb-1"
+                    style={{ fontFamily: "'Playfair Display', serif" }}
+                  >
+                    Architectural Drawing in Atelier
+                  </p>
+                  <p className="text-xs text-[#72716d] max-w-xs leading-relaxed">
+                    High-resolution rendered drawing being finalized. Toggle to 3D Model above to orbit the residence.
+                  </p>
                 </div>
-                <p
-                  className="text-base font-normal text-[#1c1b1b] mb-1"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  Architectural Drawing in Atelier
-                </p>
-                <p className="text-xs text-[#72716d] max-w-xs leading-relaxed">
-                  High-resolution rendered drawing being finalized. Toggle to 3D Model above to orbit the residence.
-                </p>
-              </div>
-            )}
+              )}
+            </div>
+
+            {/* Visual Perspective Selector (Gives plenty of required luxury images!) */}
+            <div className="flex items-center justify-center gap-1.5 sm:gap-2 pt-1 overflow-x-auto no-scrollbar">
+              {perspectives.map((p) => {
+                const isSelected = activePerspective === p.id;
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => setActivePerspective(p.id as any)}
+                    className={`px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-all flex items-center gap-1.5 cursor-pointer shrink-0 ${
+                      isSelected
+                        ? "bg-[#1c1b1b] text-white shadow-xs"
+                        : "bg-[#FAF7F2] text-[#474741] border border-[#E8E4DC] hover:border-[#B08D57]"
+                    }`}
+                  >
+                    <span className={`material-symbols-outlined text-sm ${isSelected ? "text-[#B08D57]" : "text-[#72716d]"}`}>
+                      {p.icon}
+                    </span>
+                    <span>{p.label}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         )}
 
-        {/* Caption below visual */}
-        <div className="pt-4 pb-2 text-center">
+        {/* Caption below visual (Compact on mobile) */}
+        <div className="pt-3 pb-1 text-center">
           <p
-            className="text-sm font-semibold uppercase tracking-[0.16em] text-[#1c1b1b]"
-            style={{ fontFamily: "'Cormorant Garant', serif", fontSize: "1.1rem" }}
+            className="text-xs sm:text-sm md:text-base font-semibold uppercase tracking-wider text-[#1c1b1b]"
+            style={{ fontFamily: "'Cormorant Garant', serif" }}
           >
             {unit.project_name} — {unit.tower} — {unit.bhk ? `${unit.bhk} BHK` : "Custom Plot"}
           </p>
-          <p className="text-xs text-[#72716d] mt-0.5">
+          <p className="text-[10.5px] sm:text-xs text-[#72716d] mt-0.5">
             Unit {unit.unit_number} · Carpet: {unit.carpet_area_sqft} sq.ft · Built-up: {unit.built_up_area_sqft} sq.ft · Facing: {unit.facing}
           </p>
         </div>
 
         {/* ── 4. ROOM DIMENSIONS SCHEDULE ─────────────────────────────── */}
-        <div className="mt-4 pt-4 border-t border-[#E8E4DC]/70">
-          {/* Mobile Accordion Toggle */}
+        <div className="mt-3 pt-3 border-t border-[#E8E4DC]/70">
+          {/* Mobile Accordion Toggle (Clean expandable pill) */}
           <button
             onClick={() => setMobileAccordionOpen(!mobileAccordionOpen)}
-            className="md:hidden w-full flex items-center justify-between py-2 text-left"
+            className="md:hidden w-full flex items-center justify-between p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8E4DC] text-left cursor-pointer active:scale-98 transition-all"
           >
             <div className="flex items-center gap-2">
-              <svg className="size-4 text-[#B08D57]" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="size-3.5 text-[#B08D57]" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z" />
               </svg>
-              <span className="text-xs font-semibold tracking-wider uppercase text-[#1c1b1b]">
-                {currentLevel?.level_name || "Ground Floor"} Dimensions Schedule
+              <span className="text-[11px] font-semibold tracking-wider uppercase text-[#1c1b1b]">
+                {currentLevel?.level_name || "Ground Floor"} Schedule ({currentLevel?.rooms?.length || 0} Rooms)
               </span>
             </div>
             <span className="material-symbols-outlined text-sm text-[#72716d]">
@@ -437,7 +472,7 @@ export default function IsometricFloorPlanViewer({
           </button>
 
           {/* Table Container */}
-          <div className={`${mobileAccordionOpen ? "block" : "hidden"} md:block transition-all`}>
+          <div className={`${mobileAccordionOpen ? "block mt-2.5" : "hidden"} md:block transition-all`}>
             <div className="hidden md:flex items-center gap-2 mb-3">
               <svg className="size-4 text-[#B08D57]" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z" />
@@ -449,22 +484,22 @@ export default function IsometricFloorPlanViewer({
 
             {currentLevel?.rooms && currentLevel.rooms.length > 0 ? (
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+                <table className="w-full text-left text-[11px] sm:text-xs">
                   <thead>
-                    <tr className="border-b border-[#E8E4DC] text-[#72716d] text-[10px] tracking-wider uppercase">
-                      <th className="py-2.5 font-medium">Room / Space</th>
-                      <th className="py-2.5 font-medium">Dimensions (Feet)</th>
-                      <th className="py-2.5 font-medium text-right">Metric (Meters)</th>
+                    <tr className="border-b border-[#E8E4DC] text-[#72716d] text-[9.5px] sm:text-[10px] tracking-wider uppercase">
+                      <th className="py-2 sm:py-2.5 font-medium">Room / Space</th>
+                      <th className="py-2 sm:py-2.5 font-medium">Dimensions (Feet)</th>
+                      <th className="py-2 sm:py-2.5 font-medium text-right">Metric (Meters)</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#E8E4DC]/40 text-[#1c1b1b]">
                     {currentLevel.rooms.map((room, roomIdx) => (
                       <tr key={roomIdx} className="hover:bg-[#FAF7F2]/60 transition-colors">
-                        <td className="py-2.5 font-medium">{room.name}</td>
-                        <td className="py-2.5 text-[#474741] font-mono text-[11px]">
+                        <td className="py-1.5 sm:py-2 font-medium">{room.name}</td>
+                        <td className="py-1.5 sm:py-2 text-[#474741] font-mono text-[10.5px] sm:text-[11px]">
                           {room.dim_ft || "—"}
                         </td>
-                        <td className="py-2.5 text-[#72716d] text-right font-mono text-[11px]">
+                        <td className="py-1.5 sm:py-2 text-[#72716d] text-right font-mono text-[10.5px] sm:text-[11px]">
                           {room.dim_m ? `(${room.dim_m})` : "—"}
                         </td>
                       </tr>

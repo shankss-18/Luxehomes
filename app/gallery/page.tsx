@@ -119,14 +119,14 @@ export default function GalleryPage() {
       />
 
       {/* ── Page Header / Intro ────────────────────────────────────────── */}
-      <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 pt-8 pb-4">
-        <div className="flex flex-col items-center text-center gap-3 reveal-item">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#E8E4DC] text-[#B08D57] text-[10px] tracking-[0.25em] uppercase font-semibold">
+      <div className="w-full max-w-[1200px] mx-auto px-5 sm:px-8 md:px-12 pt-6 sm:pt-8 pb-3 sm:pb-4">
+        <div className="flex flex-col items-center text-center gap-2.5 sm:gap-3 reveal-item">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-[#E8E4DC] text-[#B08D57] text-[9.5px] sm:text-[10px] tracking-[0.25em] uppercase font-semibold">
             <span className="size-1.5 rounded-full bg-[#B08D57] animate-pulse" />
             <span>OUR RESIDENCES</span>
           </div>
           <h1
-            className="text-[#1c1b1b] leading-tight text-3xl md:text-5xl font-normal"
+            className="text-[#1c1b1b] leading-tight text-2xl sm:text-3xl md:text-5xl font-normal"
             style={{ fontFamily: "'Cormorant Garant', 'Playfair Display', serif" }}
           >
             Explore Every Configuration
@@ -139,7 +139,7 @@ export default function GalleryPage() {
             <div className="h-px w-10 bg-[#B08D57]/40" />
           </div>
           <p
-            className="text-[#72716d] text-sm md:text-base max-w-2xl font-light leading-relaxed"
+            className="text-[#72716d] text-xs sm:text-sm md:text-base max-w-2xl font-light leading-relaxed"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             Presented as isometric 3D architectural cutaways with annotated room zoning, live-computed carpet area bands, and dimensional schedules.
@@ -150,26 +150,26 @@ export default function GalleryPage() {
       {/* ───────────────────────────────────────────────────────────────── */}
       {/* LAYOUTS & UNIT CONFIGURATIONS SECTION (Relocated from Home)       */}
       {/* ───────────────────────────────────────────────────────────────── */}
-      <div className="flex justify-center px-6 md:px-12 py-10 pb-20">
-        <div className="flex flex-col max-w-[1200px] w-full gap-10">
+      <div className="flex justify-center px-4 sm:px-6 md:px-12 py-6 sm:py-10 pb-16 sm:pb-20">
+        <div className="flex flex-col max-w-[1200px] w-full gap-8 sm:gap-10">
 
-          <section id="configurations" className="flex flex-col gap-8 scroll-mt-24">
-            {/* Section Sub-Header with Tab Selector */}
-            <div className="flex flex-wrap justify-between items-end gap-4 reveal-item">
-              <div className="flex min-w-72 flex-col gap-1">
-                <span className="text-[#B08D57] font-semibold text-xs tracking-[0.2em] uppercase">
+          <section id="configurations" className="flex flex-col gap-6 sm:gap-8 scroll-mt-24">
+            {/* Section Sub-Header with Tab Selector (Centered on Mobile) */}
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left reveal-item">
+              <div className="flex flex-col items-center sm:items-start gap-1 w-full sm:w-auto">
+                <span className="text-[#B08D57] font-semibold text-[11px] sm:text-xs tracking-[0.2em] uppercase">
                   Isometric 3D Masterplan
                 </span>
                 <h2
-                  className="text-[#1c1b1b] text-2xl md:text-3xl font-normal leading-tight"
+                  className="text-[#1c1b1b] text-xl sm:text-2xl md:text-3xl font-normal leading-tight"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
                   Layouts &amp; Unit Configurations
                 </h2>
               </div>
 
-              {/* Masterplan Tabs: 2 BHK, 3 BHK, 4 BHK, Plots */}
-              <div className="flex items-center gap-2 border border-[#E8E4DC] rounded-full p-1.5 bg-white shadow-sm overflow-x-auto max-w-full">
+              {/* Masterplan Tabs: 2 BHK, 3 BHK, 4 BHK, Plots (Centered Options) */}
+              <div className="flex items-center justify-center gap-1 sm:gap-1.5 border border-[#E8E4DC] rounded-full p-1 bg-white shadow-sm overflow-x-auto max-w-full no-scrollbar mx-auto sm:mx-0">
                 {[
                   { id: "2bhk", label: "2 BHK" },
                   { id: "3bhk", label: "3 BHK" },
@@ -181,7 +181,7 @@ export default function GalleryPage() {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id as any)}
-                      className={`px-4 py-1.5 rounded-full text-xs tracking-wider uppercase transition-all duration-200 whitespace-nowrap cursor-pointer ${
+                      className={`px-3.5 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs tracking-wider uppercase transition-all duration-200 whitespace-nowrap cursor-pointer ${
                         isActive
                           ? "bg-[#B08D57] text-white font-semibold shadow-sm"
                           : "text-[#72716d] hover:text-[#1c1b1b] hover:bg-[#FAF7F2]"
@@ -195,17 +195,17 @@ export default function GalleryPage() {
             </div>
 
             {/* ── Per-Tab Live Computed Summary Card ──────────────────────── */}
-            <div className="bg-white rounded-2xl border border-[#E8E4DC] p-6 md:p-8 shadow-sm reveal-item reveal-delay-1">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-[#E8E4DC]">
+            <div className="bg-white rounded-2xl border border-[#E8E4DC] p-5 sm:p-7 md:p-8 shadow-sm reveal-item reveal-delay-1">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 pb-5 sm:pb-6 border-b border-[#E8E4DC] text-center sm:text-left">
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
                     <span className="size-2 rounded-full bg-[#B08D57]" />
-                    <span className="text-xs font-semibold text-[#B08D57] tracking-widest uppercase">
+                    <span className="text-[11px] sm:text-xs font-semibold text-[#B08D57] tracking-widest uppercase">
                       Live Portfolio Summary · {activeTab === "plots" ? "Villa Plots" : `${activeTab.replace("bhk", "").toUpperCase()} BHK Group`}
                     </span>
                   </div>
                   <h3
-                    className="text-2xl md:text-3xl font-normal text-[#1c1b1b]"
+                    className="text-xl sm:text-2xl md:text-3xl font-normal text-[#1c1b1b]"
                     style={{ fontFamily: "'Playfair Display', serif" }}
                   >
                     {activeTab === "plots"
@@ -214,7 +214,7 @@ export default function GalleryPage() {
                   </h3>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
                   <span className="px-3 py-1.5 rounded-lg bg-[#FAF7F2] border border-[#E8E4DC] text-xs font-semibold text-[#1c1b1b]">
                     {tabSummary.unitCount} Residences Available
                   </span>
@@ -225,54 +225,54 @@ export default function GalleryPage() {
               </div>
 
               {/* Live Computed Metrics Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-5 sm:pt-6">
                 <div>
-                  <span className="text-[11px] uppercase tracking-wider font-semibold text-[#72716d] block mb-1">
+                  <span className="text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold text-[#72716d] block mb-1">
                     Carpet Area Range
                   </span>
                   <p
-                    className="text-lg md:text-xl font-normal text-[#1c1b1b]"
+                    className="text-base sm:text-lg md:text-xl font-normal text-[#1c1b1b]"
                     style={{ fontFamily: "'Playfair Display', serif" }}
                   >
                     {tabSummary.carpetRange}
                   </p>
                 </div>
                 <div>
-                  <span className="text-[11px] uppercase tracking-wider font-semibold text-[#72716d] block mb-1">
+                  <span className="text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold text-[#72716d] block mb-1">
                     Starting Price
                   </span>
                   <p
-                    className="text-lg md:text-xl font-normal text-[#B08D57]"
+                    className="text-base sm:text-lg md:text-xl font-normal text-[#B08D57]"
                     style={{ fontFamily: "'Playfair Display', serif" }}
                   >
                     {tabSummary.startingPrice}
                   </p>
                 </div>
                 <div>
-                  <span className="text-[11px] uppercase tracking-wider font-semibold text-[#72716d] block mb-1">
+                  <span className="text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold text-[#72716d] block mb-1">
                     Unique Facings
                   </span>
-                  <p className="text-xs md:text-sm font-medium text-[#1c1b1b] mt-1">
+                  <p className="text-xs sm:text-sm font-medium text-[#1c1b1b] mt-1">
                     {tabSummary.facings}
                   </p>
                 </div>
                 <div>
-                  <span className="text-[11px] uppercase tracking-wider font-semibold text-[#72716d] block mb-1">
+                  <span className="text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold text-[#72716d] block mb-1">
                     Statutory Compliance
                   </span>
-                  <p className="text-xs text-[#72716d] mt-1">
+                  <p className="text-[11px] sm:text-xs text-[#72716d] mt-1">
                     100% Vastu · HMDA Approved
                   </p>
                 </div>
               </div>
 
-              {/* Unit Selector Pills within Active Tab */}
+              {/* Unit Selector Pills within Active Tab (Centered on Mobile) */}
               {currentTabUnits && currentTabUnits.length > 1 && (
-                <div className="mt-8 pt-6 border-t border-[#E8E4DC]/60">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-[#72716d] block mb-3">
+                <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#E8E4DC]/60 text-center sm:text-left">
+                  <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#72716d] block mb-3">
                     Select Residence / Tower to View Isometric 3D Cutaway:
                   </span>
-                  <div className="flex flex-wrap gap-2.5">
+                  <div className="flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-2.5">
                     {currentTabUnits.map((u) => {
                       const isSelected = activeUnit.id === u.id;
                       return (
@@ -282,7 +282,7 @@ export default function GalleryPage() {
                             setSelectedUnitId(u.id);
                             scrollToViewer();
                           }}
-                          className={`px-3.5 py-2 rounded-lg text-xs transition-all flex items-center gap-2 cursor-pointer ${
+                          className={`px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg text-xs transition-all flex items-center gap-2 cursor-pointer ${
                             isSelected
                               ? "bg-[#1c1b1b] text-white font-medium shadow-sm"
                               : "bg-[#FAF7F2] text-[#474741] border border-[#E8E4DC] hover:border-[#B08D57]"

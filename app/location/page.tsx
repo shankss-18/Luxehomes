@@ -413,7 +413,7 @@ export default function LocationPage() {
               <span className="text-[8px] uppercase tracking-widest text-[#72716d] font-semibold">GEOGRAPHIC RADAR</span>
             </div>
 
-            {/* Interactive Corridors & Pins Layer (Spread out across map) */}
+            {/* Interactive Corridors & Pins Layer (Spread out across map, clean on mobile) */}
             {filteredLocations.map((loc) => {
               const isSelected = loc.id === activeLocationId;
               const isOffice = loc.type === "office";
@@ -430,28 +430,28 @@ export default function LocationPage() {
                     <span className="absolute -inset-3.5 rounded-full bg-[#B08D57]/20 animate-ping pointer-events-none" />
                   )}
 
-                  {/* Pin Node Capsule */}
+                  {/* Pin Node Capsule (Compact on Mobile to Prevent Overlap) */}
                   <div
-                    className={`flex items-center gap-2 px-3.5 py-2 rounded-full border transition-all duration-300 ${
+                    className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-full border transition-all duration-300 ${
                       isSelected
                         ? isOffice
-                          ? "bg-[#B08D57] text-white border-white shadow-xl ring-4 ring-[#B08D57]/30 scale-110"
-                          : "bg-[#1c1b1b] text-white border-[#B08D57] shadow-xl ring-4 ring-black/15 scale-110"
+                          ? "bg-[#B08D57] text-white border-white shadow-xl ring-4 ring-[#B08D57]/30 scale-105 sm:scale-110"
+                          : "bg-[#1c1b1b] text-white border-[#B08D57] shadow-xl ring-4 ring-black/15 scale-105 sm:scale-110"
                         : isOffice
                         ? "bg-white text-[#B08D57] border-[#B08D57] shadow-md hover:scale-105"
                         : "bg-white text-[#1c1b1b] border-[#E8E4DC] shadow-md hover:border-[#B08D57] hover:scale-105"
                     }`}
                   >
-                    <span className="material-symbols-outlined text-sm">
+                    <span className="material-symbols-outlined text-xs sm:text-sm">
                       {isOffice ? "apartment" : "domain"}
                     </span>
-                    <span className="text-[11px] font-bold tracking-wider uppercase whitespace-nowrap">
+                    <span className="text-[10px] sm:text-[11px] font-bold tracking-wider uppercase whitespace-nowrap">
                       {loc.name.split(" ")[0]}
                     </span>
 
-                    {/* Proximity tag */}
+                    {/* Proximity tag (hidden on small mobile to avoid clumping) */}
                     <span
-                      className={`text-[9px] px-1.5 py-0.5 rounded-full ${
+                      className={`text-[8.5px] sm:text-[9px] px-1.5 py-0.5 rounded-full hidden sm:inline ${
                         isSelected
                           ? isOffice
                             ? "bg-white/20 text-white font-medium"
@@ -566,11 +566,128 @@ export default function LocationPage() {
             </p>
           </div>
 
-          {/* Master-Detail Architectural Stage (Natural Symmetrical Equal-Height Grid) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          {/* Master-Detail Architectural Stage: Detailed Card on Top, Flat Cards Below on Mobile */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
 
-            {/* LEFT COLUMN (5 cols): Interactive Enclave Directory Ledger */}
-            <div className="lg:col-span-5 flex flex-col justify-between gap-2.5 h-full">
+            {/* DETAILED CARD (TOP ON MOBILE, RIGHT ON DESKTOP - 7 cols): Grand Panoramic Architectural Stage */}
+            <div
+              id="detailed-dossier-stage"
+              className="order-1 lg:order-2 lg:col-span-7 bg-white rounded-2xl sm:rounded-3xl border border-[#E8E4DC] shadow-xl overflow-hidden flex flex-col justify-between h-full scroll-mt-24"
+            >
+              <div className="flex flex-col">
+                {/* Widescreen Photography Visual Header */}
+                <div className="relative h-52 sm:h-56 md:h-64 w-full overflow-hidden bg-[#1c1b1b]">
+                  <img
+                    src={activeLocation.image}
+                    alt={activeLocation.name}
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/10" />
+
+                  {/* Floating Badges on Hero Visual */}
+                  <div className="absolute top-3 sm:top-4 left-3 sm:left-4 right-3 sm:right-4 flex items-center justify-between gap-2">
+                    <span className="text-[9px] sm:text-[9.5px] uppercase font-bold tracking-widest px-2.5 sm:px-3 py-1 rounded-full bg-white/95 text-[#1c1b1b] shadow-md backdrop-blur-md">
+                      {activeLocation.badge}
+                    </span>
+
+                    <span className="text-[10px] sm:text-[10.5px] font-semibold text-white px-2.5 sm:px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20">
+                      ORR Access: {activeLocation.distanceFromOrr}
+                    </span>
+                  </div>
+
+                  {/* Bottom Title on Hero Visual */}
+                  <div className="absolute bottom-3 sm:bottom-4 left-4 sm:left-5 right-4 sm:right-5 text-white">
+                    <span className="text-[9.5px] sm:text-[10px] uppercase tracking-[0.25em] font-semibold text-[#B08D57] block mb-0.5">
+                      Enclave Dossier {activeLocation.index} · Active Selection
+                    </span>
+                    <h3
+                      className="text-xl sm:text-2xl md:text-3xl font-normal leading-tight"
+                      style={{ fontFamily: "'Playfair Display', serif" }}
+                    >
+                      {activeLocation.name}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Content Details */}
+                <div className="p-4 sm:p-6 md:p-7 flex flex-col gap-4 sm:gap-5">
+                  <div>
+                    <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-semibold text-[#B08D57] block mb-1">
+                      Masterplan Positioning
+                    </span>
+                    <p className="text-xs sm:text-sm md:text-base text-[#474741] font-light leading-relaxed">
+                      {activeLocation.positioning}
+                    </p>
+                  </div>
+
+                  {/* Transit Milestones Timeline */}
+                  <div className="pt-3 border-t border-[#E8E4DC]">
+                    <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#72716d] block mb-2 sm:mb-2.5">
+                      Key Transit &amp; Hub Connectivity
+                    </span>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+                      {activeLocation.driveTimes.map((item) => (
+                        <div
+                          key={item.label}
+                          className="p-2.5 sm:p-3 rounded-xl bg-[#FAF7F2] border border-[#E8E4DC] flex flex-col gap-0.5"
+                        >
+                          <span className="text-[9.5px] sm:text-[10px] uppercase tracking-wider text-[#72716d]">
+                            {item.label}
+                          </span>
+                          <span className="text-xs sm:text-sm font-semibold text-[#B08D57]" style={{ fontFamily: "'Playfair Display', serif" }}>
+                            {item.duration}
+                          </span>
+                          <span className="text-[9.5px] sm:text-[10px] text-[#72716d]">{item.note}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Actions Bar */}
+              <div className="p-3 sm:p-4 md:px-7 bg-[#FAF7F2] border-t border-[#E8E4DC] flex flex-wrap items-center justify-between gap-3 mt-auto">
+                <button
+                  type="button"
+                  onClick={scrollToMap}
+                  className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#B08D57] hover:text-[#967645] flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-sm sm:text-base">my_location</span>
+                  <span>Spotlight On Radar Map</span>
+                </button>
+
+                <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-end">
+                  <a
+                    href={activeLocation.googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 sm:flex-initial text-center justify-center px-3.5 sm:px-4 py-2 rounded-xl bg-[#1c1b1b] hover:bg-[#B08D57] text-white text-[10.5px] sm:text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 shadow-sm active:scale-95"
+                  >
+                    <span>Google Maps</span>
+                    <span className="material-symbols-outlined text-xs">open_in_new</span>
+                  </a>
+
+                  <a
+                    href={activeLocation.appleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 sm:flex-initial text-center justify-center px-3.5 sm:px-4 py-2 rounded-xl bg-white hover:bg-[#FAF7F2] text-[#1c1b1b] border border-[#E8E4DC] hover:border-[#B08D57] text-[10.5px] sm:text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 shadow-xs active:scale-95"
+                  >
+                    <span>Apple Maps</span>
+                    <span className="material-symbols-outlined text-xs text-[#72716d]">open_in_new</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+            {/* FLAT CARDS (BOTTOM ON MOBILE, LEFT ON DESKTOP - 5 cols): Interactive Enclave Directory Ledger */}
+            <div className="order-2 lg:order-1 lg:col-span-5 flex flex-col justify-between gap-2 sm:gap-2.5 h-full">
+              <div className="lg:hidden text-center pb-1">
+                <span className="text-[10.5px] font-semibold text-[#72716d] uppercase tracking-wider">
+                  Tap Any Corridor Below to Inspect Dossier Above:
+                </span>
+              </div>
               {locationList.map((loc) => {
                 const isSelected = loc.id === activeLocationId;
 
@@ -579,9 +696,12 @@ export default function LocationPage() {
                     key={loc.id}
                     onClick={() => {
                       setActiveLocationId(loc.id);
-                      scrollToMap();
+                      if (window.innerWidth < 1024) {
+                        const el = document.getElementById("detailed-dossier-stage");
+                        if (el) el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                      }
                     }}
-                    className={`flex-1 min-h-[72px] p-3.5 md:px-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between gap-4 relative overflow-hidden ${
+                    className={`flex-1 min-h-[62px] sm:min-h-[72px] p-3 sm:p-3.5 md:px-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between gap-3 sm:gap-4 relative overflow-hidden ${
                       isSelected
                         ? "bg-white border-[#B08D57] shadow-md ring-1 ring-[#B08D57]/20"
                         : "bg-white/70 hover:bg-white border-[#E8E4DC] hover:border-[#B08D57]/60 shadow-xs"
@@ -592,7 +712,7 @@ export default function LocationPage() {
                       <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#B08D57]" />
                     )}
 
-                    <div className="flex items-center gap-3.5 pl-1">
+                    <div className="flex items-center gap-3 sm:gap-3.5 pl-1">
                       <span
                         className={`text-xs font-semibold tracking-wider ${
                           isSelected ? "text-[#B08D57]" : "text-[#72716d]"
@@ -613,130 +733,21 @@ export default function LocationPage() {
                             {loc.name}
                           </h4>
                         </div>
-                        <span className="text-[11px] text-[#72716d] block">{loc.area.split(",")[0]}</span>
+                        <span className="text-[10.5px] sm:text-[11px] text-[#72716d] block">{loc.area.split(",")[0]}</span>
                       </div>
                     </div>
 
                     <div className="text-right shrink-0">
-                      <span className="text-xs font-semibold text-[#B08D57] block">
+                      <span className="text-[11px] sm:text-xs font-semibold text-[#B08D57] block">
                         {loc.avgPriceSqFt}
                       </span>
-                      <span className="text-[10px] text-[#72716d] uppercase tracking-wider block">
+                      <span className="text-[9.5px] sm:text-[10px] text-[#72716d] uppercase tracking-wider block">
                         {loc.distanceFromOrr}
                       </span>
                     </div>
                   </div>
                 );
               })}
-            </div>
-
-            {/* RIGHT COLUMN (7 cols): Grand Panoramic Architectural Stage (Fully Shown, No Clipping) */}
-            <div className="lg:col-span-7 bg-white rounded-3xl border border-[#E8E4DC] shadow-xl overflow-hidden flex flex-col justify-between h-full">
-              <div className="flex flex-col">
-                {/* Widescreen Photography Visual Header */}
-                <div className="relative h-56 md:h-64 w-full overflow-hidden bg-[#1c1b1b]">
-                  <img
-                    src={activeLocation.image}
-                    alt={activeLocation.name}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/10" />
-
-                  {/* Floating Badges on Hero Visual */}
-                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
-                    <span className="text-[9.5px] uppercase font-bold tracking-widest px-3 py-1 rounded-full bg-white/95 text-[#1c1b1b] shadow-md backdrop-blur-md">
-                      {activeLocation.badge}
-                    </span>
-
-                    <span className="text-[10.5px] font-semibold text-white px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20">
-                      ORR Access: {activeLocation.distanceFromOrr}
-                    </span>
-                  </div>
-
-                  {/* Bottom Title on Hero Visual */}
-                  <div className="absolute bottom-4 left-5 right-5 text-white">
-                    <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-[#B08D57] block mb-0.5">
-                      Enclave Dossier {activeLocation.index}
-                    </span>
-                    <h3
-                      className="text-2xl md:text-3xl font-normal leading-tight"
-                      style={{ fontFamily: "'Playfair Display', serif" }}
-                    >
-                      {activeLocation.name}
-                    </h3>
-                  </div>
-                </div>
-
-                {/* Content Details */}
-                <div className="p-6 md:p-7 flex flex-col gap-5">
-                  <div>
-                    <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B08D57] block mb-1">
-                      Masterplan Positioning
-                    </span>
-                    <p className="text-sm md:text-base text-[#474741] font-light leading-relaxed">
-                      {activeLocation.positioning}
-                    </p>
-                  </div>
-
-                  {/* Transit Milestones Timeline */}
-                  <div className="pt-3 border-t border-[#E8E4DC]">
-                    <span className="text-[11px] uppercase tracking-[0.2em] font-semibold text-[#72716d] block mb-2.5">
-                      Key Transit &amp; Hub Connectivity
-                    </span>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      {activeLocation.driveTimes.map((item) => (
-                        <div
-                          key={item.label}
-                          className="p-3 rounded-xl bg-[#FAF7F2] border border-[#E8E4DC] flex flex-col gap-0.5"
-                        >
-                          <span className="text-[10px] uppercase tracking-wider text-[#72716d]">
-                            {item.label}
-                          </span>
-                          <span className="text-sm font-semibold text-[#B08D57]" style={{ fontFamily: "'Playfair Display', serif" }}>
-                            {item.duration}
-                          </span>
-                          <span className="text-[10px] text-[#72716d]">{item.note}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom Actions Bar (Fully Rendered & Visible) */}
-              <div className="p-4 md:px-7 bg-[#FAF7F2] border-t border-[#E8E4DC] flex flex-wrap items-center justify-between gap-3 mt-auto">
-                <button
-                  type="button"
-                  onClick={scrollToMap}
-                  className="text-xs font-semibold uppercase tracking-wider text-[#B08D57] hover:text-[#967645] flex items-center gap-1.5 cursor-pointer"
-                >
-                  <span className="material-symbols-outlined text-base">my_location</span>
-                  <span>Spotlight On Radar Map</span>
-                </button>
-
-                <div className="flex items-center gap-3">
-                  <a
-                    href={activeLocation.googleMapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-xl bg-[#1c1b1b] hover:bg-[#B08D57] text-white text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 shadow-sm"
-                  >
-                    <span>Google Maps</span>
-                    <span className="material-symbols-outlined text-xs">open_in_new</span>
-                  </a>
-
-                  <a
-                    href={activeLocation.appleMapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-xl bg-white hover:bg-[#FAF7F2] text-[#1c1b1b] border border-[#E8E4DC] hover:border-[#B08D57] text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 shadow-xs"
-                  >
-                    <span>Apple Maps</span>
-                    <span className="material-symbols-outlined text-xs text-[#72716d]">open_in_new</span>
-                  </a>
-                </div>
-              </div>
-
             </div>
 
           </div>
