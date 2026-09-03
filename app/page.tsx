@@ -153,144 +153,178 @@ export default function HomePage() {
       />
 
       {/* ─────────────────────────────────────────────────────────────────── */}
-      {/* 1. HERO SECTION — Premium Cinematic Experience                        */}
+      {/* 1. HERO SECTION — Cinematic Left-Aligned Premium Layout             */}
       {/* ─────────────────────────────────────────────────────────────────── */}
-      <section
-        className="w-full min-h-[88vh] lg:h-[94vh] relative overflow-hidden flex flex-col justify-center items-center"
-      >
-        {/* —— Slow-panning background image —— */}
+      <section className="w-full min-h-[92vh] lg:min-h-screen relative overflow-hidden flex items-center">
+
+        {/* —— Full-bleed background with slow Ken Burns pan —— */}
         <div
           className="absolute inset-0 bg-cover animate-hero-pan"
           style={{
-            backgroundImage:
-              "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnuktRK27yvXgij5paYhzTzZ4XLQu_5rGB9LGp67vM7FqY2Hkkgv2M0sD1Afj4ZZx9EZeTwn3nZg3An_yJae-X-m-ETzP_VnIJI2Z6D3MHsNXzFUNNmNxEUFiuH07OJrMxlxfE0Xu_a-GNEhWdqWLfMM86rq1kOb_VUzpBRjWl-62tjafTus5OK6OI74YOAjDqxgFvH7rCrgTFhx7m22_GnJ9twD0xHu-axGSMOmWLpHCFJX6LFgBE')",
-            backgroundPosition: "50% 60%",
+            backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnuktRK27yvXgij5paYhzTzZ4XLQu_5rGB9LGp67vM7FqY2Hkkgv2M0sD1Afj4ZZx9EZeTwn3nZg3An_yJae-X-m-ETzP_VnIJI2Z6D3MHsNXzFUNNmNxEUFiuH07OJrMxlxfE0Xu_a-GNEhWdqWLfMM86rq1kOb_VUzpBRjWl-62tjafTus5OK6OI74YOAjDqxgFvH7rCrgTFhx7m22_GnJ9twD0xHu-axGSMOmWLpHCFJX6LFgBE')",
+            backgroundPosition: "60% 40%",
           }}
         />
 
-        {/* Layered gradient overlays for premium depth */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/40 to-black/75" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/20" />
+        {/* Layered cinematic overlay — darker on left for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
 
-        {/* —— Decorative SVG corner ornament (top-left) —— */}
-        <div className="absolute top-8 left-8 opacity-40 animate-fade-in-scale [animation-delay:800ms]">
-          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2 L40 2 L40 2" stroke="#B08D57" strokeWidth="0.8"
-              strokeDasharray="200" className="animate-svg-draw" style={{ animationDelay: "600ms" }} />
-            <path d="M2 2 L2 40" stroke="#B08D57" strokeWidth="0.8"
-              strokeDasharray="200" className="animate-svg-draw" style={{ animationDelay: "750ms" }} />
-            <circle cx="2" cy="2" r="2" fill="#B08D57" />
-            <path d="M10 2 L10 10 L2 10" stroke="#B08D57" strokeWidth="0.4" opacity="0.5"
-              strokeDasharray="100" className="animate-svg-draw" style={{ animationDelay: "900ms" }} />
+        {/* SVG corner bracket — top left */}
+        <div className="absolute top-6 left-6 md:top-10 md:left-10 opacity-50 hero-anim" style={{ animation: "fadeInScale 1s cubic-bezier(0.16,1,0.3,1) 0.6s both" }}>
+          <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+            <path d="M1 1 H30" stroke="#B08D57" strokeWidth="1" strokeDasharray="100" style={{ animation: "svgLineDraw 1.2s ease 0.8s both" }} />
+            <path d="M1 1 V30" stroke="#B08D57" strokeWidth="1" strokeDasharray="100" style={{ animation: "svgLineDraw 1.2s ease 0.9s both" }} />
+            <rect x="1" y="1" width="3" height="3" fill="#B08D57" />
           </svg>
         </div>
 
-        {/* —— Decorative SVG corner ornament (top-right) —— */}
-        <div className="absolute top-8 right-8 opacity-40 animate-fade-in-scale [animation-delay:900ms]">
-          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M78 2 L40 2" stroke="#B08D57" strokeWidth="0.8"
-              strokeDasharray="200" className="animate-svg-draw" style={{ animationDelay: "700ms" }} />
-            <path d="M78 2 L78 40" stroke="#B08D57" strokeWidth="0.8"
-              strokeDasharray="200" className="animate-svg-draw" style={{ animationDelay: "850ms" }} />
-            <circle cx="78" cy="2" r="2" fill="#B08D57" />
-            <path d="M70 2 L70 10 L78 10" stroke="#B08D57" strokeWidth="0.4" opacity="0.5"
-              strokeDasharray="100" className="animate-svg-draw" style={{ animationDelay: "1000ms" }} />
+        {/* SVG corner bracket — bottom right */}
+        <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 opacity-50" style={{ animation: "fadeInScale 1s cubic-bezier(0.16,1,0.3,1) 0.8s both" }}>
+          <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+            <path d="M59 59 H30" stroke="#B08D57" strokeWidth="1" strokeDasharray="100" style={{ animation: "svgLineDraw 1.2s ease 1.0s both" }} />
+            <path d="M59 59 V30" stroke="#B08D57" strokeWidth="1" strokeDasharray="100" style={{ animation: "svgLineDraw 1.2s ease 1.1s both" }} />
+            <rect x="56" y="56" width="3" height="3" fill="#B08D57" />
           </svg>
         </div>
 
-        {/* —— Thin gold diagonal accent line —— */}
-        <div className="absolute bottom-0 left-0 w-full h-px overflow-hidden opacity-30">
-          <div className="h-px bg-gradient-to-r from-transparent via-[#B08D57] to-transparent animate-gold-sweep" />
-        </div>
+        {/* Gold horizontal rule at bottom */}
+        <div className="absolute bottom-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, #B08D57 40%, #B08D57 60%, transparent)", opacity: 0.35 }} />
 
-        {/* —— Content —— */}
-        <div className="relative z-10 flex flex-col items-center text-center px-6 gap-7 w-full max-w-5xl mx-auto">
+        {/* —— Left-aligned content —— */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-14 lg:px-20 py-24 flex flex-col lg:flex-row items-center lg:items-end gap-16">
 
-          {/* Location badge with animated dot */}
-          <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/90 text-[10px] tracking-[0.25em] uppercase animate-fade-in-down">
-            <span className="inline-block size-1.5 rounded-full bg-[#B08D57] animate-pulse" />
-            <span style={{ fontFamily: "'Cormorant Garant', serif", fontWeight: 500, fontSize: "11px", letterSpacing: "0.22em" }}>Neopolis Corridor · Kokapet, Hyderabad</span>
-          </div>
+          {/* Left: Headline & CTAs */}
+          <div className="flex-1 flex flex-col gap-8">
 
-          {/* Main luxury headline */}
-          <div className="flex flex-col items-center gap-2">
-            <h1
-              className="text-white leading-[1.06] tracking-tight animate-fade-in-up [animation-delay:200ms]"
-              style={{ fontFamily: "'Cormorant Garant', serif", fontWeight: 300, fontSize: "clamp(3.2rem, 8vw, 6.5rem)" }}
+            {/* Location pill */}
+            <div
+              className="inline-flex items-center gap-2.5 self-start px-4 py-1.5 border border-[#B08D57]/50 bg-black/20 backdrop-blur-sm"
+              style={{ animation: "fadeInDown 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both" }}
             >
-              Where Address
-            </h1>
-            {/* Gold divider line with SVG diamond */}
-            <div className="flex items-center gap-3 w-full justify-center animate-fade-in-up [animation-delay:350ms]">
-              <div className="h-px flex-1 max-w-[120px] bg-gradient-to-r from-transparent to-[#B08D57]/60" />
-              <svg width="10" height="10" viewBox="0 0 10 10" className="text-[#B08D57]">
-                <polygon points="5,0 10,5 5,10 0,5" fill="currentColor" />
-              </svg>
-              <div className="h-px flex-1 max-w-[120px] bg-gradient-to-l from-transparent to-[#B08D57]/60" />
+              <span className="size-1.5 rounded-full bg-[#B08D57] animate-pulse" />
+              <span className="text-white/90 text-[10px] tracking-[0.3em] uppercase" style={{ fontFamily: "'Inter', sans-serif" }}>
+                Neopolis Corridor &nbsp;·&nbsp; Kokapet, Hyderabad
+              </span>
             </div>
-            <h1
-              className="text-white leading-[1.06] tracking-tight animate-fade-in-up [animation-delay:350ms]"
-              style={{ fontFamily: "'Cormorant Garant', serif", fontWeight: 400, fontStyle: "italic", fontSize: "clamp(3.2rem, 8vw, 6.5rem)" }}
+
+            {/* Headline */}
+            <div className="flex flex-col gap-1">
+              <h1
+                className="text-white leading-[1.0] tracking-tight"
+                style={{
+                  fontFamily: "'Cormorant Garant', serif",
+                  fontWeight: 300,
+                  fontSize: "clamp(3.4rem, 7.5vw, 7rem)",
+                  animation: "fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.25s both",
+                }}
+              >
+                Where Address
+              </h1>
+              {/* Gold rule with diamond */}
+              <div
+                className="flex items-center gap-3 my-1"
+                style={{ animation: "fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.4s both" }}
+              >
+                <div className="h-px w-16 bg-gradient-to-r from-[#B08D57] to-transparent" />
+                <svg width="8" height="8" viewBox="0 0 8 8"><polygon points="4,0 8,4 4,8 0,4" fill="#B08D57" /></svg>
+                <div className="h-px flex-1 max-w-[180px] bg-gradient-to-l from-transparent to-[#B08D57]/50" />
+              </div>
+              <h1
+                className="text-white leading-[1.0] tracking-tight"
+                style={{
+                  fontFamily: "'Cormorant Garant', serif",
+                  fontWeight: 400,
+                  fontStyle: "italic",
+                  fontSize: "clamp(3.4rem, 7.5vw, 7rem)",
+                  animation: "fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.4s both",
+                }}
+              >
+                Becomes Legacy
+              </h1>
+            </div>
+
+            {/* Subtext */}
+            <p
+              className="text-white/65 max-w-lg leading-[1.9] font-light"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "14px",
+                letterSpacing: "0.015em",
+                animation: "fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.55s both",
+              }}
             >
-              Becomes Legacy
-            </h1>
+              HMDA-planned ultra-luxury residences in the heart of Hyderabad&apos;s most premium residential corridor — just 5 minutes from the Financial District.
+            </p>
+
+            {/* CTAs */}
+            <div
+              className="flex flex-wrap gap-4"
+              style={{ animation: "fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.7s both" }}
+            >
+              <button
+                onClick={() => setEnquireOpen(true)}
+                className="bg-[#B08D57] hover:bg-[#967645] text-white text-[10.5px] tracking-[0.24em] font-semibold py-3.5 px-9 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(176,141,87,0.45)] hover:scale-[1.03] cursor-pointer"
+              >
+                ENQUIRE NOW
+              </button>
+              <button
+                onClick={() => setBrochureOpen(true)}
+                className="border border-white/40 text-white text-[10.5px] tracking-[0.24em] font-semibold py-3.5 px-9 transition-all duration-300 hover:bg-white/10 hover:border-white/70 hover:scale-[1.03] backdrop-blur-sm cursor-pointer"
+              >
+                DOWNLOAD BROCHURE
+              </button>
+            </div>
           </div>
 
-          {/* Subhead */}
-          <p
-            className="text-white/75 font-light max-w-2xl leading-[1.85] animate-fade-in-up [animation-delay:500ms]"
-            style={{ fontFamily: "'Inter', sans-serif", fontSize: "14.5px", letterSpacing: "0.02em" }}
+          {/* Right: Floating trust stats card */}
+          <div
+            className="hidden lg:flex flex-col gap-0 min-w-[220px] border border-white/15 bg-black/30 backdrop-blur-md"
+            style={{ animation: "fadeInRight 1s cubic-bezier(0.16,1,0.3,1) 0.8s both" }}
           >
-            Luxehomes, Kokapet, Hyderabad — Discover HMDA-planned ultra-luxury residences in the heart of Hyderabad&apos;s most premium residential corridor, just 5 minutes from the Financial District.
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-1 animate-fade-in-up [animation-delay:650ms]">
-            <button
-              onClick={() => setEnquireOpen(true)}
-              className="bg-[#B08D57] hover:bg-[#967645] text-white text-[11px] tracking-[0.22em] font-semibold py-4 px-10 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(176,141,87,0.4)] hover:scale-[1.03] cursor-pointer animate-border-pulse"
-            >
-              ENQUIRE NOW
-            </button>
-            <button
-              onClick={() => setBrochureOpen(true)}
-              className="border border-white/50 bg-white/8 hover:bg-white/15 text-white text-[11px] tracking-[0.22em] font-semibold py-4 px-10 transition-all duration-300 backdrop-blur-sm hover:scale-[1.03] cursor-pointer"
-            >
-              DOWNLOAD BROCHURE
-            </button>
-          </div>
-
-          {/* Trust bar */}
-          <div className="w-full max-w-3xl mt-4 pt-6 border-t border-white/15 grid grid-cols-2 md:grid-cols-4 gap-5 text-center animate-fade-in-up [animation-delay:800ms]">
             {[
               { label: "RERA Registered", value: "Status: TBD", sub: "HMDA Master Plan" },
               { label: "Land Parcel", value: propertiesData.trustStats.acresDeveloped, sub: "Neopolis Corridor" },
-              { label: "Presence", value: propertiesData.trustStats.locationsCount, sub: "Kokapet · Banjara · Jubilee" },
+              { label: "Presence", value: propertiesData.trustStats.locationsCount, sub: "3 Hyderabad Locations" },
               { label: "Track Record", value: propertiesData.trustStats.yearsOfTrust, sub: "Verified Governance" },
-            ].map((stat) => (
-              <div key={stat.label} className="flex flex-col items-center">
-                <span className="text-[#B08D57] font-semibold text-[10px] tracking-[0.2em] uppercase" style={{ fontFamily: "'Inter', sans-serif" }}>
-                  {stat.label}
-                </span>
-                <p className="text-white text-xs md:text-sm font-medium mt-1" style={{ fontFamily: "'Cormorant Garant', serif", fontSize: "1rem" }}>{stat.value}</p>
-                <span className="text-white/50 text-[10px] mt-0.5">{stat.sub}</span>
+            ].map((stat, i) => (
+              <div key={stat.label} className={`px-5 py-4 ${i < 3 ? "border-b border-white/10" : ""}`}>
+                <p className="text-[#B08D57] text-[9px] tracking-[0.22em] uppercase font-semibold mb-0.5" style={{ fontFamily: "'Inter', sans-serif" }}>{stat.label}</p>
+                <p className="text-white font-light" style={{ fontFamily: "'Cormorant Garant', serif", fontSize: "1.1rem" }}>{stat.value}</p>
+                <p className="text-white/40 text-[9.5px] mt-0.5">{stat.sub}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Animated scroll indicator */}
+        {/* Mobile trust bar (bottom strip) */}
+        <div
+          className="lg:hidden absolute bottom-0 inset-x-0 bg-black/50 backdrop-blur-md border-t border-white/10 grid grid-cols-2 divide-x divide-white/10"
+          style={{ animation: "fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.9s both" }}
+        >
+          {[
+            { label: "Land Parcel", value: propertiesData.trustStats.acresDeveloped },
+            { label: "Track Record", value: propertiesData.trustStats.yearsOfTrust },
+          ].map((stat) => (
+            <div key={stat.label} className="px-4 py-3 text-center">
+              <p className="text-[#B08D57] text-[8.5px] tracking-[0.2em] uppercase font-semibold">{stat.label}</p>
+              <p className="text-white text-sm font-light mt-0.5" style={{ fontFamily: "'Cormorant Garant', serif" }}>{stat.value}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Scroll cue */}
         <a
           href="#collections"
-          aria-label="Scroll down"
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-white/60 hover:text-white/90 transition-colors animate-fade-in-up [animation-delay:1000ms] group"
+          className="absolute bottom-20 lg:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors group"
+          style={{ animation: "fadeInUp 1s ease 1.2s both" }}
+          aria-label="Scroll to collections"
         >
-          <span className="text-[9px] tracking-[0.3em] uppercase" style={{ fontFamily: "'Inter', sans-serif" }}>Scroll</span>
-          {/* Animated SVG scroll arrow */}
-          <svg width="20" height="28" viewBox="0 0 20 28" fill="none" className="group-hover:translate-y-1 transition-transform duration-300">
-            <rect x="7" y="1" width="6" height="14" rx="3" stroke="currentColor" strokeWidth="1.2" />
-            <circle cx="10" cy="5" r="2" fill="currentColor" className="animate-bounce" style={{ animationDuration: "1.5s" }} />
-            <path d="M5 21 L10 26 L15 21" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          <span className="text-[8px] tracking-[0.35em] uppercase" style={{ fontFamily: "'Inter', sans-serif" }}>Discover</span>
+          <svg width="22" height="34" viewBox="0 0 22 34" fill="none" className="group-hover:translate-y-1.5 transition-transform duration-400">
+            <rect x="8" y="1" width="6" height="16" rx="3" stroke="currentColor" strokeWidth="1.2" />
+            <circle cx="11" cy="6" r="2.5" fill="currentColor" style={{ animation: "floatGentle 2s ease-in-out infinite" }} />
+            <path d="M6 24 L11 30 L16 24" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </a>
       </section>
@@ -462,82 +496,64 @@ export default function HomePage() {
           </section>
 
           {/* ───────────────────────────────────────────────────────────────── */}
-          {/* 3. VIDEO SHOWCASE SECTION (Updated to Luxehomes, Kokapet)         */}
+          {/* 3. VIDEO SHOWCASE — Inline YouTube Embed                          */}
           {/* ───────────────────────────────────────────────────────────────── */}
-          <section ref={videoRef} className="w-full flex flex-col items-center">
-            {/* Centered Heading */}
-            <div className="flex flex-col items-center text-center mb-6 reveal-item">
-              <span className="text-[#B08D57] font-semibold text-xs tracking-[0.2em] uppercase mb-1">
-                The Experience
+          <section ref={videoRef} className="w-full flex flex-col items-center gap-8 reveal-item">
+
+            {/* Section header */}
+            <div className="flex flex-col items-center text-center gap-3">
+              <span className="text-[#B08D57] text-[10px] tracking-[0.28em] uppercase font-semibold" style={{ fontFamily: "'Inter', sans-serif" }}>
+                Site Walkthrough
               </span>
               <h2
-                className="text-[#1c1b1b] text-3xl md:text-4xl font-normal mb-2 leading-tight"
-                style={{ fontFamily: "'Playfair Display', serif" }}
+                className="text-[#1c1b1b] leading-tight"
+                style={{ fontFamily: "'Cormorant Garant', serif", fontWeight: 400, fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
               >
                 Luxehomes, Kokapet
               </h2>
-              <p className="text-[#72716d] text-sm md:text-base font-normal">
-                A Walkthrough of Tomorrow&apos;s Address in the Neopolis Corridor
+              {/* Gold underline */}
+              <div className="flex items-center gap-2">
+                <div className="h-px w-8 bg-[#B08D57]/40" />
+                <svg width="6" height="6" viewBox="0 0 6 6"><polygon points="3,0 6,3 3,6 0,3" fill="#B08D57" /></svg>
+                <div className="h-px w-8 bg-[#B08D57]/40" />
+              </div>
+              <p className="text-[#72716d] text-sm leading-relaxed max-w-xl" style={{ fontFamily: "'Inter', sans-serif" }}>
+                A cinematic walkthrough of tomorrow&apos;s address in the Neopolis Corridor
               </p>
             </div>
 
-            {/* Video Card with Realistic Browser/App Mockup Header */}
-            <div
-              onClick={() => setVideoModalOpen(true)}
-              className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-[#E8E4DC] bg-white group cursor-pointer reveal-item"
-            >
-              {/* Mockup Header Bar */}
-              <div className="bg-[#FAF7F2] border-b border-[#E8E4DC] px-6 py-3 flex items-center justify-between text-xs select-none">
-                <span
-                  className="text-[#1c1b1b] font-medium text-sm tracking-tight"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  Luxehomes, Kokapet (Neopolis)
-                </span>
-                <div className="hidden sm:flex items-center gap-6 text-[11px] text-[#72716d] tracking-wider font-medium">
-                  <span className="text-[#1c1b1b] font-semibold">Home</span>
-                  <span>Masterplan</span>
-                  <span>Layouts</span>
-                  <span>Connectivity</span>
-                  <span>Site Office</span>
-                </div>
-              </div>
-
-              {/* Video Preview Canvas */}
-              <div className="relative w-full aspect-[16/9] overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
-                  style={{
-                    backgroundImage:
-                      "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBTSb6angQ7EmFDDTOUg5zzRs1sw6A7DR0GRB0MP86xPN-ntQCbTMBUV4PGOMv90YJ38eOEL36kt-GSKVbeGq_0l4PpyOA8g3nOfADhyisPiwua3wD9VpuIZqF2kBHLRMFSjgFI4ehYA_25xzUWtO3bNnLJAsg4d5cjusYK446d_vfKNjaYBlUy0JfZZYW5v7cU8T5eouxna1tCHQQDWQxK8PJj8jojVNWfdCL0BKt5LiCh13JW7W8w')",
-                  }}
+            {/* YouTube iframe — direct embed, no modal */}
+            <div className="w-full max-w-4xl mx-auto">
+              <div className="relative w-full overflow-hidden rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-[#E8E4DC]" style={{ paddingBottom: "56.25%", height: 0 }}>
+                <iframe
+                  src="https://www.youtube.com/embed/L0PSxBh31NI?rel=0&modestbranding=1&controls=1"
+                  title="Luxehomes Kokapet — Virtual Walkthrough"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full rounded-xl"
+                  style={{ border: "none" }}
                 />
-
-                {/* Dark Vignette Overlay */}
-                <div className="absolute inset-0 bg-black/35 transition-colors duration-300 group-hover:bg-black/45 flex items-center justify-center">
-                  {/* Pulsing Frosted Glass Play Button */}
-                  <div className="relative flex items-center justify-center">
-                    <div className="absolute size-24 border border-white/40 rounded-full animate-ping pointer-events-none" />
-                    <div className="absolute size-20 border border-[#B08D57]/50 rounded-full animate-pulse-ring pointer-events-none" />
-                    <div className="size-16 md:size-20 rounded-full bg-white/25 backdrop-blur-md flex items-center justify-center border border-white/70 shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:bg-white/35">
-                      <span
-                        className="material-symbols-outlined text-white text-3xl md:text-4xl pl-1"
-                        style={{ fontVariationSettings: "'FILL' 1" }}
-                      >
-                        play_arrow
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bottom Overlay Info Tag */}
-                <div className="absolute bottom-4 left-6 text-white/90 text-xs tracking-wider font-light flex items-center gap-2">
-                  <span className="inline-block size-2 rounded-full bg-emerald-400 animate-pulse" />
-                  Luxehomes, Kokapet • 4K Cinematic Virtual Walkthrough
-                </div>
               </div>
             </div>
+
+            {/* Below-video CTA row */}
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <button
+                onClick={() => setEnquireOpen(true)}
+                className="bg-[#B08D57] hover:bg-[#967645] text-white text-[10.5px] tracking-[0.22em] font-semibold py-3 px-8 transition-all duration-300 hover:shadow-lg hover:scale-[1.03] cursor-pointer"
+              >
+                SCHEDULE PRIVATE SITE VISIT
+              </button>
+              <button
+                onClick={() => setBrochureOpen(true)}
+                className="border border-[#1c1b1b] text-[#1c1b1b] text-[10.5px] tracking-[0.22em] font-semibold py-3 px-8 transition-all duration-300 hover:bg-[#1c1b1b] hover:text-white cursor-pointer"
+              >
+                DOWNLOAD BROCHURE
+              </button>
+            </div>
           </section>
+
+
 
           {/* ───────────────────────────────────────────────────────────────── */}
           {/* 4. NEARBY PREMIUM FACILITIES & DRIVE-TIME CONNECTIVITY            */}
