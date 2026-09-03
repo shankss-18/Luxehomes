@@ -70,8 +70,126 @@ export default function IsometricFloorPlanViewer({
 
   const isMultiLevel = unit.levels.length > 1;
 
+  // —— Computed pricing ——
+  const pricePerSqFt = unit.total_price_inr && unit.built_up_area_sqft
+    ? Math.round(unit.total_price_inr / unit.built_up_area_sqft)
+    : null;
+  const pricePerSqYard = pricePerSqFt ? Math.round(pricePerSqFt * 9) : null;
+
+  // —— Facing compass ——
+  const facingAngles: Record<string, number> = {
+    "North": 0, "North-East": 45, "East": 90, "South-East": 135,
+    "South": 180, "South-West": 225, "West": 270, "North-West": 315,
+  };
+  const facingAngle = facingAngles[unit.facing] ?? 0;
+
+  const compassDirs = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+  void compassDirs;
+  const facingShort = unit.facing.split("-").map((w) => w[0]).join("");
+  void facingShort;
+
   return (
-    <div className="w-full flex flex-col gap-8">
+    <div className="w-full flex flex-col gap-6">
+
+      {/* ── PRICING METRICS BANNER ───────────────────────────────────── */}
+      <div className="bg-white border border-[#E8E4DC] rounded-2xl p-5 md:p-6 shadow-sm">
+        <div className="flex flex-wrap gap-4 items-start justify-between">
+
+          {/* Pricing grid */}
+          <div className="flex flex-wrap gap-6">
+            {/* Total Price */}
+            <div>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-semibold text-[#72716d] mb-0.5">Total Price</p>
+              <p className="font-light text-2xl text-[#B08D57]" style={{ fontFamily: "'Cormorant Garant', serif" }}>
+                {unit.display_price}
+              </p>
+            </div>
+            {/* Per sq.ft */}
+            {pricePerSqFt && (
+              <div>
+                <p className="text-[10px] tracking-[0.2em] uppercase font-semibold text-[#72716d] mb-0.5">Rate / sq.ft</p>
+                <p className="font-light text-2xl text-[#1c1b1b]" style={{ fontFamily: "'Cormorant Garant', serif" }}>
+                  ₹{pricePerSqFt.toLocaleString("en-IN")}
+                </p>
+              </div>
+            )}
+            {/* Per sq.yard */}
+            {pricePerSqYard && (
+              <div>
+                <p className="text-[10px] tracking-[0.2em] uppercase font-semibold text-[#72716d] mb-0.5">Rate / sq.yard</p>
+                <p className="font-light text-2xl text-[#1c1b1b]" style={{ fontFamily: "'Cormorant Garant', serif" }}>
+                  ₹{pricePerSqYard.toLocaleString("en-IN")}
+                </p>
+              </div>
+            )}
+            {/* Carpet area */}
+            <div>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-semibold text-[#72716d] mb-0.5">Carpet Area</p>
+              <p className="font-light text-2xl text-[#1c1b1b]" style={{ fontFamily: "'Cormorant Garant', serif" }}>
+                {unit.carpet_area_sqft} sq.ft
+              </p>
+            </div>
+          </div>
+
+          {/* Facing Compass */}
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-[10px] tracking-[0.2em] uppercase font-semibold text-[#72716d]">Facing</p>
+            {/* Compass circle */}
+            <div className="relative w-20 h-20">
+              {/* Outer ring */}
+              <svg viewBox="0 0 80 80" className="w-full h-full">
+                <circle cx="40" cy="40" r="38" fill="#FAF7F2" stroke="#E8E4DC" strokeWidth="1.5" />
+                {/* Cardinal direction labels */}
+                <text x="40" y="9" textAnchor="middle" fontSize="7" fill="#72716d" fontFamily="Inter, sans-serif" fontWeight="600">N</text>
+                <text x="71" y="43" textAnchor="middle" fontSize="7" fill="#72716d" fontFamily="Inter, sans-serif" fontWeight="600">E</text>
+                <text x="40" y="76" textAnchor="middle" fontSize="7" fill="#72716d" fontFamily="Inter, sans-serif" fontWeight="600">S</text>
+                <text x="9" y="43" textAnchor="middle" fontSize="7" fill="#72716d" fontFamily="Inter, sans-serif" fontWeight="600">W</text>
+                {/* Tick marks */}
+                {[0,45,90,135,180,225,270,315].map((deg) => {
+                  const rad = (deg - 90) * Math.PI / 180;
+                  const x1 = 40 + 32 * Math.cos(rad);
+                  const y1 = 40 + 32 * Math.sin(rad);
+                  const x2 = 40 + 36 * Math.cos(rad);
+                  const y2 = 40 + 36 * Math.sin(rad);
+                  return <line key={deg} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#E8E4DC" strokeWidth="1" />;
+                })}
+                {/* Gold needle pointing to facing */}
+                {(() => {
+                  const rad = (facingAngle - 90) * Math.PI / 180;
+                  const tipX = 40 + 26 * Math.cos(rad);
+                  const tipY = 40 + 26 * Math.sin(rad);
+                  const tailX = 40 - 14 * Math.cos(rad);
+                  const tailY = 40 - 14 * Math.sin(rad);
+                  return (
+                    <>
+                      <line x1={tailX} y1={tailY} x2={tipX} y2={tipY} stroke="#B08D57" strokeWidth="2" strokeLinecap="round" />
+                      <circle cx={tipX} cy={tipY} r="3" fill="#B08D57" />
+                      <circle cx="40" cy="40" r="3.5" fill="white" stroke="#B08D57" strokeWidth="1.5" />
+                    </>
+                  );
+                })()}
+              </svg>
+            </div>
+            {/* Facing label badge */}
+            <span className="bg-[#B08D57] text-white text-[10px] font-bold tracking-[0.18em] uppercase px-3 py-1 rounded-full">
+              {unit.facing}
+            </span>
+          </div>
+        </div>
+
+        {/* Bottom: unit identity */}
+        <div className="mt-4 pt-4 border-t border-[#E8E4DC]/70 flex flex-wrap gap-3 text-[11px] text-[#72716d]">
+          <span><span className="font-semibold text-[#1c1b1b]">Project:</span> {unit.project_name}</span>
+          <span>·</span>
+          <span><span className="font-semibold text-[#1c1b1b]">Tower:</span> {unit.tower}</span>
+          <span>·</span>
+          <span><span className="font-semibold text-[#1c1b1b]">Unit:</span> {unit.unit_number}</span>
+          <span>·</span>
+          <span><span className="font-semibold text-[#1c1b1b]">Built-up:</span> {unit.built_up_area_sqft} sq.ft</span>
+          <span>·</span>
+          <span className={`font-semibold ${ unit.status === "Available" ? "text-emerald-600" : "text-orange-500" }`}>{unit.status}</span>
+        </div>
+      </div>
       {/* ── Floor Plan Panels (Desktop: Side-by-side / Mobile: Stacked) ── */}
       <div
         className={`grid gap-8 ${

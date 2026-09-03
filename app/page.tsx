@@ -32,6 +32,13 @@ export default function HomePage() {
   const collectionsRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
   const facilitiesRef = useRef<HTMLDivElement>(null);
+  const viewerRef = useRef<HTMLDivElement>(null);
+
+  const scrollToViewer = () => {
+    setTimeout(() => {
+      viewerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 80);
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -469,7 +476,7 @@ export default function HomePage() {
                       return (
                         <button
                           key={u.id}
-                          onClick={() => setSelectedUnitId(u.id)}
+                          onClick={() => { setSelectedUnitId(u.id); scrollToViewer(); }}
                           className={`px-3.5 py-2 rounded-lg text-xs transition-all flex items-center gap-2 cursor-pointer ${
                             isSelected
                               ? "bg-[#1c1b1b] text-white font-medium shadow-sm"
@@ -489,7 +496,7 @@ export default function HomePage() {
 
             {/* ── PART B: Isometric 3D Floor Plan Visual Component ────────── */}
             {activeUnit && (
-              <div className="reveal-item">
+              <div className="reveal-item scroll-mt-24" ref={viewerRef}>
                 <IsometricFloorPlanViewer
                   unit={activeUnit}
                   onEnquire={() => {
