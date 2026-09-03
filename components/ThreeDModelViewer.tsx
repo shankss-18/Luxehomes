@@ -216,9 +216,12 @@ export default function ThreeDModelViewer({
       const rugMat = new THREE.MeshStandardMaterial({
         color: 0xd8d0c5,
         roughness: 0.95,
+        polygonOffset: true,
+        polygonOffsetFactor: -2,
+        polygonOffsetUnits: -2,
       });
       const rug = new THREE.Mesh(rugGeo, rugMat);
-      rug.position.set(0.5, 0.05, 1);
+      rug.position.set(0.5, 0.065, 1);
       rug.receiveShadow = true;
       modelGroup.add(rug);
 
@@ -629,17 +632,18 @@ export default function ThreeDModelViewer({
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
-    // Camera (Isometric perspective angle)
-    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 200);
+    // Camera (Isometric perspective angle with optimized near/far planes to eliminate depth-buffer flickering)
+    const camera = new THREE.PerspectiveCamera(42, width / height, 0.8, 120);
     camera.position.set(18, 20, 20);
     camera.lookAt(0, 1, 0);
     cameraRef.current = camera;
 
-    // WebGL Renderer
+    // WebGL Renderer with Logarithmic Depth Buffer to prevent coplanar z-fighting on zoom
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
       powerPreference: "high-performance",
+      logarithmicDepthBuffer: true,
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -668,7 +672,7 @@ export default function ThreeDModelViewer({
     scene.add(hemiLight);
     hemiLightRef.current = hemiLight;
 
-    // Directional Sunlight with soft shadows
+    // Directional Sunlight with normalBias to eliminate shadow acne / chattering on zoom
     const sunLight = new THREE.DirectionalLight(0xfff3db, 1.8);
     sunLight.position.set(22, 30, 18);
     sunLight.castShadow = true;
@@ -680,7 +684,8 @@ export default function ThreeDModelViewer({
     sunLight.shadow.camera.right = 16;
     sunLight.shadow.camera.top = 16;
     sunLight.shadow.camera.bottom = -16;
-    sunLight.shadow.bias = -0.0004;
+    sunLight.shadow.bias = -0.00008;
+    sunLight.shadow.normalBias = 0.025;
     scene.add(sunLight);
     sunLightRef.current = sunLight;
 

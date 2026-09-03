@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollAnimationProvider from "@/components/ScrollAnimationProvider";
+import FloatingContactWidgets from "@/components/FloatingContactWidgets";
 
 export const metadata: Metadata = {
   title: "LUXEHOMES — The Epitome of Quiet Luxury",
@@ -42,6 +43,7 @@ export default function RootLayout({
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <FloatingContactWidgets />
       </body>
     </html>
   );

@@ -566,11 +566,11 @@ export default function LocationPage() {
             </p>
           </div>
 
-          {/* Master-Detail Architectural Stage */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          {/* Master-Detail Architectural Stage (Equal Height on Desktop) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch lg:h-[690px]">
 
             {/* LEFT COLUMN (5 cols): Interactive Enclave Directory Ledger */}
-            <div className="lg:col-span-5 flex flex-col gap-2.5">
+            <div className="lg:col-span-5 flex flex-col justify-between gap-2.5 h-full">
               {locationList.map((loc) => {
                 const isSelected = loc.id === activeLocationId;
                 const isOffice = loc.type === "office";
@@ -582,7 +582,7 @@ export default function LocationPage() {
                       setActiveLocationId(loc.id);
                       scrollToMap();
                     }}
-                    className={`p-4 md:p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between gap-4 relative overflow-hidden ${
+                    className={`flex-1 p-3.5 md:px-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between gap-4 relative overflow-hidden ${
                       isSelected
                         ? "bg-white border-[#B08D57] shadow-md ring-1 ring-[#B08D57]/20"
                         : "bg-white/70 hover:bg-white border-[#E8E4DC] hover:border-[#B08D57]/60 shadow-xs"
@@ -606,7 +606,7 @@ export default function LocationPage() {
                       <div>
                         <div className="flex items-center gap-2">
                           <h4
-                            className={`text-base md:text-lg font-normal transition-colors ${
+                            className={`text-sm md:text-base font-normal transition-colors ${
                               isSelected ? "text-[#1c1b1b] font-medium" : "text-[#474741]"
                             }`}
                             style={{ fontFamily: "'Playfair Display', serif" }}
@@ -632,7 +632,7 @@ export default function LocationPage() {
             </div>
 
             {/* RIGHT COLUMN (7 cols): Grand Panoramic Architectural Stage */}
-            <div className="lg:col-span-7 bg-white rounded-3xl border border-[#E8E4DC] shadow-xl overflow-hidden flex flex-col justify-between">
+            <div className="lg:col-span-7 bg-white rounded-3xl border border-[#E8E4DC] shadow-xl overflow-hidden flex flex-col justify-between h-full">
               <div>
                 {/* Widescreen Photography Visual Header */}
                 <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#1c1b1b]">
