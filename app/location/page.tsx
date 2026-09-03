@@ -6,6 +6,7 @@ import locationsData from "@/data/locations.json";
 
 interface LocationItem {
   id: string;
+  index: string;
   name: string;
   badge: string;
   category: "office" | "flagship" | "tech" | "heritage";
@@ -14,10 +15,10 @@ interface LocationItem {
   pincode: string;
   positioning: string;
   avgPriceSqFt: string;
-  driveTimes: string[];
+  driveTimes: { label: string; duration: string; note: string }[];
   googleMapsUrl: string;
   appleMapsUrl: string;
-  coordinates: { top: string; left: string }; // Position on the cartographic canvas
+  coordinates: { top: string; left: string }; // Position on the white cartographic canvas
   image: string;
   distanceFromOrr: string;
 }
@@ -30,15 +31,20 @@ export default function LocationPage() {
   const locationList: LocationItem[] = [
     {
       id: "kokapet-office",
+      index: "01",
       name: "Kokapet Advisory Office",
       badge: "Flagship Site Office",
       category: "office",
       type: "office",
       area: "The Luxe Tower, Neopolis Corridor, Kokapet",
       pincode: "500075",
-      positioning: "Dedicated private client advisory office, experiential gallery & on-site masterplan showroom",
-      avgPriceSqFt: "₹12,800/sq.ft (Corridor Benchmark)",
-      driveTimes: ["Immediate ORR Exit 1", "5 min to Financial District", "25 min to Airport"],
+      positioning: "Dedicated private client advisory office, experiential gallery & on-site masterplan showroom with private client consulting salons.",
+      avgPriceSqFt: "₹12,800/sq.ft",
+      driveTimes: [
+        { label: "Outer Ring Road", duration: "Immediate Exit 1", note: "Direct junction access" },
+        { label: "Financial District", duration: "5 min drive", note: "Nanakramguda Circle" },
+        { label: "Airport Transit", duration: "25 min drive", note: "Via ORR Expressway" },
+      ],
       distanceFromOrr: "Direct Exit 1",
       googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
         "The Luxe Tower, Neopolis Corridor, Kokapet, Hyderabad, Telangana 500075"
@@ -46,12 +52,13 @@ export default function LocationPage() {
       appleMapsUrl: `https://maps.apple.com/?q=${encodeURIComponent(
         "The Luxe Tower, Neopolis Corridor, Kokapet, Hyderabad 500075"
       )}`,
-      coordinates: { top: "54%", left: "42%" },
+      coordinates: { top: "68%", left: "32%" }, // South-West placement
       image:
         "https://lh3.googleusercontent.com/aida-public/AB6AXuAnuktRK27yvXgij5paYhzTzZ4XLQu_5rGB9LGp67vM7FqY2Hkkgv2M0sD1Afj4ZZx9EZeTwn3nZg3An_yJae-X-m-ETzP_VnIJI2Z6D3MHsNXzFUNNmNxEUFiuH07OJrMxlxfE0Xu_a-GNEhWdqWLfMM86rq1kOb_VUzpBRjWl-62tjafTus5OK6OI74YOAjDqxgFvH7rCrgTFhx7m22_GnJ9twD0xHu-axGSMOmWLpHCFJX6LFgBE",
     },
     {
       id: "kokapet-residences",
+      index: "02",
       name: "Kokapet (Neopolis Corridor)",
       badge: "Flagship Residential",
       category: "flagship",
@@ -61,9 +68,9 @@ export default function LocationPage() {
       positioning: locationsData.flagship.positioning,
       avgPriceSqFt: "₹12,800/sq.ft",
       driveTimes: [
-        "3 min to ORR Toll Plaza",
-        "5 min to Financial District",
-        "8 min to Gachibowli IT Hub",
+        { label: "ORR Toll Plaza", duration: "3 min drive", note: "Seamless arterial ramp" },
+        { label: "Financial District", duration: "5 min drive", note: "Direct multi-lane road" },
+        { label: "Gachibowli IT Hub", duration: "8 min drive", note: "Quick corporate transit" },
       ],
       distanceFromOrr: "3 min drive",
       googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -72,21 +79,26 @@ export default function LocationPage() {
       appleMapsUrl: `https://maps.apple.com/?q=${encodeURIComponent(
         "Neopolis Corridor, Kokapet, Hyderabad 500075"
       )}`,
-      coordinates: { top: "50%", left: "37%" },
+      coordinates: { top: "38%", left: "26%" }, // West-Central placement
       image:
         "https://lh3.googleusercontent.com/aida-public/AB6AXuCrBdPj9oxtI9eBHXHVpAcaTAr33Y36nn5EGz4-TulcAC7JtGbmaCIu5Opkv4vHLqGPYBNJjRueiqJQmTd_wGTreZGlm9dpGxpNfLbAFrxRZpCc0MzW-TJwpKraMHYgTrCr20RoSRAvOIEwKU-b1tgBkdMbeRUzLbrrSWdmqU0USymV9RMm2CzQtZFa0GVS7d9-CDmi2p1dmQekILGVn6WrdjCkT13uIlOMMqahvRlY3QOezDei7LN8",
     },
     {
       id: "financial-district",
+      index: "03",
       name: "Financial District (Nanakramguda)",
       badge: "Corporate & Tech Core",
       category: "tech",
       type: "residence",
       area: "Nanakramguda, Financial District",
       pincode: "500032",
-      positioning: "Corporate institutional zone with walk-to-work culture beside global campuses",
+      positioning: "Walk-to-work culture amidst global conglomerates, US Consulate campus, and luxury commercial high-streets.",
       avgPriceSqFt: "₹13,200/sq.ft",
-      driveTimes: ["2 min to Nanakramguda Circle", "3 min to Continental Hospitals", "8 min to ORR"],
+      driveTimes: [
+        { label: "Nanakramguda Circle", duration: "2 min drive", note: "Core institutional zone" },
+        { label: "Continental Hospitals", duration: "3 min drive", note: "Tertiary medical care" },
+        { label: "Outer Ring Road", duration: "5 min drive", note: "Direct junction ramp" },
+      ],
       distanceFromOrr: "5 min drive",
       googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
         "Financial District, Nanakramguda, Hyderabad 500032"
@@ -94,21 +106,26 @@ export default function LocationPage() {
       appleMapsUrl: `https://maps.apple.com/?q=${encodeURIComponent(
         "Financial District, Nanakramguda, Hyderabad 500032"
       )}`,
-      coordinates: { top: "42%", left: "54%" },
+      coordinates: { top: "48%", left: "48%" }, // Central placement
       image:
         "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: "gachibowli",
+      index: "04",
       name: "Gachibowli",
       badge: "Commercial Tech Hub",
       category: "tech",
       type: "residence",
       area: "Gachibowli IT Corridor",
       pincode: "500032",
-      positioning: "Direct proximity to Microsoft, Amazon, DLF Cyber City, and premier sports stadiums",
+      positioning: "Direct proximity to Microsoft, Amazon, DLF Cyber City, international schools, and premier sports complexes.",
       avgPriceSqFt: "₹12,500/sq.ft",
-      driveTimes: ["5 min to Financial District", "7 min to AIG Hospitals", "10 min to HITEC City"],
+      driveTimes: [
+        { label: "Financial District", duration: "5 min drive", note: "Wipro Circle" },
+        { label: "AIG Hospitals", duration: "7 min drive", note: "Premier health research" },
+        { label: "HITEC City Core", duration: "10 min drive", note: "Cyber Towers zone" },
+      ],
       distanceFromOrr: "6 min drive",
       googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
         "Gachibowli, Hyderabad 500032"
@@ -116,21 +133,26 @@ export default function LocationPage() {
       appleMapsUrl: `https://maps.apple.com/?q=${encodeURIComponent(
         "Gachibowli, Hyderabad 500032"
       )}`,
-      coordinates: { top: "35%", left: "62%" },
+      coordinates: { top: "22%", left: "54%" }, // North-Central placement
       image:
         "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: "banjara-hills",
+      index: "05",
       name: "Banjara Hills",
       badge: "Heritage Prestige",
       category: "heritage",
       type: "residence",
       area: "Road No. 12, Banjara Hills",
       pincode: "500034",
-      positioning: "Timeless heritage benchmark of high-net-worth living in leafy central Hyderabad",
+      positioning: "Timeless heritage benchmark of high-net-worth residency in leafy, quiet central Hyderabad.",
       avgPriceSqFt: "₹16,500/sq.ft",
-      driveTimes: ["5 min to Luxury High-Street", "15 min to Financial District", "20 min to Airport via PVNR"],
+      driveTimes: [
+        { label: "High-Street Boutiques", duration: "5 min drive", note: "Road No. 1 luxury row" },
+        { label: "Financial District", duration: "15 min drive", note: "Fast arterial transit" },
+        { label: "Airport via PVNR", duration: "20 min drive", note: "Elevated expressway" },
+      ],
       distanceFromOrr: "15 min drive",
       googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
         "Banjara Hills, Hyderabad 500034"
@@ -138,21 +160,26 @@ export default function LocationPage() {
       appleMapsUrl: `https://maps.apple.com/?q=${encodeURIComponent(
         "Banjara Hills, Hyderabad 500034"
       )}`,
-      coordinates: { top: "36%", left: "78%" },
+      coordinates: { top: "58%", left: "82%" }, // East-Central placement
       image:
         "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: "jubilee-hills",
+      index: "06",
       name: "Jubilee Hills",
       badge: "Elite Enclave",
       category: "heritage",
       type: "residence",
       area: "Road No. 36 & Durgam Cheruvu Enclave",
       pincode: "500033",
-      positioning: "Elevated topography with panoramic vistas of the lake and high-street lifestyle",
+      positioning: "Elevated topography with panoramic vistas of Durgam Cheruvu lake, dining clubs, and curated high-street retail.",
       avgPriceSqFt: "₹18,000/sq.ft",
-      driveTimes: ["5 min to Apollo Health City", "8 min to Durgam Cheruvu Cable Bridge", "12 min to HITEC City"],
+      driveTimes: [
+        { label: "Apollo Health City", duration: "5 min drive", note: "Premier specialty hub" },
+        { label: "Durgam Cable Bridge", duration: "8 min drive", note: "Iconic lake bridge" },
+        { label: "HITEC City", duration: "12 min drive", note: "Tech corporate core" },
+      ],
       distanceFromOrr: "12 min drive",
       googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
         "Jubilee Hills, Hyderabad 500033"
@@ -160,21 +187,26 @@ export default function LocationPage() {
       appleMapsUrl: `https://maps.apple.com/?q=${encodeURIComponent(
         "Jubilee Hills, Hyderabad 500033"
       )}`,
-      coordinates: { top: "27%", left: "71%" },
+      coordinates: { top: "25%", left: "74%" }, // North-East placement
       image:
         "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: "tellapur",
+      index: "07",
       name: "Tellapur",
       badge: "Green Master Buffer",
       category: "flagship",
       type: "residence",
       area: "Tellapur Master Plan Zone",
       pincode: "502032",
-      positioning: "Tranquil master-planned residential corridor with expansive green lung spaces",
+      positioning: "Tranquil master-planned residential corridor with expansive green lung spaces and low-density estate developments.",
       avgPriceSqFt: "₹10,500/sq.ft",
-      driveTimes: ["8 min to Kokapet Neopolis", "12 min to Financial District", "10 min to ORR Exit 2"],
+      driveTimes: [
+        { label: "Kokapet Neopolis", duration: "8 min drive", note: "Multi-lane arterial link" },
+        { label: "Financial District", duration: "12 min drive", note: "Fast commute" },
+        { label: "ORR Exit 2", duration: "4 min drive", note: "Outer ring toll access" },
+      ],
       distanceFromOrr: "4 min drive",
       googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
         "Tellapur, Hyderabad 502032"
@@ -182,7 +214,7 @@ export default function LocationPage() {
       appleMapsUrl: `https://maps.apple.com/?q=${encodeURIComponent(
         "Tellapur, Hyderabad 502032"
       )}`,
-      coordinates: { top: "60%", left: "22%" },
+      coordinates: { top: "46%", left: "12%" }, // Far West placement
       image:
         "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
     },
@@ -206,7 +238,7 @@ export default function LocationPage() {
   return (
     <div className="relative flex min-h-screen w-full flex-col bg-luxury-pattern-subtle overflow-x-hidden pt-[76px] md:pt-[84px]">
       {/* ── Page Header ────────────────────────────────────────────────── */}
-      <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 pt-8 pb-6">
+      <div className="w-full max-w-[1240px] mx-auto px-6 md:px-12 pt-8 pb-4">
         <div className="flex flex-col items-center text-center gap-2.5 reveal-item">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-[#E8E4DC] text-[#B08D57] text-[10px] tracking-[0.28em] uppercase font-semibold shadow-xs">
             <span className="size-1.5 rounded-full bg-[#B08D57] animate-pulse" />
@@ -234,10 +266,10 @@ export default function LocationPage() {
         </div>
       </div>
 
-      <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 pb-24 flex flex-col gap-14">
+      <div className="w-full max-w-[1240px] mx-auto px-6 md:px-12 pb-24 flex flex-col gap-14">
 
         {/* ───────────────────────────────────────────────────────────────── */}
-        {/* 1. BESPOKE CARTOGRAPHIC INTERACTIVE VECTOR MAP                    */}
+        {/* 1. BESPOKE WHITE-THEMED ARCHITECTURAL VECTOR MAP CANVAS           */}
         {/* ───────────────────────────────────────────────────────────────── */}
         <div id="interactive-map" className="flex flex-col gap-4 reveal-item">
 
@@ -256,9 +288,9 @@ export default function LocationPage() {
                   <button
                     key={filter.id}
                     onClick={() => setActiveFilter(filter.id as any)}
-                    className={`px-3.5 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition-all duration-200 whitespace-nowrap cursor-pointer ${
+                    className={`px-4 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition-all duration-200 whitespace-nowrap cursor-pointer ${
                       isActive
-                        ? "bg-[#1c1b1b] text-white font-medium shadow-xs"
+                        ? "bg-[#B08D57] text-white font-semibold shadow-xs"
                         : "text-[#72716d] hover:text-[#1c1b1b] hover:bg-[#FAF7F2]"
                     }`}
                   >
@@ -270,20 +302,20 @@ export default function LocationPage() {
 
             <div className="hidden sm:flex items-center gap-4 text-xs text-[#72716d]">
               <div className="flex items-center gap-2">
-                <span className="size-2.5 rounded-full bg-[#B08D57] animate-ping" />
-                <span className="text-[11px] font-medium text-[#1c1b1b]">Central Flagship Node</span>
+                <span className="size-2 rounded-full bg-[#B08D57] animate-pulse" />
+                <span className="text-[11px] font-medium text-[#1c1b1b]">Flagship Advisory Hub</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="size-2 rounded-full bg-[#1c1b1b]" />
-                <span className="text-[11px]">Residences</span>
+                <span className="text-[11px]">Curated Residences</span>
               </div>
             </div>
           </div>
 
-          {/* Cartographic Blueprint Vector Map Canvas */}
-          <div className="relative w-full h-[460px] md:h-[560px] rounded-3xl overflow-hidden border border-[#E8E4DC] shadow-2xl bg-[#111315] select-none">
+          {/* White-Themed Architectural Blueprint Canvas */}
+          <div className="relative w-full h-[480px] md:h-[580px] rounded-3xl overflow-hidden border border-[#E8E4DC] shadow-xl bg-[#FAF8F5] select-none">
 
-            {/* SVG Cartographic Architectural Layer */}
+            {/* SVG Architectural Vector Map Layer */}
             <svg
               className="absolute inset-0 w-full h-full pointer-events-none"
               xmlns="http://www.w3.org/2000/svg"
@@ -291,89 +323,97 @@ export default function LocationPage() {
               preserveAspectRatio="xMidYMid slice"
             >
               <defs>
-                <radialGradient id="mapGlow" cx="42%" cy="54%" r="60%">
-                  <stop offset="0%" stopColor="#B08D57" stopOpacity="0.14" />
-                  <stop offset="60%" stopColor="#111315" stopOpacity="0.05" />
-                  <stop offset="100%" stopColor="#111315" stopOpacity="0" />
+                {/* Soft Ivory-Cream Radial Gradient */}
+                <radialGradient id="whiteMapGlow" cx="40%" cy="50%" r="65%">
+                  <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9" />
+                  <stop offset="65%" stopColor="#F6F3EE" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#EFECE5" stopOpacity="0.95" />
                 </radialGradient>
-                <linearGradient id="orrGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#B08D57" stopOpacity="0.3" />
-                  <stop offset="50%" stopColor="#B08D57" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="#B08D57" stopOpacity="0.4" />
+
+                {/* Outer Ring Road Warm Gold Gradient */}
+                <linearGradient id="whiteOrrGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#C4A46D" stopOpacity="0.8" />
+                  <stop offset="50%" stopColor="#B08D57" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#967645" stopOpacity="0.8" />
                 </linearGradient>
-                <pattern id="archGrid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.04)" strokeWidth="1" />
+
+                {/* Architectural Blueprint Grid Pattern */}
+                <pattern id="whiteArchGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(28, 27, 27, 0.035)" strokeWidth="1" />
                 </pattern>
               </defs>
 
-              {/* Grid backdrop */}
-              <rect width="100%" height="100%" fill="#111315" />
-              <rect width="100%" height="100%" fill="url(#archGrid)" />
-              <rect width="100%" height="100%" fill="url(#mapGlow)" />
+              {/* Background Canvas */}
+              <rect width="100%" height="100%" fill="url(#whiteMapGlow)" />
+              <rect width="100%" height="100%" fill="url(#whiteArchGrid)" />
 
-              {/* Distance Concentric Circles from Kokapet */}
-              <circle cx="420" cy="324" r="90" fill="none" stroke="rgba(176, 141, 87, 0.15)" strokeWidth="1" strokeDasharray="3 3" />
-              <circle cx="420" cy="324" r="180" fill="none" stroke="rgba(176, 141, 87, 0.12)" strokeWidth="1" strokeDasharray="4 4" />
-              <circle cx="420" cy="324" r="280" fill="none" stroke="rgba(176, 141, 87, 0.08)" strokeWidth="1" strokeDasharray="5 5" />
+              {/* Distance Concentric Circles centered on Kokapet */}
+              <circle cx="320" cy="408" r="95" fill="none" stroke="rgba(176, 141, 87, 0.28)" strokeWidth="1" strokeDasharray="3 3" />
+              <circle cx="320" cy="408" r="190" fill="none" stroke="rgba(176, 141, 87, 0.22)" strokeWidth="1" strokeDasharray="4 4" />
+              <circle cx="320" cy="408" r="300" fill="none" stroke="rgba(176, 141, 87, 0.15)" strokeWidth="1" strokeDasharray="5 5" />
 
-              {/* Distance Labels */}
-              <text x="420" y="226" fill="rgba(176, 141, 87, 0.45)" fontSize="10" fontFamily="'Inter', sans-serif" letterSpacing="1">3 KM RADIUS</text>
-              <text x="420" y="136" fill="rgba(176, 141, 87, 0.35)" fontSize="10" fontFamily="'Inter', sans-serif" letterSpacing="1">8 KM RADIUS</text>
+              {/* Distance Labels in Gold */}
+              <text x="320" y="304" fill="#B08D57" fontSize="10" fontWeight="600" fontFamily="'Inter', sans-serif" letterSpacing="1">3 KM RADIUS</text>
+              <text x="320" y="208" fill="#B08D57" fontSize="10" fontWeight="600" fontFamily="'Inter', sans-serif" letterSpacing="1">8 KM RADIUS</text>
 
-              {/* Durgam Cheruvu Lake Area (Water vector) */}
+              {/* Durgam Cheruvu Lake Area (Clean Water Vector) */}
               <path
-                d="M 670 180 Q 710 160 740 190 T 720 250 T 660 230 Z"
-                fill="rgba(45, 85, 125, 0.25)"
-                stroke="rgba(85, 145, 205, 0.3)"
+                d="M 680 150 Q 740 130 780 160 T 750 240 T 670 210 Z"
+                fill="rgba(200, 225, 238, 0.55)"
+                stroke="rgba(130, 180, 205, 0.6)"
                 strokeWidth="1.5"
               />
-              <text x="680" y="215" fill="rgba(120, 175, 230, 0.5)" fontSize="9" fontFamily="'Inter', sans-serif" letterSpacing="1">DURGAM CHERUVU</text>
+              <text x="700" y="185" fill="#4B779A" fontSize="9.5" fontWeight="600" fontFamily="'Inter', sans-serif" letterSpacing="1">
+                DURGAM CHERUVU LAKE
+              </text>
 
-              {/* Arterial Road Network */}
-              {/* Secondary roads */}
-              <path d="M 120 180 Q 320 220 540 250 T 880 230" fill="none" stroke="rgba(255, 255, 255, 0.07)" strokeWidth="2" />
-              <path d="M 220 500 Q 380 420 540 250 T 780 120" fill="none" stroke="rgba(255, 255, 255, 0.07)" strokeWidth="2" />
-              <path d="M 420 324 L 780 216" fill="none" stroke="rgba(176, 141, 87, 0.25)" strokeWidth="1.5" strokeDasharray="4 4" />
-              <path d="M 420 324 L 540 252" fill="none" stroke="rgba(176, 141, 87, 0.35)" strokeWidth="2" />
-              <path d="M 420 324 L 220 360" fill="none" stroke="rgba(176, 141, 87, 0.25)" strokeWidth="1.5" strokeDasharray="4 4" />
+              {/* Arterial Highway Network Lines */}
+              {/* Secondary Road Connections */}
+              <path d="M 100 240 Q 300 220 540 260 T 880 280" fill="none" stroke="rgba(114, 113, 109, 0.15)" strokeWidth="2.5" />
+              <path d="M 120 480 Q 320 440 540 260 T 820 140" fill="none" stroke="rgba(114, 113, 109, 0.15)" strokeWidth="2.5" />
+              <path d="M 320 408 L 820 348" fill="none" stroke="rgba(176, 141, 87, 0.28)" strokeWidth="1.5" strokeDasharray="4 4" />
+              <path d="M 320 408 L 480 288" fill="none" stroke="rgba(176, 141, 87, 0.35)" strokeWidth="2" />
+              <path d="M 320 408 L 120 276" fill="none" stroke="rgba(176, 141, 87, 0.28)" strokeWidth="1.5" strokeDasharray="4 4" />
 
-              {/* Outer Ring Road (ORR) Expressway - Major Glowing Ribbon */}
+              {/* Outer Ring Road (ORR) Expressway - Major Gleaming Gold Ribbon */}
               <path
-                d="M 160 520 Q 220 400 370 300 T 540 252 T 660 210 T 820 160"
+                d="M 100 550 Q 180 380 320 280 T 540 200 T 740 180 T 900 160"
                 fill="none"
-                stroke="url(#orrGrad)"
-                strokeWidth="3.5"
+                stroke="url(#whiteOrrGrad)"
+                strokeWidth="4"
                 strokeLinecap="round"
               />
 
               {/* ORR Highway Badge Label */}
-              <rect x="250" y="340" width="70" height="18" rx="4" fill="#1c1b1b" stroke="#B08D57" strokeWidth="1" />
-              <text x="257" y="353" fill="#B08D57" fontSize="9" fontWeight="bold" letterSpacing="1">ORR EXIT 1</text>
+              <rect x="210" y="325" width="76" height="20" rx="6" fill="#FFFFFF" stroke="#B08D57" strokeWidth="1.2" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))" />
+              <text x="218" y="339" fill="#B08D57" fontSize="9.5" fontWeight="bold" letterSpacing="1">ORR EXIT 1</text>
 
-              {/* PVNR Airport Expressway */}
+              {/* PVNR Elevated Airport Expressway */}
               <path
-                d="M 780 216 Q 660 380 580 560"
+                d="M 820 348 Q 680 460 560 580"
                 fill="none"
-                stroke="rgba(176, 141, 87, 0.3)"
+                stroke="rgba(176, 141, 87, 0.4)"
                 strokeWidth="2.5"
                 strokeDasharray="6 3"
               />
-              <text x="630" y="480" fill="rgba(176, 141, 87, 0.45)" fontSize="9" letterSpacing="1" transform="rotate(65 630 480)">PVNR AIRPORT EXPRESSWAY →</text>
+              <text x="660" y="470" fill="#967645" fontSize="9" fontWeight="600" letterSpacing="1" transform="rotate(50 660 470)">
+                PVNR AIRPORT EXPRESSWAY →
+              </text>
             </svg>
 
-            {/* Compass Rose in Top Right Corner */}
-            <div className="absolute top-5 right-5 pointer-events-none hidden md:flex flex-col items-center gap-1 opacity-70">
-              <div className="size-10 rounded-full border border-white/10 flex items-center justify-center relative">
+            {/* Compass Rose in Top Right */}
+            <div className="absolute top-5 right-5 pointer-events-none hidden md:flex flex-col items-center gap-1 opacity-80">
+              <div className="size-11 rounded-full bg-white/90 border border-[#E8E4DC] shadow-sm flex items-center justify-center relative">
                 <span className="text-[9px] font-bold text-[#B08D57] absolute -top-1">N</span>
-                <span className="text-[7px] text-white/40 absolute -bottom-1">S</span>
-                <span className="text-[7px] text-white/40 absolute -left-1">W</span>
-                <span className="text-[7px] text-white/40 absolute -right-1">E</span>
-                <div className="size-1 rounded-full bg-[#B08D57]" />
+                <span className="text-[7.5px] text-[#72716d] absolute -bottom-1">S</span>
+                <span className="text-[7.5px] text-[#72716d] absolute -left-1">W</span>
+                <span className="text-[7.5px] text-[#72716d] absolute -right-1">E</span>
+                <div className="size-1.5 rounded-full bg-[#B08D57]" />
               </div>
-              <span className="text-[8px] uppercase tracking-widest text-white/40">HUD RADAR</span>
+              <span className="text-[8px] uppercase tracking-widest text-[#72716d] font-semibold">GEOGRAPHIC RADAR</span>
             </div>
 
-            {/* Interactive Corridors & Pins Layer */}
+            {/* Interactive Corridors & Pins Layer (Spread out across map) */}
             {filteredLocations.map((loc) => {
               const isSelected = loc.id === activeLocationId;
               const isOffice = loc.type === "office";
@@ -382,41 +422,41 @@ export default function LocationPage() {
                 <div
                   key={loc.id}
                   onClick={() => setActiveLocationId(loc.id)}
-                  className="absolute cursor-pointer -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 group z-20"
+                  className="absolute cursor-pointer -translate-x-1/2 -translate-y-1/2 transition-all duration-300 group z-20"
                   style={{ top: loc.coordinates.top, left: loc.coordinates.left }}
                 >
                   {/* Outer Pulsing Beacon for Selected Node */}
                   {isSelected && (
-                    <span className="absolute -inset-3 rounded-full bg-[#B08D57]/25 animate-ping pointer-events-none" />
+                    <span className="absolute -inset-3.5 rounded-full bg-[#B08D57]/20 animate-ping pointer-events-none" />
                   )}
 
                   {/* Pin Node Capsule */}
                   <div
-                    className={`flex items-center gap-2 px-3.5 py-2 rounded-full shadow-2xl border transition-all duration-300 ${
+                    className={`flex items-center gap-2 px-3.5 py-2 rounded-full border transition-all duration-300 ${
                       isSelected
                         ? isOffice
-                          ? "bg-[#B08D57] text-white border-white ring-4 ring-[#B08D57]/50 scale-110"
-                          : "bg-white text-[#1c1b1b] border-[#B08D57] ring-4 ring-white/30 scale-110"
+                          ? "bg-[#B08D57] text-white border-white shadow-xl ring-4 ring-[#B08D57]/30 scale-110"
+                          : "bg-[#1c1b1b] text-white border-[#B08D57] shadow-xl ring-4 ring-black/15 scale-110"
                         : isOffice
-                        ? "bg-[#B08D57]/90 text-white border-[#B08D57] hover:scale-105"
-                        : "bg-[#1c1b1b]/90 text-white border-white/20 hover:border-[#B08D57] hover:scale-105"
+                        ? "bg-white text-[#B08D57] border-[#B08D57] shadow-md hover:scale-105"
+                        : "bg-white text-[#1c1b1b] border-[#E8E4DC] shadow-md hover:border-[#B08D57] hover:scale-105"
                     }`}
                   >
                     <span className="material-symbols-outlined text-sm">
                       {isOffice ? "apartment" : "domain"}
                     </span>
-                    <span className="text-[10.5px] font-semibold tracking-wider uppercase whitespace-nowrap">
+                    <span className="text-[11px] font-bold tracking-wider uppercase whitespace-nowrap">
                       {loc.name.split(" ")[0]}
                     </span>
 
-                    {/* Small distance tag */}
+                    {/* Proximity tag */}
                     <span
                       className={`text-[9px] px-1.5 py-0.5 rounded-full ${
                         isSelected
                           ? isOffice
-                            ? "bg-black/20 text-white"
+                            ? "bg-white/20 text-white font-medium"
                             : "bg-[#FAF7F2] text-[#B08D57] font-bold"
-                          : "bg-white/10 text-white/70"
+                          : "bg-[#FAF7F2] text-[#72716d] font-medium"
                       }`}
                     >
                       {loc.distanceFromOrr}
@@ -426,61 +466,61 @@ export default function LocationPage() {
               );
             })}
 
-            {/* Bottom Glassmorphic Spotlight HUD Card */}
+            {/* Bottom White-Themed Spotlight HUD Card */}
             <div className="absolute bottom-4 left-4 right-4 z-30">
-              <div className="bg-[#1c1b1b]/95 backdrop-blur-xl p-4 md:p-5 rounded-2xl border border-white/10 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 text-white">
+              <div className="bg-white/95 backdrop-blur-xl p-4 md:p-5 rounded-2xl border border-[#E8E4DC] shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
 
-                {/* Left Side: Thumbnail + Info */}
+                {/* Left: Corridor Thumbnail + Identity */}
                 <div className="flex items-center gap-4">
-                  <div className="size-14 md:size-16 rounded-xl overflow-hidden border border-white/15 shrink-0 relative">
+                  <div className="size-14 md:size-16 rounded-xl overflow-hidden border border-[#E8E4DC] shrink-0 relative shadow-xs">
                     <img
                       src={activeLocation.image}
                       alt={activeLocation.name}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/20" />
                   </div>
 
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[9.5px] uppercase font-bold tracking-widest text-[#B08D57] px-2 py-0.5 rounded bg-[#B08D57]/15 border border-[#B08D57]/30">
+                      <span className="text-[9.5px] uppercase font-bold tracking-widest text-[#B08D57] px-2 py-0.5 rounded-full bg-[#FAF7F2] border border-[#E8E4DC]">
                         {activeLocation.badge}
                       </span>
-                      <span className="text-white/40 text-xs">·</span>
-                      <span className="text-xs text-white/70">{activeLocation.avgPriceSqFt}</span>
+                      <span className="text-[#72716d] text-xs">·</span>
+                      <span className="text-xs font-semibold text-[#B08D57]">{activeLocation.avgPriceSqFt}</span>
                     </div>
 
                     <h4
-                      className="text-lg md:text-xl font-normal leading-snug text-white"
+                      className="text-lg md:text-xl font-normal text-[#1c1b1b]"
                       style={{ fontFamily: "'Playfair Display', serif" }}
                     >
                       {activeLocation.name}
                     </h4>
 
-                    <p className="text-xs text-white/60 line-clamp-1">{activeLocation.area}</p>
+                    <p className="text-xs text-[#72716d] line-clamp-1">{activeLocation.area}</p>
                   </div>
                 </div>
 
-                {/* Middle: Connectivity Highlights */}
+                {/* Middle: Transit Highlights */}
                 <div className="hidden lg:flex items-center gap-2">
-                  {activeLocation.driveTimes.slice(0, 2).map((drive) => (
+                  {activeLocation.driveTimes.slice(0, 2).map((item) => (
                     <span
-                      key={drive}
-                      className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] text-white/80 flex items-center gap-1.5"
+                      key={item.label}
+                      className="px-3 py-1.5 rounded-lg bg-[#FAF7F2] border border-[#E8E4DC] text-[11px] text-[#474741] flex items-center gap-1.5"
                     >
                       <span className="size-1.5 rounded-full bg-[#B08D57]" />
-                      {drive}
+                      <span className="font-semibold text-[#1c1b1b]">{item.duration}</span>
+                      <span className="text-[#72716d]">to {item.label}</span>
                     </span>
                   ))}
                 </div>
 
-                {/* Right Side: Google & Apple Maps Action Buttons */}
+                {/* Right: Google & Apple Maps Action Buttons */}
                 <div className="flex items-center gap-2.5 self-end md:self-auto shrink-0">
                   <a
                     href={activeLocation.googleMapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2.5 rounded-xl bg-[#B08D57] hover:bg-[#967645] text-white text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 shadow-md hover:shadow-lg"
+                    className="px-4 py-2.5 rounded-xl bg-[#1c1b1b] hover:bg-[#B08D57] text-white text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 shadow-sm"
                   >
                     <span className="material-symbols-outlined text-sm">map</span>
                     <span>Google Maps</span>
@@ -490,7 +530,7 @@ export default function LocationPage() {
                     href={activeLocation.appleMapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/40 text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5"
+                    className="px-4 py-2.5 rounded-xl bg-[#FAF7F2] hover:bg-white text-[#1c1b1b] border border-[#E8E4DC] hover:border-[#B08D57] text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 shadow-xs"
                   >
                     <span className="material-symbols-outlined text-sm text-[#B08D57]">navigation</span>
                     <span>Apple Maps</span>
@@ -504,168 +544,202 @@ export default function LocationPage() {
         </div>
 
         {/* ───────────────────────────────────────────────────────────────── */}
-        {/* 2. REGIONAL PORTFOLIO CARDS GRID (REDESIGNED LUXURY SHOWCASE)     */}
+        {/* 2. REGIONAL PORTFOLIO — INTERACTIVE ARCHITECTURAL DOSSIER STAGE    */}
+        {/* (Bespoke Master-Detail Ledger replacing standard card boxes)      */}
         {/* ───────────────────────────────────────────────────────────────── */}
         <div className="flex flex-col gap-8 reveal-item">
+          {/* Section Heading */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#E8E4DC] pb-5">
             <div>
               <span className="text-[#B08D57] font-semibold text-xs tracking-[0.25em] uppercase block mb-1">
-                Regional Portfolio
+                Regional Portfolio Ledger
               </span>
               <h3
-                className="text-2xl md:text-3xl font-normal text-[#1c1b1b]"
+                className="text-2xl md:text-4xl font-normal text-[#1c1b1b]"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
-                All Corridors &amp; Facilities
+                Curated Hyderabad Enclaves
               </h3>
             </div>
-            <p className="text-xs text-[#72716d] max-w-sm">
-              Click any corridor card to spotlight on the cartographic map above or open direct navigation.
+            <p className="text-xs text-[#72716d] max-w-md font-light leading-relaxed">
+              Explore masterplan positioning, proximity indices, and statutory compliance across Western Hyderabad&apos;s 7 active nodes.
             </p>
           </div>
 
-          {/* Cards Grid: High-End Architectural Presentation */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-            {locationList.map((loc, idx) => {
-              const isSelected = loc.id === activeLocationId;
-              const isOffice = loc.type === "office";
-              const delayClass = `reveal-delay-${(idx % 3) + 1}`;
+          {/* Master-Detail Architectural Stage */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
-              return (
-                <div
-                  key={loc.id}
-                  onClick={() => {
-                    setActiveLocationId(loc.id);
-                    scrollToMap();
-                  }}
-                  className={`reveal-item ${delayClass} bg-white rounded-3xl border transition-all duration-500 flex flex-col justify-between cursor-pointer group shadow-sm overflow-hidden ${
-                    isSelected
-                      ? "border-[#B08D57] ring-2 ring-[#B08D57]/30 shadow-xl -translate-y-1.5"
-                      : "border-[#E8E4DC] hover:border-[#B08D57]/70 hover:shadow-xl hover:-translate-y-1.5"
-                  }`}
-                >
-                  <div>
-                    {/* Visual Header Image Frame */}
-                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#1c1b1b]">
-                      <img
-                        src={loc.image}
-                        alt={loc.name}
-                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
+            {/* LEFT COLUMN (5 cols): Interactive Enclave Directory Ledger */}
+            <div className="lg:col-span-5 flex flex-col gap-2.5">
+              {locationList.map((loc) => {
+                const isSelected = loc.id === activeLocationId;
+                const isOffice = loc.type === "office";
 
-                      {/* Top Badges */}
-                      <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between gap-2">
-                        <span
-                          className={`text-[9px] uppercase font-bold tracking-widest px-2.5 py-1 rounded-full backdrop-blur-md ${
-                            isOffice
-                              ? "bg-[#B08D57] text-white shadow-xs"
-                              : "bg-white/90 text-[#1c1b1b] shadow-xs"
-                          }`}
-                        >
-                          {loc.badge}
-                        </span>
+                return (
+                  <div
+                    key={loc.id}
+                    onClick={() => {
+                      setActiveLocationId(loc.id);
+                      scrollToMap();
+                    }}
+                    className={`p-4 md:p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between gap-4 relative overflow-hidden ${
+                      isSelected
+                        ? "bg-white border-[#B08D57] shadow-md ring-1 ring-[#B08D57]/20"
+                        : "bg-white/70 hover:bg-white border-[#E8E4DC] hover:border-[#B08D57]/60 shadow-xs"
+                    }`}
+                  >
+                    {/* Active Left Gold Accent Bar */}
+                    {isSelected && (
+                      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#B08D57]" />
+                    )}
 
-                        <span className="text-[10px] font-semibold text-white px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/20">
-                          {loc.distanceFromOrr}
-                        </span>
-                      </div>
+                    <div className="flex items-center gap-3.5 pl-1">
+                      <span
+                        className={`text-xs font-semibold tracking-wider ${
+                          isSelected ? "text-[#B08D57]" : "text-[#72716d]"
+                        }`}
+                        style={{ fontFamily: "'Cormorant Garant', serif" }}
+                      >
+                        {loc.index}
+                      </span>
 
-                      {/* Bottom Image Overlay: Price Tag */}
-                      <div className="absolute bottom-3.5 left-4 right-4 flex items-end justify-between text-white">
-                        <div>
-                          <span className="text-[9.5px] uppercase tracking-wider text-white/70 block">
-                            Benchmark Rate
-                          </span>
-                          <span className="text-sm font-semibold text-[#B08D57]">
-                            {loc.avgPriceSqFt}
-                          </span>
-                        </div>
-                        <div className="size-7 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center group-hover:bg-[#B08D57] transition-colors">
-                          <span className="material-symbols-outlined text-sm text-white">explore</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Card Body */}
-                    <div className="p-6 flex flex-col gap-3">
                       <div>
-                        <h4
-                          className="text-xl font-normal text-[#1c1b1b] group-hover:text-[#B08D57] transition-colors"
-                          style={{ fontFamily: "'Playfair Display', serif" }}
-                        >
-                          {loc.name}
-                        </h4>
-                        <p className="text-xs text-[#72716d] mt-0.5">
-                          {loc.area} · PIN {loc.pincode}
-                        </p>
-                      </div>
-
-                      {/* Positioning Line */}
-                      <p className="text-xs text-[#474741] font-light leading-relaxed">
-                        {loc.positioning}
-                      </p>
-
-                      {/* Transit Connectivity Timeline Chips */}
-                      <div className="pt-2 flex flex-wrap gap-1.5">
-                        {loc.driveTimes.map((drive) => (
-                          <span
-                            key={drive}
-                            className="px-2.5 py-1 rounded-lg bg-[#FAF7F2] border border-[#E8E4DC] text-[10.5px] text-[#72716d] flex items-center gap-1.5"
+                        <div className="flex items-center gap-2">
+                          <h4
+                            className={`text-base md:text-lg font-normal transition-colors ${
+                              isSelected ? "text-[#1c1b1b] font-medium" : "text-[#474741]"
+                            }`}
+                            style={{ fontFamily: "'Playfair Display', serif" }}
                           >
-                            <span className="size-1.5 rounded-full bg-[#B08D57]" />
-                            {drive}
-                          </span>
-                        ))}
+                            {loc.name}
+                          </h4>
+                        </div>
+                        <span className="text-[11px] text-[#72716d] block">{loc.area.split(",")[0]}</span>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Actions Row: Google & Apple Maps */}
-                  <div className="p-4 px-6 bg-[#FAF7F2]/60 border-t border-[#E8E4DC] flex items-center justify-between gap-3">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveLocationId(loc.id);
-                        scrollToMap();
-                      }}
-                      className="text-[10.5px] tracking-wider uppercase font-semibold text-[#B08D57] hover:underline flex items-center gap-1 cursor-pointer"
-                    >
-                      <span>Spotlight Map</span>
-                      <span className="material-symbols-outlined text-xs">my_location</span>
-                    </button>
-
-                    <div className="flex items-center gap-3">
-                      <a
-                        href={loc.googleMapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="text-[10px] tracking-wider uppercase font-semibold text-[#1c1b1b] hover:text-[#B08D57] transition-colors flex items-center gap-0.5"
-                      >
-                        <span>Google</span>
-                        <span className="material-symbols-outlined text-xs">open_in_new</span>
-                      </a>
-
-                      <span className="text-[#E8E4DC]">•</span>
-
-                      <a
-                        href={loc.appleMapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="text-[10px] tracking-wider uppercase font-semibold text-[#72716d] hover:text-[#B08D57] transition-colors flex items-center gap-0.5"
-                      >
-                        <span>Apple</span>
-                        <span className="material-symbols-outlined text-xs">open_in_new</span>
-                      </a>
+                    <div className="text-right shrink-0">
+                      <span className="text-xs font-semibold text-[#B08D57] block">
+                        {loc.avgPriceSqFt}
+                      </span>
+                      <span className="text-[10px] text-[#72716d] uppercase tracking-wider block">
+                        {loc.distanceFromOrr}
+                      </span>
                     </div>
                   </div>
+                );
+              })}
+            </div>
 
+            {/* RIGHT COLUMN (7 cols): Grand Panoramic Architectural Stage */}
+            <div className="lg:col-span-7 bg-white rounded-3xl border border-[#E8E4DC] shadow-xl overflow-hidden flex flex-col justify-between">
+              <div>
+                {/* Widescreen Photography Visual Header */}
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#1c1b1b]">
+                  <img
+                    src={activeLocation.image}
+                    alt={activeLocation.name}
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/10" />
+
+                  {/* Floating Badges on Hero Visual */}
+                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
+                    <span className="text-[9.5px] uppercase font-bold tracking-widest px-3 py-1 rounded-full bg-white/95 text-[#1c1b1b] shadow-md backdrop-blur-md">
+                      {activeLocation.badge}
+                    </span>
+
+                    <span className="text-[10.5px] font-semibold text-white px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20">
+                      ORR Access: {activeLocation.distanceFromOrr}
+                    </span>
+                  </div>
+
+                  {/* Bottom Title on Hero Visual */}
+                  <div className="absolute bottom-4 left-5 right-5 text-white">
+                    <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-[#B08D57] block mb-0.5">
+                      Enclave Dossier {activeLocation.index}
+                    </span>
+                    <h3
+                      className="text-2xl md:text-3xl font-normal leading-tight"
+                      style={{ fontFamily: "'Playfair Display', serif" }}
+                    >
+                      {activeLocation.name}
+                    </h3>
+                  </div>
                 </div>
-              );
-            })}
+
+                {/* Content Details */}
+                <div className="p-6 md:p-8 flex flex-col gap-6">
+                  <div>
+                    <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B08D57] block mb-1">
+                      Masterplan Positioning
+                    </span>
+                    <p className="text-sm md:text-base text-[#474741] font-light leading-relaxed">
+                      {activeLocation.positioning}
+                    </p>
+                  </div>
+
+                  {/* Transit Milestones Timeline */}
+                  <div className="pt-4 border-t border-[#E8E4DC]">
+                    <span className="text-[11px] uppercase tracking-[0.2em] font-semibold text-[#72716d] block mb-3">
+                      Key Transit &amp; Hub Connectivity
+                    </span>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {activeLocation.driveTimes.map((item) => (
+                        <div
+                          key={item.label}
+                          className="p-3.5 rounded-xl bg-[#FAF7F2] border border-[#E8E4DC] flex flex-col gap-0.5"
+                        >
+                          <span className="text-[10px] uppercase tracking-wider text-[#72716d]">
+                            {item.label}
+                          </span>
+                          <span className="text-sm font-semibold text-[#B08D57]" style={{ fontFamily: "'Playfair Display', serif" }}>
+                            {item.duration}
+                          </span>
+                          <span className="text-[10px] text-[#72716d]">{item.note}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Actions Bar */}
+              <div className="p-5 md:px-8 bg-[#FAF7F2] border-t border-[#E8E4DC] flex flex-wrap items-center justify-between gap-4">
+                <button
+                  type="button"
+                  onClick={scrollToMap}
+                  className="text-xs font-semibold uppercase tracking-wider text-[#B08D57] hover:text-[#967645] flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-base">my_location</span>
+                  <span>Spotlight On Radar Map</span>
+                </button>
+
+                <div className="flex items-center gap-3">
+                  <a
+                    href={activeLocation.googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 rounded-xl bg-[#1c1b1b] hover:bg-[#B08D57] text-white text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 shadow-sm"
+                  >
+                    <span>Google Maps</span>
+                    <span className="material-symbols-outlined text-xs">open_in_new</span>
+                  </a>
+
+                  <a
+                    href={activeLocation.appleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 rounded-xl bg-white hover:bg-[#FAF7F2] text-[#1c1b1b] border border-[#E8E4DC] hover:border-[#B08D57] text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 shadow-xs"
+                  >
+                    <span>Apple Maps</span>
+                    <span className="material-symbols-outlined text-xs text-[#72716d]">open_in_new</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
           </div>
         </div>
 
