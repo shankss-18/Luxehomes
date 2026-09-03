@@ -9,10 +9,10 @@ html {
 body {
   background-color: #FAF7F2;
   background-image: 
-    radial-gradient(ellipse at 50% 15%, rgba(250, 247, 242, 0.88) 0%, rgba(250, 247, 242, 0.96) 100%),
+    radial-gradient(ellipse at 50% 15%, rgba(250, 247, 242, 0.15) 0%, rgba(250, 247, 242, 0.38) 100%),
     url("/luxury-palace-pattern.jpg");
   background-repeat: repeat;
-  background-size: 800px auto;
+  background-size: 650px auto;
   background-attachment: fixed;
   color: #1c1b1b;
   font-family: "Inter", sans-serif;
@@ -330,30 +330,28 @@ body {
 .bg-luxury-pattern {
   background-color: #FAF7F2;
   background-image: 
-    radial-gradient(ellipse at center, rgba(250, 247, 242, 0.82) 0%, rgba(250, 247, 242, 0.92) 100%),
+    radial-gradient(ellipse at center, rgba(250, 247, 242, 0.15) 0%, rgba(250, 247, 242, 0.40) 100%),
     url("/luxury-palace-pattern.jpg");
   background-repeat: repeat;
-  background-size: 800px auto;
+  background-size: 650px auto;
   background-attachment: fixed;
 }
 
 .bg-luxury-pattern-subtle {
   background-color: #FAF7F2;
   background-image: 
-    radial-gradient(ellipse at center, rgba(250, 247, 242, 0.86) 0%, rgba(250, 247, 242, 0.96) 100%),
+    radial-gradient(ellipse at center, rgba(250, 247, 242, 0.20) 0%, rgba(250, 247, 242, 0.45) 100%),
     url("/luxury-palace-pattern.jpg");
   background-repeat: repeat;
-  background-size: 800px auto;
+  background-size: 650px auto;
   background-attachment: fixed;
 }
 
 .bg-luxury-palace {
   background-color: #FAF7F2;
-  background-image: 
-    radial-gradient(ellipse at center, rgba(250, 247, 242, 0.80) 0%, rgba(250, 247, 242, 0.90) 100%),
-    url("/luxury-palace-pattern.jpg");
+  background-image: url("/luxury-palace-pattern.jpg");
   background-repeat: repeat;
-  background-size: 800px auto;
+  background-size: 650px auto;
   background-attachment: fixed;
 }
 
@@ -363,7 +361,7 @@ body {
   .bg-luxury-pattern-subtle,
   .bg-luxury-palace {
     background-attachment: scroll;
-    background-size: 440px auto;
+    background-size: 340px auto;
   }
 }
 

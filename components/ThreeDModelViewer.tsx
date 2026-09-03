@@ -237,13 +237,16 @@ export default function ThreeDModelViewer({
       const plinthGeo = new THREE.BoxGeometry(26, 0.6, 24);
       const plinth = new THREE.Mesh(plinthGeo, plinthMat);
       plinth.position.set(0, -0.3, 0);
-      plinth.receiveShadow = true;
+      plinth.receiveShadow = false; // Zero shadow acne on pedestal
+      plinth.castShadow = false;
       modelGroup.add(plinth);
 
       // Brass hairline trim around plinth
       const trimGeo = new THREE.BoxGeometry(26.08, 0.04, 24.08);
       const trimMesh = new THREE.Mesh(trimGeo, goldBrassMat);
       trimMesh.position.set(0, -0.02, 0);
+      trimMesh.receiveShadow = false;
+      trimMesh.castShadow = false;
       modelGroup.add(trimMesh);
 
       // ─── TIER 1: NON-OVERLAPPING DISJOINT ROOM FLOORS (y = 0.025, height = 0.05, top at 0.05)
@@ -725,8 +728,8 @@ export default function ThreeDModelViewer({
     sunLight.shadow.camera.right = 18;
     sunLight.shadow.camera.top = 18;
     sunLight.shadow.camera.bottom = -18;
-    sunLight.shadow.bias = -0.0001;
-    sunLight.shadow.normalBias = 0.015; // Clean, stable contact shadow without acne or shimmering
+    sunLight.shadow.bias = -0.0012;
+    sunLight.shadow.normalBias = 0.04; // Robust bias permanently eliminates shadow acne on mobile GPUs
     scene.add(sunLight);
     sunLightRef.current = sunLight;
 
