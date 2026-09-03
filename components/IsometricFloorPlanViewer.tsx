@@ -407,8 +407,8 @@ export default function IsometricFloorPlanViewer({
                     <span className="material-symbols-outlined text-2xl">view_in_ar</span>
                   </div>
                   <p
-                    className="text-base font-normal text-[#1c1b1b] mb-1"
-                    style={{ fontFamily: "'Playfair Display', serif" }}
+                    className="text-lg font-normal text-[#1c1b1b] mb-1 tracking-tight"
+                    style={{ fontFamily: "'Cormorant Garant', serif" }}
                   >
                     Architectural Drawing in Atelier
                   </p>
@@ -579,7 +579,7 @@ export default function IsometricFloorPlanViewer({
             <div className="flex items-center gap-3">
               <span className="size-2 rounded-full bg-[#B08D57] animate-pulse" />
               <div>
-                <h4 className="text-sm sm:text-base font-medium" style={{ fontFamily: "'Playfair Display', serif" }}>
+                <h4 className="text-base sm:text-lg font-normal tracking-wide" style={{ fontFamily: "'Cormorant Garant', serif" }}>
                   {unit.project_name} · {unit.tower} · Unit {unit.unit_number}
                 </h4>
                 <p className="text-[11px] text-white/60">

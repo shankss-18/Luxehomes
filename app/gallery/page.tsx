@@ -126,8 +126,8 @@ export default function GalleryPage() {
             <span>OUR RESIDENCES</span>
           </div>
           <h1
-            className="text-[#1c1b1b] leading-tight text-2xl sm:text-3xl md:text-5xl font-normal"
-            style={{ fontFamily: "'Cormorant Garant', 'Playfair Display', serif" }}
+            className="text-[#1c1b1b] leading-tight text-3xl sm:text-4xl md:text-6xl font-normal tracking-[-0.01em]"
+            style={{ fontFamily: "'Cormorant Garant', serif" }}
           >
             Explore Every Configuration
           </h1>
@@ -161,8 +161,8 @@ export default function GalleryPage() {
                   Isometric 3D Masterplan
                 </span>
                 <h2
-                  className="text-[#1c1b1b] text-xl sm:text-2xl md:text-3xl font-normal leading-tight"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
+                  className="text-[#1c1b1b] text-2xl sm:text-3xl md:text-4xl font-normal leading-tight tracking-[-0.01em]"
+                  style={{ fontFamily: "'Cormorant Garant', serif" }}
                 >
                   Layouts &amp; Unit Configurations
                 </h2>
@@ -205,8 +205,8 @@ export default function GalleryPage() {
                     </span>
                   </div>
                   <h3
-                    className="text-xl sm:text-2xl md:text-3xl font-normal text-[#1c1b1b]"
-                    style={{ fontFamily: "'Playfair Display', serif" }}
+                    className="text-2xl sm:text-3xl md:text-4xl font-normal text-[#1c1b1b] tracking-[-0.01em]"
+                    style={{ fontFamily: "'Cormorant Garant', serif" }}
                   >
                     {activeTab === "plots"
                       ? "The Neopolis Freehold Estate Plots"
@@ -231,8 +231,8 @@ export default function GalleryPage() {
                     Carpet Area Range
                   </span>
                   <p
-                    className="text-base sm:text-lg md:text-xl font-normal text-[#1c1b1b]"
-                    style={{ fontFamily: "'Playfair Display', serif" }}
+                    className="text-lg sm:text-xl md:text-2xl font-normal text-[#1c1b1b]"
+                    style={{ fontFamily: "'Cormorant Garant', serif" }}
                   >
                     {tabSummary.carpetRange}
                   </p>
@@ -242,8 +242,8 @@ export default function GalleryPage() {
                     Starting Price
                   </span>
                   <p
-                    className="text-base sm:text-lg md:text-xl font-normal text-[#B08D57]"
-                    style={{ fontFamily: "'Playfair Display', serif" }}
+                    className="text-lg sm:text-xl md:text-2xl font-normal text-[#B08D57]"
+                    style={{ fontFamily: "'Cormorant Garant', serif" }}
                   >
                     {tabSummary.startingPrice}
                   </p>
@@ -360,7 +360,7 @@ export default function GalleryPage() {
                 </div>
                 <h3
                   className="text-2xl font-normal text-[#1c1b1b] mb-2"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
+                  style={{ fontFamily: "'Cormorant Garant', serif" }}
                 >
                   Inquiry Dispatched
                 </h3>
@@ -375,8 +375,8 @@ export default function GalleryPage() {
                     Private Client Advisory
                   </span>
                   <h3
-                    className="text-2xl font-normal text-[#1c1b1b]"
-                    style={{ fontFamily: "'Playfair Display', serif" }}
+                    className="text-2xl sm:text-3xl font-normal text-[#1c1b1b]"
+                    style={{ fontFamily: "'Cormorant Garant', serif" }}
                   >
                     Request Confidential Portfolio
                   </h3>
@@ -493,8 +493,8 @@ export default function GalleryPage() {
                   <span className="material-symbols-outlined text-2xl">download_done</span>
                 </div>
                 <h3
-                  className="text-xl font-normal text-[#1c1b1b] mb-1"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
+                  className="text-xl sm:text-2xl font-normal text-[#1c1b1b] mb-1"
+                  style={{ fontFamily: "'Cormorant Garant', serif" }}
                 >
                   Brochure Dispatched
                 </h3>
@@ -509,8 +509,8 @@ export default function GalleryPage() {
                     Confidential Document
                   </span>
                   <h3
-                    className="text-xl font-normal text-[#1c1b1b]"
-                    style={{ fontFamily: "'Playfair Display', serif" }}
+                    className="text-xl sm:text-2xl font-normal text-[#1c1b1b]"
+                    style={{ fontFamily: "'Cormorant Garant', serif" }}
                   >
                     Download Masterplan Brochure
                   </h3>

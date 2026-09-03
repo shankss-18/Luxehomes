@@ -35,7 +35,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
   ];
 
   return (
-    <main className="pt-[104px] pb-16">
+    <main className="pt-[104px] pb-16 bg-luxury-pattern-subtle min-h-screen">
       {/* ── Breadcrumb & Back Navigation ─────────────────────────────────── */}
       <div className="max-w-content mx-auto px-margin-mobile md:px-margin-desktop py-4">
         <Link

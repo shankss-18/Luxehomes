@@ -132,8 +132,8 @@ export default function HomeGalleryMarquee() {
                 </div>
 
                 <h4
-                  className="text-sm md:text-[15px] font-normal text-[#1c1b1b] group-hover/card:text-[#B08D57] transition-colors leading-snug whitespace-nowrap"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
+                  className="text-[15px] sm:text-base md:text-[17px] font-normal text-[#1c1b1b] group-hover/card:text-[#B08D57] transition-colors leading-snug whitespace-nowrap tracking-tight"
+                  style={{ fontFamily: "'Cormorant Garant', serif" }}
                 >
                   {item.title}
                 </h4>

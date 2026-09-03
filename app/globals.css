@@ -8,6 +8,12 @@ html {
 
 body {
   background-color: #FAF7F2;
+  background-image: 
+    radial-gradient(ellipse at 50% 15%, rgba(250, 247, 242, 0.88) 0%, rgba(250, 247, 242, 0.96) 100%),
+    url("/luxury-palace-pattern.jpg");
+  background-repeat: repeat;
+  background-size: 800px auto;
+  background-attachment: fixed;
   color: #1c1b1b;
   font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -320,21 +326,45 @@ body {
   perspective: 1000px;
 }
 
-/* ─── Luxury Arch Pattern (User-Provided Design) ────────────────────────── */
+/* ─── Luxury Palace Pattern (User-Provided Architectural Filigree) ────── */
 .bg-luxury-pattern {
   background-color: #FAF7F2;
-  background-image: url("/luxury-arch-pattern.svg");
+  background-image: 
+    radial-gradient(ellipse at center, rgba(250, 247, 242, 0.82) 0%, rgba(250, 247, 242, 0.92) 100%),
+    url("/luxury-palace-pattern.jpg");
   background-repeat: repeat;
-  background-size: 140px 140px;
+  background-size: 800px auto;
+  background-attachment: fixed;
 }
 
 .bg-luxury-pattern-subtle {
   background-color: #FAF7F2;
   background-image: 
-    radial-gradient(ellipse at center, rgba(250, 247, 242, 0.84) 0%, rgba(250, 247, 242, 0.97) 100%),
-    url("/luxury-arch-pattern.svg");
+    radial-gradient(ellipse at center, rgba(250, 247, 242, 0.86) 0%, rgba(250, 247, 242, 0.96) 100%),
+    url("/luxury-palace-pattern.jpg");
   background-repeat: repeat;
-  background-size: 140px 140px;
+  background-size: 800px auto;
+  background-attachment: fixed;
+}
+
+.bg-luxury-palace {
+  background-color: #FAF7F2;
+  background-image: 
+    radial-gradient(ellipse at center, rgba(250, 247, 242, 0.80) 0%, rgba(250, 247, 242, 0.90) 100%),
+    url("/luxury-palace-pattern.jpg");
+  background-repeat: repeat;
+  background-size: 800px auto;
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  body,
+  .bg-luxury-pattern,
+  .bg-luxury-pattern-subtle,
+  .bg-luxury-palace {
+    background-attachment: scroll;
+    background-size: 440px auto;
+  }
 }
 
 /* ─── Seamless Custom Scrollbar & No-Scrollbar Utilities ───────────────── */
