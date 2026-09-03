@@ -133,32 +133,32 @@ export default function ThreeDModelViewer({
 
       const marbleFloorMat = new THREE.MeshStandardMaterial({
         color: 0xf6f3ec, // Italian Botticino polished marble
-        roughness: 0.2,
-        metalness: 0.1,
+        roughness: 0.88, // Satin-matte finish: eliminates specular glare & color shifting during rotation!
+        metalness: 0.0,
       });
 
       const woodFloorMat = new THREE.MeshStandardMaterial({
         color: 0xb28150, // Warm teak hardwood parquet
-        roughness: 0.45,
-        metalness: 0.06,
+        roughness: 0.85, // Uniform diffuse response from all 360 camera angles
+        metalness: 0.0,
       });
 
       const stoneKitchenTileMat = new THREE.MeshStandardMaterial({
         color: 0xd4cdc2, // Slate stone tiles
-        roughness: 0.4,
-        metalness: 0.08,
+        roughness: 0.88,
+        metalness: 0.0,
       });
 
       const teakBalconyDeckMat = new THREE.MeshStandardMaterial({
         color: 0x724726, // Outdoor teak wood decking
-        roughness: 0.65,
-        metalness: 0.04,
+        roughness: 0.85,
+        metalness: 0.0,
       });
 
       const poojaMarbleMat = new THREE.MeshStandardMaterial({
         color: 0xfcfbf8,
-        roughness: 0.15,
-        metalness: 0.15,
+        roughness: 0.88,
+        metalness: 0.0,
       });
 
       const glassBalustradeMat = new THREE.MeshPhysicalMaterial({
@@ -291,18 +291,16 @@ export default function ThreeDModelViewer({
       // 8. Wrap-Around Balcony Deck: X: [-3, 11], Z: [6, 11.2] (14 x 5.2)
       addFloor(14.0, 5.2, 4.0, 8.6, teakBalconyDeckMat);
 
-      // ─── TIER 2: AREA RUGS (y = 0.055, elevated strictly above floor) ───
+      // ─── TIER 2: AREA RUGS (Resting cleanly at y = 0.056, strictly above floor) ───
       const createRug = (w: number, d: number, x: number, z: number, color = 0xd8d1c6) => {
-        const geo = new THREE.BoxGeometry(w, 0.008, d);
+        const geo = new THREE.BoxGeometry(w, 0.006, d);
         const mat = new THREE.MeshStandardMaterial({
           color,
           roughness: 0.95,
-          polygonOffset: true,
-          polygonOffsetFactor: -3,
-          polygonOffsetUnits: -3,
+          metalness: 0.0,
         });
         const mesh = new THREE.Mesh(geo, mat);
-        mesh.position.set(x, 0.055, z);
+        mesh.position.set(x, 0.056, z);
         mesh.receiveShadow = true;
         mesh.castShadow = false;
         modelGroup.add(mesh);
@@ -671,8 +669,8 @@ export default function ThreeDModelViewer({
     renderer.setPixelRatio(Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, 1.75));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.08;
+    renderer.toneMapping = THREE.NeutralToneMapping;
+    renderer.toneMappingExposure = 1.0;
 
     // Explicit Touch & Selection Styling on Canvas (Prevents browser touch fighting)
     renderer.domElement.style.touchAction = "none";
@@ -710,13 +708,14 @@ export default function ThreeDModelViewer({
 
     controlsRef.current = controls;
 
-    // 5. Lighting Setup with Anti-Chatter Shadow Bias
-    const hemiLight = new THREE.HemisphereLight(0xfff8ee, 0xd0c4b4, 1.3);
+    // 5. Balanced Architectural Lighting Rig (Zero Color Shifting Across 360° Orbit)
+    const hemiLight = new THREE.HemisphereLight(0xfff8ee, 0xd0c4b4, 1.25);
     scene.add(hemiLight);
     hemiLightRef.current = hemiLight;
 
-    const sunLight = new THREE.DirectionalLight(0xfff5e6, 1.85);
-    sunLight.position.set(24, 30, 20);
+    // Key Sun Light (Top-Right)
+    const sunLight = new THREE.DirectionalLight(0xfff5e6, 1.25);
+    sunLight.position.set(20, 28, 16);
     sunLight.castShadow = true;
     sunLight.shadow.mapSize.width = 1024;
     sunLight.shadow.mapSize.height = 1024;
@@ -726,10 +725,15 @@ export default function ThreeDModelViewer({
     sunLight.shadow.camera.right = 18;
     sunLight.shadow.camera.top = 18;
     sunLight.shadow.camera.bottom = -18;
-    sunLight.shadow.bias = -0.0004;
-    sunLight.shadow.normalBias = 0.04; // Smooth normal bias eliminates shadow acne entirely
+    sunLight.shadow.bias = -0.0001;
+    sunLight.shadow.normalBias = 0.015; // Clean, stable contact shadow without acne or shimmering
     scene.add(sunLight);
     sunLightRef.current = sunLight;
+
+    // Balanced Fill Sun (Top-Left Opposite — Keeps Backside Uniformly Lit)
+    const fillLight = new THREE.DirectionalLight(0xffeedd, 0.6);
+    fillLight.position.set(-18, 22, -14);
+    scene.add(fillLight);
 
     // Warm Interior Point Lights
     const warmPoints: THREE.PointLight[] = [];
