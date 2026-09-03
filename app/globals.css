@@ -200,13 +200,23 @@ body {
   50%       { box-shadow: 0 0 16px 4px rgba(176,141,87,0.25); }
 }
 
-/* Continuous smooth right-to-left marquee glide */
+/* Continuous smooth right-to-left marquee glide (3-set) */
 @keyframes marqueeGlide {
   0% {
     transform: translateX(0);
   }
   100% {
     transform: translateX(-33.333333%);
+  }
+}
+
+/* Continuous smooth right-to-left marquee glide (2-set) */
+@keyframes marqueeGlideHalf {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 

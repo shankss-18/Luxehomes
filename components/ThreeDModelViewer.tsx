@@ -35,7 +35,7 @@ export default function ThreeDModelViewer({
   const controlsRef = useRef<OrbitControls | null>(null);
   const animFrameIdRef = useRef<number | null>(null);
 
-  // Lighting references for Day/Night toggle
+  // Lighting references for Day/Evening toggle
   const sunLightRef = useRef<THREE.DirectionalLight | null>(null);
   const hemiLightRef = useRef<THREE.HemisphereLight | null>(null);
   const interiorLightsRef = useRef<THREE.PointLight[]>([]);
@@ -47,571 +47,610 @@ export default function ThreeDModelViewer({
   const [cameraView, setCameraView] = useState<"iso" | "top" | "front">("iso");
   const [loading, setLoading] = useState(true);
 
-  // Animation target for smooth camera movement
+  // Smooth camera transitions
   const cameraTargetRef = useRef<{
     pos: THREE.Vector3;
     lookAt: THREE.Vector3;
     inProgress: boolean;
   }>({
-    pos: new THREE.Vector3(18, 20, 20),
-    lookAt: new THREE.Vector3(0, 1, 0),
+    pos: new THREE.Vector3(18, 19, 20),
+    lookAt: new THREE.Vector3(0, 0.8, 0),
     inProgress: false,
   });
 
   const numBhk = bhk || 3;
 
-  // Define key room focal points based on BHK
+  // Key room targets matching reference layout
   const roomTargets: RoomTarget[] = [
     {
-      name: "Living & Dining",
-      dim: numBhk >= 3 ? "22'0\" x 14'6\"" : "18'6\" x 12'0\"",
-      target: [2, 1, 1] as [number, number, number],
-      cameraPos: [8, 14, 14] as [number, number, number],
+      name: "Living & Dining Salon",
+      dim: "24'0\" x 16'0\"",
+      target: [2.5, 0.8, 1.2] as [number, number, number],
+      cameraPos: [9, 13, 13] as [number, number, number],
     },
     {
-      name: "Master Suite",
-      dim: numBhk >= 3 ? "17'6\" x 11'4\"" : "14'0\" x 12'0\"",
-      target: [-6, 1, -4] as [number, number, number],
-      cameraPos: [-2, 11, 4] as [number, number, number],
+      name: "Master Suite & Ensuite",
+      dim: "17'6\" x 13'0\"",
+      target: [-6.2, 0.8, 4.2] as [number, number, number],
+      cameraPos: [-2, 10, 11] as [number, number, number],
     },
     {
-      name: "Gourmet Kitchen",
-      dim: numBhk >= 3 ? "12'0\" x 9'6\"" : "8'8\" x 8'2\"",
-      target: [6, 1, -5] as [number, number, number],
-      cameraPos: [11, 10, 2] as [number, number, number],
+      name: "Traditional Mandir / Pooja",
+      dim: "6'0\" x 5'0\"",
+      target: [-1.2, 0.8, 1.2] as [number, number, number],
+      cameraPos: [1.8, 6.5, 6.5] as [number, number, number],
     },
     {
-      name: "Bedroom 2",
-      dim: "14'0\" x 12'0\"",
-      target: [-6, 1, 4] as [number, number, number],
-      cameraPos: [-1, 11, 11] as [number, number, number],
+      name: "Bedroom 2 (Study)",
+      dim: "15'0\" x 12'6\"",
+      target: [-6.5, 0.8, -4.5] as [number, number, number],
+      cameraPos: [-2, 10, 2.5] as [number, number, number],
     },
     ...(numBhk >= 3
       ? [
           {
-            name: "Bedroom 3",
-            dim: "14'0\" x 12'4\"",
-            target: [-1, 1, -5] as [number, number, number],
-            cameraPos: [4, 11, 3] as [number, number, number],
+            name: "Bedroom 3 (Twin Suite)",
+            dim: "14'0\" x 12'0\"",
+            target: [-0.5, 0.8, -5.2] as [number, number, number],
+            cameraPos: [3.5, 9.5, 1.5] as [number, number, number],
           },
         ]
       : []),
     {
-      name: "Balcony Deck",
-      dim: "16'0\" x 6'0\"",
-      target: [5, 1, 8] as [number, number, number],
-      cameraPos: [9, 9, 15] as [number, number, number],
+      name: "Gourmet Kitchen & Utility",
+      dim: "14'6\" x 10'0\"",
+      target: [6.5, 0.8, -4.8] as [number, number, number],
+      cameraPos: [11.5, 9.5, 2.0] as [number, number, number],
+    },
+    {
+      name: "Wrap-Around Balcony Deck",
+      dim: "22'0\" x 7'0\"",
+      target: [5.2, 0.8, 6.5] as [number, number, number],
+      cameraPos: [9.5, 8.5, 13.5] as [number, number, number],
     },
   ];
 
-  // Helper to build procedural realistic 3D architectural model
+  // Helper to build procedural 3D model with strict vertical tiering (Zero Z-Fighting)
   const buildApartmentModel = useCallback(
     (scene: THREE.Scene) => {
-      // Materials palette (Luxury warm architectural materials)
-      const wallMaterial = new THREE.MeshStandardMaterial({
-        color: 0xede8e1, // warm off-white architectural plaster
+      // ─── MATERIALS (Warm Quiet Luxury Palette) ───────────────────────
+      const plinthMat = new THREE.MeshStandardMaterial({
+        color: 0xf3efe9,
+        roughness: 0.9,
+      });
+
+      const wallMat = new THREE.MeshStandardMaterial({
+        color: 0xf0ece5, // warm off-white architectural plaster
         roughness: 0.85,
-        metalness: 0.05,
+        metalness: 0.02,
       });
 
-      const wallAccentMaterial = new THREE.MeshStandardMaterial({
-        color: 0x3d352e, // dark teak slatted feature wall
+      const wallWoodFlutedMat = new THREE.MeshStandardMaterial({
+        color: 0x42362b, // dark teak fluted TV wall
         roughness: 0.5,
-        metalness: 0.15,
-      });
-
-      const marbleFloorMaterial = new THREE.MeshStandardMaterial({
-        color: 0xf7f4ef, // Italian botticino marble
-        roughness: 0.2,
-        metalness: 0.15,
-      });
-
-      const woodFloorMaterial = new THREE.MeshStandardMaterial({
-        color: 0xb58a5f, // warm teak hardwood flooring
-        roughness: 0.45,
-        metalness: 0.08,
-      });
-
-      const kitchenTileMaterial = new THREE.MeshStandardMaterial({
-        color: 0xded9d0, // modern slate kitchen stone
-        roughness: 0.35,
         metalness: 0.1,
       });
 
-      const balconyDeckMaterial = new THREE.MeshStandardMaterial({
-        color: 0x82542e, // exterior teak decking
-        roughness: 0.7,
-        metalness: 0.05,
+      const marbleFloorMat = new THREE.MeshStandardMaterial({
+        color: 0xf5f2eb, // Italian Botticino polished marble
+        roughness: 0.22,
+        metalness: 0.12,
       });
 
-      const glassMaterial = new THREE.MeshPhysicalMaterial({
-        color: 0xd0e8ff,
+      const woodFloorMat = new THREE.MeshStandardMaterial({
+        color: 0xb48352, // Warm teak hardwood parquet
+        roughness: 0.45,
+        metalness: 0.06,
+      });
+
+      const stoneKitchenTileMat = new THREE.MeshStandardMaterial({
+        color: 0xd6cfc4, // Slate stone tiles
+        roughness: 0.4,
+        metalness: 0.08,
+      });
+
+      const teakBalconyDeckMat = new THREE.MeshStandardMaterial({
+        color: 0x764b2b, // Outdoor teak wood decking
+        roughness: 0.65,
+        metalness: 0.04,
+      });
+
+      const bathTileMat = new THREE.MeshStandardMaterial({
+        color: 0xcfc9c0,
+        roughness: 0.3,
+        metalness: 0.1,
+      });
+
+      const poojaMarbleMat = new THREE.MeshStandardMaterial({
+        color: 0xfbf9f6,
+        roughness: 0.18,
+        metalness: 0.2,
+      });
+
+      const glassBalustradeMat = new THREE.MeshPhysicalMaterial({
+        color: 0xdaf0ff,
         transparent: true,
-        opacity: 0.35,
+        opacity: 0.42,
         roughness: 0.05,
         metalness: 0.1,
         transmission: 0.85,
         ior: 1.5,
       });
 
-      const goldBrassMaterial = new THREE.MeshStandardMaterial({
-        color: 0xb08d57, // brand gold
-        roughness: 0.3,
-        metalness: 0.8,
+      const stainlessSteelMat = new THREE.MeshStandardMaterial({
+        color: 0xcccccc,
+        metalness: 0.9,
+        roughness: 0.2,
       });
 
-      const furnitureWoodMaterial = new THREE.MeshStandardMaterial({
-        color: 0x4a3728, // rich walnut wood
-        roughness: 0.5,
-        metalness: 0.05,
+      const darkCabinetMat = new THREE.MeshStandardMaterial({
+        color: 0x222120, // Matte black modern kitchen cabinets
+        roughness: 0.35,
+        metalness: 0.15,
       });
 
-      const fabricSofaMaterial = new THREE.MeshStandardMaterial({
-        color: 0x5a5752, // luxury charcoal-linen sofa
+      const counterQuartzMat = new THREE.MeshStandardMaterial({
+        color: 0xeae6df,
+        roughness: 0.25,
+        metalness: 0.08,
+      });
+
+      const fabricSofaMat = new THREE.MeshStandardMaterial({
+        color: 0xe0dbd1, // luxury cream-linen sofa
         roughness: 0.9,
-        metalness: 0.0,
       });
 
-      const bedLinenMaterial = new THREE.MeshStandardMaterial({
-        color: 0xfafafa, // crisp white bedsheets
+      const darkWoodFurnitureMat = new THREE.MeshStandardMaterial({
+        color: 0x3d3228, // rich walnut wood
+        roughness: 0.5,
+      });
+
+      const whiteLinenMat = new THREE.MeshStandardMaterial({
+        color: 0xfcfcfc,
+        roughness: 0.85,
+      });
+
+      const blanketAccentMat = new THREE.MeshStandardMaterial({
+        color: 0x9b7b59, // tan bed runner
         roughness: 0.8,
-        metalness: 0.0,
       });
 
-      const foliageMaterial = new THREE.MeshStandardMaterial({
-        color: 0x2d5a27, // lush plant leaves
+      const poojaTeakMat = new THREE.MeshStandardMaterial({
+        color: 0x6e431f, // carved mandir teakwood
+        roughness: 0.45,
+      });
+
+      const goldBrassMat = new THREE.MeshStandardMaterial({
+        color: 0xb08d57, // gold brass trims
+        metalness: 0.85,
+        roughness: 0.25,
+      });
+
+      const foliageMat = new THREE.MeshStandardMaterial({
+        color: 0x2d6124, // lush green plants
         roughness: 0.6,
-        metalness: 0.0,
+      });
+
+      const potMat = new THREE.MeshStandardMaterial({
+        color: 0xe5dfd7,
+        roughness: 0.6,
       });
 
       const modelGroup = new THREE.Group();
 
-      // ─── 1. BASE PLINTH / PODIUM ─────────────────────────────────────
-      const plinthGeo = new THREE.BoxGeometry(25, 0.8, 22);
-      const plinthMat = new THREE.MeshStandardMaterial({
-        color: 0xf5f2ed,
-        roughness: 0.9,
-      });
+      // ─── TIER 0: BASE PLINTH (Top sits at y = 0.0) ───────────────────
+      const plinthGeo = new THREE.BoxGeometry(26, 0.6, 23);
       const plinth = new THREE.Mesh(plinthGeo, plinthMat);
-      plinth.position.set(0, -0.4, 0);
+      plinth.position.set(0, -0.3, 0);
       plinth.receiveShadow = true;
       modelGroup.add(plinth);
 
-      // Gold accent trim line around plinth
-      const trimGeo = new THREE.BoxGeometry(25.1, 0.08, 22.1);
-      const trimMesh = new THREE.Mesh(trimGeo, goldBrassMaterial);
-      trimMesh.position.set(0, -0.04, 0);
+      // Brass hairline trim around plinth
+      const trimGeo = new THREE.BoxGeometry(26.1, 0.04, 23.1);
+      const trimMesh = new THREE.Mesh(trimGeo, goldBrassMat);
+      trimMesh.position.set(0, -0.02, 0);
       modelGroup.add(trimMesh);
 
-      // ─── 2. FLOOR ZONES ──────────────────────────────────────────────
-      // A. Living & Dining (Marble)
-      const livingFloorGeo = new THREE.BoxGeometry(12, 0.05, 12);
-      const livingFloor = new THREE.Mesh(livingFloorGeo, marbleFloorMaterial);
-      livingFloor.position.set(2, 0.025, 1);
+      // ─── TIER 1: ROOM FLOORS (Top sits at y = 0.06, well above plinth)
+      const floorThickness = 0.05;
+      const floorY = 0.035; // Center Y, top at 0.06
+
+      // A. Living & Dining Salon (Italian Marble)
+      const livingFloorGeo = new THREE.BoxGeometry(12.5, floorThickness, 13);
+      const livingFloor = new THREE.Mesh(livingFloorGeo, marbleFloorMat);
+      livingFloor.position.set(2.5, floorY, 1.5);
       livingFloor.receiveShadow = true;
       modelGroup.add(livingFloor);
 
-      // Carpet rug under living area
-      const rugGeo = new THREE.BoxGeometry(6.5, 0.02, 5);
-      const rugMat = new THREE.MeshStandardMaterial({
-        color: 0xd8d0c5,
-        roughness: 0.95,
-        polygonOffset: true,
-        polygonOffsetFactor: -2,
-        polygonOffsetUnits: -2,
-      });
-      const rug = new THREE.Mesh(rugGeo, rugMat);
-      rug.position.set(0.5, 0.065, 1);
-      rug.receiveShadow = true;
-      modelGroup.add(rug);
-
-      // B. Kitchen & Utility (Stone tiles)
-      const kitchenFloorGeo = new THREE.BoxGeometry(7, 0.05, 7.5);
-      const kitchenFloor = new THREE.Mesh(kitchenFloorGeo, kitchenTileMaterial);
-      kitchenFloor.position.set(6.5, 0.025, -6);
+      // B. Gourmet Kitchen & Utility (Slate Stone Tiles)
+      const kitchenFloorGeo = new THREE.BoxGeometry(7.2, floorThickness, 8);
+      const kitchenFloor = new THREE.Mesh(kitchenFloorGeo, stoneKitchenTileMat);
+      kitchenFloor.position.set(6.8, floorY, -6);
       kitchenFloor.receiveShadow = true;
       modelGroup.add(kitchenFloor);
 
-      // C. Master Bedroom (Teak hardwood)
-      const masterFloorGeo = new THREE.BoxGeometry(8, 0.05, 8.5);
-      const masterFloor = new THREE.Mesh(masterFloorGeo, woodFloorMaterial);
-      masterFloor.position.set(-6.5, 0.025, -4.5);
+      // C. Central Mandir / Pooja Room (White Makrana Marble)
+      const poojaFloorGeo = new THREE.BoxGeometry(3.2, floorThickness, 3.2);
+      const poojaFloor = new THREE.Mesh(poojaFloorGeo, poojaMarbleMat);
+      poojaFloor.position.set(-1.2, floorY, 1.2);
+      poojaFloor.receiveShadow = true;
+      modelGroup.add(poojaFloor);
+
+      // D. Master Suite & Bath (Teak Wood Parquet)
+      const masterFloorGeo = new THREE.BoxGeometry(8.2, floorThickness, 8.8);
+      const masterFloor = new THREE.Mesh(masterFloorGeo, woodFloorMat);
+      masterFloor.position.set(-6.8, floorY, 4.4);
       masterFloor.receiveShadow = true;
       modelGroup.add(masterFloor);
 
-      // D. Bedroom 2 (Teak hardwood)
-      const bed2FloorGeo = new THREE.BoxGeometry(8, 0.05, 8);
-      const bed2Floor = new THREE.Mesh(bed2FloorGeo, woodFloorMaterial);
-      bed2Floor.position.set(-6.5, 0.025, 4.5);
+      // E. Bedroom 2 - Study / Guest (Teak Wood)
+      const bed2FloorGeo = new THREE.BoxGeometry(8.2, floorThickness, 8.2);
+      const bed2Floor = new THREE.Mesh(bed2FloorGeo, woodFloorMat);
+      bed2Floor.position.set(-6.8, floorY, -4.5);
       bed2Floor.receiveShadow = true;
       modelGroup.add(bed2Floor);
 
-      // E. Bedroom 3 (if 3 BHK / 4 BHK)
+      // F. Bedroom 3 - Twin Beds (Teak Wood)
       if (numBhk >= 3) {
-        const bed3FloorGeo = new THREE.BoxGeometry(5, 0.05, 7);
-        const bed3Floor = new THREE.Mesh(bed3FloorGeo, woodFloorMaterial);
-        bed3Floor.position.set(-0.5, 0.025, -6.5);
+        const bed3FloorGeo = new THREE.BoxGeometry(5.2, floorThickness, 7.2);
+        const bed3Floor = new THREE.Mesh(bed3FloorGeo, woodFloorMat);
+        bed3Floor.position.set(-0.5, floorY, -6.4);
         bed3Floor.receiveShadow = true;
         modelGroup.add(bed3Floor);
       }
 
-      // F. Balcony Deck (Wood decking planks)
-      const balconyFloorGeo = new THREE.BoxGeometry(9.5, 0.05, 4.5);
-      const balconyFloor = new THREE.Mesh(balconyFloorGeo, balconyDeckMaterial);
-      balconyFloor.position.set(4, 0.025, 8.5);
+      // G. Wrap-Around Balcony Deck (Teak Wood Decking)
+      const balconyFloorGeo = new THREE.BoxGeometry(10.5, floorThickness, 5.2);
+      const balconyFloor = new THREE.Mesh(balconyFloorGeo, teakBalconyDeckMat);
+      balconyFloor.position.set(5.5, floorY, 8.6);
       balconyFloor.receiveShadow = true;
       modelGroup.add(balconyFloor);
 
-      // ─── 3. CUTAWAY WALLS (Height: 1.5 units) ────────────────────────
-      const wallH = 1.4;
-      const wallT = 0.28;
+      // ─── TIER 2: AREA RUGS (y = 0.075, elevated above floor) ─────────
+      const createRug = (w: number, d: number, x: number, z: number, color = 0xdad3c8) => {
+        const geo = new THREE.BoxGeometry(w, 0.015, d);
+        const mat = new THREE.MeshStandardMaterial({
+          color,
+          roughness: 0.95,
+          polygonOffset: true,
+          polygonOffsetFactor: -1,
+          polygonOffsetUnits: -1,
+        });
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.position.set(x, 0.068, z);
+        mesh.receiveShadow = true;
+        modelGroup.add(mesh);
+        return mesh;
+      };
 
-      const addWall = (
-        x: number,
-        z: number,
-        w: number,
-        d: number,
-        isAccent = false
-      ) => {
-        const geo = new THREE.BoxGeometry(w, wallH, d);
-        const mesh = new THREE.Mesh(
-          geo,
-          isAccent ? wallAccentMaterial : wallMaterial
-        );
-        mesh.position.set(x, wallH / 2, z);
+      createRug(6.2, 4.5, 1.2, 1.5); // Living room sofa rug
+      createRug(5.2, 5.0, -6.8, 4.2, 0xd0c8bd); // Master bedroom rug
+      createRug(4.2, 4.2, -6.8, -4.5, 0xd0c8bd); // Bed 2 rug
+
+      // ─── TIER 3: WALLS (Resting exactly on floor at y = 0.06) ────────
+      const wallHeight = 2.4;
+      const wallCenterY = 0.06 + wallHeight / 2; // y = 1.26
+      const wallThickness = 0.28;
+
+      const addWall = (w: number, d: number, x: number, z: number, customMat = wallMat) => {
+        const geo = new THREE.BoxGeometry(w, wallHeight, d);
+        const mesh = new THREE.Mesh(geo, customMat);
+        mesh.position.set(x, wallCenterY, z);
         mesh.castShadow = true;
         mesh.receiveShadow = true;
         modelGroup.add(mesh);
         return mesh;
       };
 
-      // Outer boundary cutaway walls
-      addWall(-10.5, 0, wallT, 18); // Left outer wall
-      addWall(10, -2, wallT, 15.5); // Right outer wall
-      addWall(0, -9.8, 21, wallT); // Back outer wall
-      addWall(-6.5, 9, 8, wallT); // Front left wall
-      addWall(9.5, 9, 2, wallT); // Balcony right return wall
+      // Outer Perimeter cutaway walls
+      addWall(wallThickness, 17.5, -11.0, 0.0); // West outer boundary wall
+      addWall(16.5, wallThickness, -2.8, -10.1); // North outer wall (Bedrooms)
+      addWall(8.5, wallThickness, 9.2, -10.1); // North-East kitchen wall
+      addWall(wallThickness, 8.5, 13.5, -6.0); // East outer wall
+      addWall(13.5, wallThickness, -4.2, 8.9); // South master bedroom wall
 
-      // Interior partition walls
-      // Vertical spine dividing bedrooms from living
-      addWall(-2.5, 0, wallT, 17.5);
-      // Horizontal wall between Master Bed & Bed 2
-      addWall(-6.5, 0.3, 8, wallT);
-      // Kitchen partition wall
-      addWall(3, -6, wallT, 7.5);
-      // TV Entertainment feature accent wall in Living Room
-      addWall(2.5, -4, 4.5, wallT, true);
+      // Interior Partitions
+      addWall(wallThickness, 8.2, -2.8, -6.0); // Between Bed 3 and Bed 2/Hall
+      addWall(wallThickness, 7.5, 3.2, -6.2); // Kitchen partition wall
+      addWall(8.2, wallThickness, -6.8, 0.0); // Between Master bed and Bed 2
+      addWall(wallThickness, 4.8, -2.8, 4.0); // Master bed hallway partition
+      addWall(3.2, wallThickness, -1.2, 2.8); // Pooja room North partition
+      addWall(wallThickness, 3.2, 0.4, 1.2); // Pooja room East partition
 
-      // ─── 4. BALCONY GLASS RAILING ────────────────────────────────────
-      const glassGeo = new THREE.BoxGeometry(9.5, 0.85, 0.06);
-      const glassRailing = new THREE.Mesh(glassGeo, glassMaterial);
-      glassRailing.position.set(4, 0.45, 10.7);
-      modelGroup.add(glassRailing);
+      // Wood Fluted TV Feature Wall in Living Room
+      addWall(wallThickness, 4.5, 8.5, 1.8, wallWoodFlutedMat);
 
-      // Railing top handrail (brass gold)
-      const handrailGeo = new THREE.BoxGeometry(9.55, 0.05, 0.1);
-      const handrail = new THREE.Mesh(handrailGeo, goldBrassMaterial);
-      handrail.position.set(4, 0.88, 10.7);
-      modelGroup.add(handrail);
+      // Mounted Flat Screen TV on Feature Wall
+      const tvGeo = new THREE.BoxGeometry(0.08, 1.1, 2.4);
+      const tvMat = new THREE.MeshStandardMaterial({
+        color: 0x111111,
+        roughness: 0.2,
+        metalness: 0.8,
+      });
+      const tv = new THREE.Mesh(tvGeo, tvMat);
+      tv.position.set(8.4, 1.35, 1.8);
+      tv.castShadow = true;
+      modelGroup.add(tv);
 
-      // ─── 5. FURNITURE: LIVING & DINING ───────────────────────────────
-      // Sectional Sofa L-Shape
-      const sofaMainGeo = new THREE.BoxGeometry(4.2, 0.55, 1.6);
-      const sofaMain = new THREE.Mesh(sofaMainGeo, fabricSofaMaterial);
-      sofaMain.position.set(0.5, 0.3, 2.8);
+      // TV Media Credenza underneath
+      const credenzaGeo = new THREE.BoxGeometry(0.7, 0.38, 3.2);
+      const credenza = new THREE.Mesh(credenzaGeo, darkWoodFurnitureMat);
+      credenza.position.set(8.1, 0.25, 1.8);
+      credenza.castShadow = true;
+      modelGroup.add(credenza);
+
+      // ─── TIER 4: MODERN GLASS BALUSTRADE RAILINGS ─────────────────────
+      const addBalustrade = (w: number, d: number, x: number, z: number) => {
+        // Glass panel
+        const glassGeo = new THREE.BoxGeometry(w, 0.95, d);
+        const glass = new THREE.Mesh(glassGeo, glassBalustradeMat);
+        glass.position.set(x, 0.54, z);
+        modelGroup.add(glass);
+
+        // Top stainless steel handrail
+        const railGeo = new THREE.BoxGeometry(w + 0.05, 0.06, d + 0.05);
+        const rail = new THREE.Mesh(railGeo, stainlessSteelMat);
+        rail.position.set(x, 1.02, z);
+        rail.castShadow = true;
+        modelGroup.add(rail);
+      };
+
+      addBalustrade(10.5, 0.08, 5.5, 11.2); // Balcony South glass railing
+      addBalustrade(0.08, 5.2, 10.8, 8.6); // Balcony East glass railing
+
+      // ─── TIER 5: CENTRAL TRADITIONAL MANDIR / POOJA ROOM ──────────────
+      // (As highlighted in user reference image)
+      const poojaGroup = new THREE.Group();
+
+      // Carved wooden temple altar base
+      const mandirBaseGeo = new THREE.BoxGeometry(1.6, 0.85, 1.1);
+      const mandirBase = new THREE.Mesh(mandirBaseGeo, poojaTeakMat);
+      mandirBase.position.set(-1.2, 0.48, 0.6);
+      mandirBase.castShadow = true;
+      poojaGroup.add(mandirBase);
+
+      // Tiered temple canopy (Shikhara)
+      const mandirCanopyGeo = new THREE.ConeGeometry(0.45, 0.65, 4);
+      const mandirCanopy = new THREE.Mesh(mandirCanopyGeo, goldBrassMat);
+      mandirCanopy.position.set(-1.2, 1.25, 0.6);
+      mandirCanopy.rotation.y = Math.PI / 4;
+      poojaGroup.add(mandirCanopy);
+
+      // Brass bell & traditional diya lamps
+      const diyaGeo = new THREE.CylinderGeometry(0.08, 0.05, 0.15, 8);
+      for (let i = -1; i <= 1; i += 2) {
+        const diya = new THREE.Mesh(diyaGeo, goldBrassMat);
+        diya.position.set(-1.2 + i * 0.55, 0.95, 0.6);
+        poojaGroup.add(diya);
+      }
+
+      // Warm glowing sacred light inside Mandir
+      const poojaLight = new THREE.PointLight(0xffb74d, 1.6, 5, 1.5);
+      poojaLight.position.set(-1.2, 1.1, 0.7);
+      poojaGroup.add(poojaLight);
+      modelGroup.add(poojaGroup);
+
+      // ─── TIER 6: LIVING & DINING SALON FURNISHINGS ────────────────────
+      // L-Shaped Luxury Cream Sofa
+      const sofaMainGeo = new THREE.BoxGeometry(4.2, 0.75, 1.1);
+      const sofaMain = new THREE.Mesh(sofaMainGeo, fabricSofaMat);
+      sofaMain.position.set(1.5, 0.44, 0.2);
       sofaMain.castShadow = true;
       modelGroup.add(sofaMain);
 
-      const sofaBackGeo = new THREE.BoxGeometry(4.2, 0.5, 0.4);
-      const sofaBack = new THREE.Mesh(sofaBackGeo, fabricSofaMaterial);
-      sofaBack.position.set(0.5, 0.7, 3.4);
-      modelGroup.add(sofaBack);
-
-      // Sofa return (chaise)
-      const sofaChaiseGeo = new THREE.BoxGeometry(1.5, 0.55, 2.2);
-      const sofaChaise = new THREE.Mesh(sofaChaiseGeo, fabricSofaMaterial);
-      sofaChaise.position.set(-1.0, 0.3, 1.5);
+      const sofaChaiseGeo = new THREE.BoxGeometry(1.1, 0.75, 2.4);
+      const sofaChaise = new THREE.Mesh(sofaChaiseGeo, fabricSofaMat);
+      sofaChaise.position.set(3.05, 0.44, 1.55);
       sofaChaise.castShadow = true;
       modelGroup.add(sofaChaise);
 
-      // Gold throw pillows on sofa
-      const pillowGeo = new THREE.BoxGeometry(0.5, 0.35, 0.15);
-      const pillow1 = new THREE.Mesh(pillowGeo, goldBrassMaterial);
-      pillow1.position.set(1.6, 0.65, 3.1);
-      pillow1.rotation.y = 0.1;
-      modelGroup.add(pillow1);
-
-      const pillow2 = new THREE.Mesh(pillowGeo, goldBrassMaterial);
-      pillow2.position.set(-0.8, 0.65, 2.3);
-      pillow2.rotation.y = Math.PI / 2;
-      modelGroup.add(pillow2);
-
-      // Designer Coffee Table
-      const coffeeTableGeo = new THREE.CylinderGeometry(1.1, 1.1, 0.35, 24);
-      const coffeeTableMat = new THREE.MeshStandardMaterial({
-        color: 0x2b2b2b,
-        roughness: 0.3,
-        metalness: 0.2,
-      });
-      const coffeeTable = new THREE.Mesh(coffeeTableGeo, coffeeTableMat);
-      coffeeTable.position.set(0.8, 0.22, 1.0);
+      // Glass & Wood Coffee Table
+      const tableGeo = new THREE.BoxGeometry(1.8, 0.35, 0.9);
+      const coffeeTable = new THREE.Mesh(tableGeo, darkWoodFurnitureMat);
+      coffeeTable.position.set(1.5, 0.24, 1.6);
       coffeeTable.castShadow = true;
       modelGroup.add(coffeeTable);
 
-      // Wall-mounted TV console on feature wall
-      const tvConsoleGeo = new THREE.BoxGeometry(3.6, 0.35, 0.5);
-      const tvConsole = new THREE.Mesh(tvConsoleGeo, furnitureWoodMaterial);
-      tvConsole.position.set(2.5, 0.2, -3.7);
-      modelGroup.add(tvConsole);
-
-      const tvScreenGeo = new THREE.BoxGeometry(2.4, 1.0, 0.05);
-      const tvScreenMat = new THREE.MeshStandardMaterial({
-        color: 0x111111,
-        roughness: 0.1,
-        metalness: 0.8,
-      });
-      const tvScreen = new THREE.Mesh(tvScreenGeo, tvScreenMat);
-      tvScreen.position.set(2.5, 0.85, -3.85);
-      modelGroup.add(tvScreen);
-
-      // Dining Table with 6 Chairs
-      const diningTableGeo = new THREE.BoxGeometry(3.6, 0.6, 2.0);
-      const diningTableMat = new THREE.MeshStandardMaterial({
-        color: 0xf5f3ee, // Calacatta marble dining top
-        roughness: 0.25,
-        metalness: 0.1,
-      });
-      const diningTable = new THREE.Mesh(diningTableGeo, diningTableMat);
-      diningTable.position.set(6.5, 0.35, 3.5);
+      // 6-Seater Wooden Dining Table
+      const diningGeo = new THREE.BoxGeometry(1.8, 0.75, 3.2);
+      const diningTable = new THREE.Mesh(diningGeo, darkWoodFurnitureMat);
+      diningTable.position.set(5.5, 0.44, 1.5);
       diningTable.castShadow = true;
       modelGroup.add(diningTable);
 
-      // Dining chairs
-      const chairGeo = new THREE.BoxGeometry(0.55, 0.45, 0.55);
-      const chairMat = new THREE.MeshStandardMaterial({
-        color: 0x3d352e,
-        roughness: 0.6,
-      });
+      // Dining Chairs (6 upholstered chairs)
+      const chairGeo = new THREE.BoxGeometry(0.55, 0.85, 0.55);
       for (let i = -1; i <= 1; i++) {
-        const chair1 = new THREE.Mesh(chairGeo, chairMat);
-        chair1.position.set(6.5 + i * 1.1, 0.25, 2.15);
-        modelGroup.add(chair1);
+        // Left side chairs
+        const c1 = new THREE.Mesh(chairGeo, fabricSofaMat);
+        c1.position.set(4.4, 0.49, 1.5 + i * 1.05);
+        c1.castShadow = true;
+        modelGroup.add(c1);
 
-        const chair2 = new THREE.Mesh(chairGeo, chairMat);
-        chair2.position.set(6.5 + i * 1.1, 0.25, 4.85);
-        modelGroup.add(chair2);
+        // Right side chairs
+        const c2 = new THREE.Mesh(chairGeo, fabricSofaMat);
+        c2.position.set(6.6, 0.49, 1.5 + i * 1.05);
+        c2.castShadow = true;
+        modelGroup.add(c2);
       }
 
-      // ─── 6. KITCHEN COUNTERTOP & APPLIANCES ──────────────────────────
-      // L-Shape Kitchen counters
-      const counter1Geo = new THREE.BoxGeometry(5.8, 0.75, 1.2);
-      const counterMat = new THREE.MeshStandardMaterial({
-        color: 0x282725,
-        roughness: 0.3,
-        metalness: 0.1,
-      });
-      const counter1 = new THREE.Mesh(counter1Geo, counterMat);
-      counter1.position.set(6.5, 0.4, -9.1);
-      counter1.castShadow = true;
-      modelGroup.add(counter1);
+      // ─── TIER 7: GOURMET KITCHEN & UTILITY ─────────────────────────────
+      // L-Shaped dark modern cabinetry
+      const kitchenBase1Geo = new THREE.BoxGeometry(5.8, 0.85, 1.1);
+      const kitchenBase1 = new THREE.Mesh(kitchenBase1Geo, darkCabinetMat);
+      kitchenBase1.position.set(6.8, 0.49, -9.5);
+      kitchenBase1.castShadow = true;
+      modelGroup.add(kitchenBase1);
 
-      const counter2Geo = new THREE.BoxGeometry(1.2, 0.75, 4.0);
-      const counter2 = new THREE.Mesh(counter2Geo, counterMat);
-      counter2.position.set(9.2, 0.4, -6.5);
-      counter2.castShadow = true;
-      modelGroup.add(counter2);
+      const kitchenBase2Geo = new THREE.BoxGeometry(1.1, 0.85, 4.5);
+      const kitchenBase2 = new THREE.Mesh(kitchenBase2Geo, darkCabinetMat);
+      kitchenBase2.position.set(9.2, 0.49, -6.8);
+      kitchenBase2.castShadow = true;
+      modelGroup.add(kitchenBase2);
 
-      // Refrigerator (Stainless steel double door)
-      const fridgeGeo = new THREE.BoxGeometry(1.5, 1.6, 1.2);
-      const fridgeMat = new THREE.MeshStandardMaterial({
-        color: 0xb5b9be,
-        metalness: 0.85,
-        roughness: 0.2,
-      });
-      const fridge = new THREE.Mesh(fridgeGeo, fridgeMat);
-      fridge.position.set(4.0, 0.8, -9.1);
+      // Light Quartz Countertop
+      const counterTop1Geo = new THREE.BoxGeometry(5.9, 0.08, 1.15);
+      const counterTop1 = new THREE.Mesh(counterTop1Geo, counterQuartzMat);
+      counterTop1.position.set(6.8, 0.95, -9.5);
+      counterTop1.castShadow = true;
+      modelGroup.add(counterTop1);
+
+      const counterTop2Geo = new THREE.BoxGeometry(1.15, 0.08, 4.5);
+      const counterTop2 = new THREE.Mesh(counterTop2Geo, counterQuartzMat);
+      counterTop2.position.set(9.2, 0.95, -6.8);
+      counterTop2.castShadow = true;
+      modelGroup.add(counterTop2);
+
+      // Double-door Stainless Steel Refrigerator
+      const fridgeGeo = new THREE.BoxGeometry(1.4, 1.9, 1.1);
+      const fridge = new THREE.Mesh(fridgeGeo, stainlessSteelMat);
+      fridge.position.set(3.8, 1.01, -9.5);
       fridge.castShadow = true;
       modelGroup.add(fridge);
 
-      // Sink in counter (chrome finish)
-      const sinkGeo = new THREE.BoxGeometry(1.0, 0.05, 0.7);
-      const sinkMat = new THREE.MeshStandardMaterial({
-        color: 0x777777,
-        metalness: 0.9,
-        roughness: 0.1,
-      });
-      const sink = new THREE.Mesh(sinkGeo, sinkMat);
-      sink.position.set(6.8, 0.78, -9.0);
-      modelGroup.add(sink);
+      // Utility / Laundry Machine
+      const washerGeo = new THREE.BoxGeometry(0.85, 0.85, 0.85);
+      const washerMat = new THREE.MeshStandardMaterial({ color: 0xf5f5f5, roughness: 0.3 });
+      const washer = new THREE.Mesh(washerGeo, washerMat);
+      washer.position.set(10.2, 0.49, -9.5);
+      washer.castShadow = true;
+      modelGroup.add(washer);
 
-      // ─── 7. MASTER BEDROOM SUITE ─────────────────────────────────────
-      // King Bed Base & Mattress
-      const bedBaseGeo = new THREE.BoxGeometry(3.8, 0.4, 4.2);
-      const bedBase = new THREE.Mesh(bedBaseGeo, furnitureWoodMaterial);
-      bedBase.position.set(-6.5, 0.22, -4.5);
-      bedBase.castShadow = true;
-      modelGroup.add(bedBase);
+      // ─── TIER 8: MASTER SUITE (Bottom-Left) ───────────────────────────
+      // King Bed Frame & Mattress
+      const kingBedGeo = new THREE.BoxGeometry(3.2, 0.55, 3.4);
+      const kingBed = new THREE.Mesh(kingBedGeo, darkWoodFurnitureMat);
+      kingBed.position.set(-6.8, 0.34, 4.4);
+      kingBed.castShadow = true;
+      modelGroup.add(kingBed);
 
-      const mattressGeo = new THREE.BoxGeometry(3.6, 0.35, 4.0);
-      const mattress = new THREE.Mesh(mattressGeo, bedLinenMaterial);
-      mattress.position.set(-6.5, 0.52, -4.5);
-      modelGroup.add(mattress);
+      const kingMattressGeo = new THREE.BoxGeometry(2.9, 0.35, 3.1);
+      const kingMattress = new THREE.Mesh(kingMattressGeo, whiteLinenMat);
+      kingMattress.position.set(-6.8, 0.65, 4.4);
+      kingMattress.castShadow = true;
+      modelGroup.add(kingMattress);
 
-      // Plush headboard
-      const headboardGeo = new THREE.BoxGeometry(4.2, 1.1, 0.3);
-      const headboard = new THREE.Mesh(headboardGeo, furnitureWoodMaterial);
-      headboard.position.set(-6.5, 0.7, -6.6);
+      // Padded Headboard
+      const headboardGeo = new THREE.BoxGeometry(3.4, 1.2, 0.25);
+      const headboard = new THREE.Mesh(headboardGeo, darkWoodFurnitureMat);
+      headboard.position.set(-6.8, 0.96, 2.7);
+      headboard.castShadow = true;
       modelGroup.add(headboard);
 
-      // Bed pillows
-      const pillowMat = new THREE.MeshStandardMaterial({
-        color: 0xffffff,
-        roughness: 0.7,
-      });
-      const bedPillow1 = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.2, 0.65), pillowMat);
-      bedPillow1.position.set(-7.4, 0.75, -5.9);
-      modelGroup.add(bedPillow1);
-
-      const bedPillow2 = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.2, 0.65), pillowMat);
-      bedPillow2.position.set(-5.6, 0.75, -5.9);
-      modelGroup.add(bedPillow2);
-
-      // Bed runner (Gold luxury accent)
-      const runnerGeo = new THREE.BoxGeometry(3.65, 0.05, 0.9);
-      const runner = new THREE.Mesh(runnerGeo, goldBrassMaterial);
-      runner.position.set(-6.5, 0.71, -3.2);
+      // Folded Bed Runner
+      const runnerGeo = new THREE.BoxGeometry(2.92, 0.04, 0.9);
+      const runner = new THREE.Mesh(runnerGeo, blanketAccentMat);
+      runner.position.set(-6.8, 0.84, 5.2);
       modelGroup.add(runner);
 
-      // Bedside nightstands with mini lamps
-      [-9.0, -4.0].forEach((xPos) => {
-        const stand = new THREE.Mesh(
-          new THREE.BoxGeometry(0.9, 0.45, 0.7),
-          furnitureWoodMaterial
-        );
-        stand.position.set(xPos, 0.25, -6.3);
-        modelGroup.add(stand);
+      // Dual Nightstands with reading lamps
+      const nsGeo = new THREE.BoxGeometry(0.65, 0.5, 0.65);
+      for (let i = -1; i <= 1; i += 2) {
+        const ns = new THREE.Mesh(nsGeo, darkWoodFurnitureMat);
+        ns.position.set(-6.8 + i * 2.05, 0.31, 2.8);
+        ns.castShadow = true;
+        modelGroup.add(ns);
 
-        // Lamp base
-        const lamp = new THREE.Mesh(
-          new THREE.CylinderGeometry(0.15, 0.2, 0.35, 12),
-          goldBrassMaterial
-        );
-        lamp.position.set(xPos, 0.65, -6.3);
+        const lampGeo = new THREE.CylinderGeometry(0.18, 0.22, 0.38, 8);
+        const lamp = new THREE.Mesh(lampGeo, whiteLinenMat);
+        lamp.position.set(-6.8 + i * 2.05, 0.75, 2.8);
         modelGroup.add(lamp);
-      });
-
-      // Master Wardrobe sliding closet
-      const wardrobeGeo = new THREE.BoxGeometry(0.6, 1.4, 5.0);
-      const wardrobeMat = new THREE.MeshStandardMaterial({
-        color: 0xdfd9cf,
-        roughness: 0.4,
-      });
-      const wardrobe = new THREE.Mesh(wardrobeGeo, wardrobeMat);
-      wardrobe.position.set(-10.1, 0.7, -4.0);
-      modelGroup.add(wardrobe);
-
-      // ─── 8. BEDROOM 2 ────────────────────────────────────────────────
-      // Queen bed
-      const bed2Base = new THREE.Mesh(
-        new THREE.BoxGeometry(3.2, 0.4, 3.8),
-        furnitureWoodMaterial
-      );
-      bed2Base.position.set(-6.5, 0.22, 4.5);
-      bed2Base.castShadow = true;
-      modelGroup.add(bed2Base);
-
-      const bed2Mat = new THREE.Mesh(
-        new THREE.BoxGeometry(3.0, 0.35, 3.6),
-        bedLinenMaterial
-      );
-      bed2Mat.position.set(-6.5, 0.52, 4.5);
-      modelGroup.add(bed2Mat);
-
-      // Study desk with chair in Bed 2
-      const deskGeo = new THREE.BoxGeometry(2.4, 0.55, 0.9);
-      const desk = new THREE.Mesh(deskGeo, furnitureWoodMaterial);
-      desk.position.set(-9.0, 0.3, 7.8);
-      modelGroup.add(desk);
-
-      // ─── 9. BEDROOM 3 / POOJA SHRINE (if 3 BHK / 4 BHK) ──────────────
-      if (numBhk >= 3) {
-        // Bed in Bed 3
-        const bed3 = new THREE.Mesh(
-          new THREE.BoxGeometry(3.0, 0.4, 3.5),
-          furnitureWoodMaterial
-        );
-        bed3.position.set(-0.5, 0.22, -6.5);
-        bed3.castShadow = true;
-        modelGroup.add(bed3);
-
-        const bed3Mat = new THREE.Mesh(
-          new THREE.BoxGeometry(2.8, 0.35, 3.3),
-          bedLinenMaterial
-        );
-        bed3Mat.position.set(-0.5, 0.52, -6.5);
-        modelGroup.add(bed3Mat);
-
-        // Sacred Pooja Shrine / Mandir unit near dining
-        const mandirGeo = new THREE.BoxGeometry(1.1, 1.2, 0.8);
-        const mandir = new THREE.Mesh(mandirGeo, furnitureWoodMaterial);
-        mandir.position.set(2.8, 0.6, -1.0);
-        modelGroup.add(mandir);
-
-        // Brass bell/finial on mandir
-        const bell = new THREE.Mesh(
-          new THREE.ConeGeometry(0.12, 0.2, 8),
-          goldBrassMaterial
-        );
-        bell.position.set(2.8, 1.3, -1.0);
-        modelGroup.add(bell);
       }
 
-      // ─── 10. BALCONY OUTDOOR PATIO ───────────────────────────────────
-      // Outdoor lounge chairs
-      const patioChair1 = new THREE.Mesh(
-        new THREE.BoxGeometry(1.2, 0.5, 1.2),
-        furnitureWoodMaterial
-      );
-      patioChair1.position.set(1.5, 0.28, 8.5);
-      modelGroup.add(patioChair1);
+      // Ensuite Bathroom Glass Shower Partition
+      const showerGlassGeo = new THREE.BoxGeometry(0.06, 1.8, 2.2);
+      const showerGlass = new THREE.Mesh(showerGlassGeo, glassBalustradeMat);
+      showerGlass.position.set(-9.2, 0.96, 7.2);
+      modelGroup.add(showerGlass);
 
-      const patioChair2 = new THREE.Mesh(
-        new THREE.BoxGeometry(1.2, 0.5, 1.2),
-        furnitureWoodMaterial
-      );
-      patioChair2.position.set(6.5, 0.28, 8.5);
-      modelGroup.add(patioChair2);
+      // Vanity counter in bathroom
+      const vanityGeo = new THREE.BoxGeometry(1.4, 0.75, 0.6);
+      const vanity = new THREE.Mesh(vanityGeo, counterQuartzMat);
+      vanity.position.set(-7.5, 0.44, 8.4);
+      vanity.castShadow = true;
+      modelGroup.add(vanity);
 
-      // Outdoor tea table
-      const patioTable = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.6, 0.6, 0.35, 16),
-        goldBrassMaterial
-      );
-      patioTable.position.set(4.0, 0.2, 8.5);
-      modelGroup.add(patioTable);
+      // ─── TIER 9: SECOND BEDROOM WITH STUDY (Top-Left) ─────────────────
+      // Queen Bed
+      const queenBedGeo = new THREE.BoxGeometry(2.8, 0.5, 3.0);
+      const queenBed = new THREE.Mesh(queenBedGeo, whiteLinenMat);
+      queenBed.position.set(-6.8, 0.31, -4.5);
+      queenBed.castShadow = true;
+      modelGroup.add(queenBed);
 
-      // Potted Indoor / Outdoor Plants
-      const addPlant = (x: number, z: number, r = 0.5) => {
-        // Pot
-        const potGeo = new THREE.CylinderGeometry(0.35 * r, 0.25 * r, 0.6 * r, 12);
-        const potMat = new THREE.MeshStandardMaterial({
-          color: 0xffffff,
-          roughness: 0.3,
-        });
+      const queenHeadboard = new THREE.Mesh(new THREE.BoxGeometry(3.0, 1.1, 0.2), darkWoodFurnitureMat);
+      queenHeadboard.position.set(-6.8, 0.86, -6.1);
+      queenHeadboard.castShadow = true;
+      modelGroup.add(queenHeadboard);
+
+      // Study Workstation Desk with Laptop
+      const deskGeo = new THREE.BoxGeometry(2.0, 0.72, 0.85);
+      const desk = new THREE.Mesh(deskGeo, darkWoodFurnitureMat);
+      desk.position.set(-9.8, 0.42, -2.5);
+      desk.castShadow = true;
+      modelGroup.add(desk);
+
+      const laptopGeo = new THREE.BoxGeometry(0.4, 0.03, 0.3);
+      const laptop = new THREE.Mesh(laptopGeo, stainlessSteelMat);
+      laptop.position.set(-9.8, 0.8, -2.5);
+      modelGroup.add(laptop);
+
+      // ─── TIER 10: THIRD BEDROOM (Twin Single Beds - Top Middle) ───────
+      if (numBhk >= 3) {
+        const singleBedGeo = new THREE.BoxGeometry(1.6, 0.45, 2.8);
+        for (let i = -1; i <= 1; i += 2) {
+          const sBed = new THREE.Mesh(singleBedGeo, whiteLinenMat);
+          sBed.position.set(-0.5 + i * 1.3, 0.29, -6.5);
+          sBed.castShadow = true;
+          modelGroup.add(sBed);
+
+          const sHead = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.95, 0.15), darkWoodFurnitureMat);
+          sHead.position.set(-0.5 + i * 1.3, 0.75, -8.0);
+          modelGroup.add(sHead);
+        }
+      }
+
+      // ─── TIER 11: BALCONY DECK LOUNGE & PLANTS ────────────────────────
+      // Outdoor Rattan Lounge Chairs
+      const outdoorChairGeo = new THREE.BoxGeometry(0.85, 0.65, 0.85);
+      const outdoorChairMat = new THREE.MeshStandardMaterial({ color: 0x5a4635, roughness: 0.8 });
+
+      const chair1 = new THREE.Mesh(outdoorChairGeo, outdoorChairMat);
+      chair1.position.set(3.2, 0.39, 8.5);
+      chair1.castShadow = true;
+      modelGroup.add(chair1);
+
+      const chair2 = new THREE.Mesh(outdoorChairGeo, outdoorChairMat);
+      chair2.position.set(5.2, 0.39, 8.5);
+      chair2.castShadow = true;
+      modelGroup.add(chair2);
+
+      // Low round outdoor table
+      const outdoorTableGeo = new THREE.CylinderGeometry(0.45, 0.45, 0.35, 12);
+      const outdoorTable = new THREE.Mesh(outdoorTableGeo, darkWoodFurnitureMat);
+      outdoorTable.position.set(4.2, 0.24, 8.5);
+      outdoorTable.castShadow = true;
+      modelGroup.add(outdoorTable);
+
+      // Potted Foliage Plants (Ceramic Pots + Foliage spheres)
+      const addPlant = (x: number, z: number, r = 1.0) => {
+        const potGeo = new THREE.CylinderGeometry(0.35 * r, 0.25 * r, 0.65 * r, 12);
         const pot = new THREE.Mesh(potGeo, potMat);
-        pot.position.set(x, (0.3 * r), z);
+        pot.position.set(x, 0.06 + (0.32 * r), z);
+        pot.castShadow = true;
         modelGroup.add(pot);
 
-        // Plant foliage sphere
-        const foliageGeo = new THREE.DodecahedronGeometry(0.55 * r, 1);
-        const foliage = new THREE.Mesh(foliageGeo, foliageMaterial);
-        foliage.position.set(x, (0.75 * r), z);
-        modelGroup.add(foliage);
+        const fGeo = new THREE.DodecahedronGeometry(0.55 * r, 1);
+        const fMesh = new THREE.Mesh(fGeo, foliageMat);
+        fMesh.position.set(x, 0.06 + (0.75 * r), z);
+        fMesh.castShadow = true;
+        modelGroup.add(fMesh);
       };
 
-      addPlant(8.0, 8.5, 1.1); // Balcony corner plant
-      addPlant(0.2, 8.5, 0.9); // Balcony entrance plant
-      addPlant(1.5, -3.2, 0.8); // Living room plant beside TV
+      addPlant(9.8, 8.5, 1.2); // Balcony corner plant
+      addPlant(1.2, 8.5, 0.9); // Balcony entrance plant
+      addPlant(7.5, 3.6, 0.85); // Living room plant beside TV
+      addPlant(-3.2, 0.8, 0.8); // Plant beside Mandir
 
       scene.add(modelGroup);
       return modelGroup;
@@ -619,101 +658,96 @@ export default function ThreeDModelViewer({
     [numBhk]
   );
 
-  // Initialize Three.js WebGL Scene
+  // Initialize Three.js WebGL Scene with 100% Rock-Solid Z-Buffer (No Flickering)
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Dimensions
     const width = container.clientWidth || 800;
     const height = container.clientHeight || 520;
 
-    // Scene
+    // 1. Scene
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
-    // Camera (Isometric perspective angle with optimized near/far planes to eliminate depth-buffer flickering)
-    const camera = new THREE.PerspectiveCamera(42, width / height, 0.8, 120);
-    camera.position.set(18, 20, 20);
-    camera.lookAt(0, 1, 0);
+    // 2. Camera with tight near/far ratio to maximize 24-bit depth precision (ZERO Flickering)
+    const camera = new THREE.PerspectiveCamera(40, width / height, 1.0, 90.0);
+    camera.position.set(18, 19, 20);
+    camera.lookAt(0, 0.8, 0);
     cameraRef.current = camera;
 
-    // WebGL Renderer with Logarithmic Depth Buffer to prevent coplanar z-fighting on zoom
+    // 3. WebGL Renderer with High-Performance Settings (Standard Linear Depth Buffer)
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
       powerPreference: "high-performance",
-      logarithmicDepthBuffer: true,
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.05;
+    renderer.toneMappingExposure = 1.08;
     container.replaceChildren(renderer.domElement);
     rendererRef.current = renderer;
 
-    // OrbitControls
+    // 4. OrbitControls with smooth damping and clamped distances
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
-    controls.maxPolarAngle = Math.PI / 2 - 0.08; // Don't look under floor
-    controls.minDistance = 7;
-    controls.maxDistance = 45;
-    controls.target.set(0, 1, 0);
+    controls.maxPolarAngle = Math.PI / 2 - 0.08; // Keep above floor horizon
+    controls.minDistance = 8;
+    controls.maxDistance = 42;
+    controls.target.set(0, 0.8, 0);
     controls.autoRotate = isAutoRotating;
     controls.autoRotateSpeed = 0.8;
     controlsRef.current = controls;
 
-    // Lighting
-    // Ambient / Hemisphere Light
-    const hemiLight = new THREE.HemisphereLight(0xfff8ee, 0xd0c4b4, 1.2);
+    // 5. Lighting Setup (Soft Daylight with normalBias to eliminate shadow acne)
+    const hemiLight = new THREE.HemisphereLight(0xfff8ee, 0xd0c4b4, 1.25);
     scene.add(hemiLight);
     hemiLightRef.current = hemiLight;
 
-    // Directional Sunlight with normalBias to eliminate shadow acne / chattering on zoom
-    const sunLight = new THREE.DirectionalLight(0xfff3db, 1.8);
-    sunLight.position.set(22, 30, 18);
+    const sunLight = new THREE.DirectionalLight(0xfff5e6, 1.85);
+    sunLight.position.set(22, 28, 18);
     sunLight.castShadow = true;
     sunLight.shadow.mapSize.width = 2048;
     sunLight.shadow.mapSize.height = 2048;
-    sunLight.shadow.camera.near = 5;
-    sunLight.shadow.camera.far = 60;
+    sunLight.shadow.camera.near = 8;
+    sunLight.shadow.camera.far = 55;
     sunLight.shadow.camera.left = -16;
     sunLight.shadow.camera.right = 16;
     sunLight.shadow.camera.top = 16;
     sunLight.shadow.camera.bottom = -16;
-    sunLight.shadow.bias = -0.00008;
-    sunLight.shadow.normalBias = 0.025;
+    sunLight.shadow.bias = -0.00015;
+    sunLight.shadow.normalBias = 0.035; // Crucial: prevents shadow acne & chatter on zoom
     scene.add(sunLight);
     sunLightRef.current = sunLight;
 
     // Warm Interior Point Lights
     const warmPoints: THREE.PointLight[] = [];
-    const addPoint = (x: number, y: number, z: number, intensity = 1.5, color = 0xffe2b8) => {
-      const pl = new THREE.PointLight(color, intensity, 12, 1.2);
+    const addPoint = (x: number, y: number, z: number, intensity = 1.6, color = 0xffe2b8) => {
+      const pl = new THREE.PointLight(color, intensity, 14, 1.3);
       pl.position.set(x, y, z);
       scene.add(pl);
       warmPoints.push(pl);
     };
 
-    addPoint(2, 2.4, 1); // Living room chandelier
-    addPoint(-6.5, 2.2, -4.5, 1.0); // Master bedroom ceiling
-    addPoint(6.5, 2.2, -6, 1.2); // Kitchen ceiling
-    addPoint(-6.5, 2.2, 4.5, 0.9); // Bed 2
+    addPoint(2.5, 2.2, 1.5); // Living room chandelier
+    addPoint(-6.5, 2.1, 4.2, 1.1); // Master bedroom
+    addPoint(6.5, 2.1, -6.0, 1.3); // Kitchen
+    addPoint(-6.5, 2.1, -4.5, 1.0); // Bedroom 2
     interiorLightsRef.current = warmPoints;
 
-    // Build the 3D procedural apartment
+    // Build procedural 3D model
     buildApartmentModel(scene);
 
     setLoading(false);
 
-    // Animation Render Loop
+    // Render loop
     const animate = () => {
       animFrameIdRef.current = requestAnimationFrame(animate);
 
-      // Smooth camera interpolation when zooming into a room
       if (cameraTargetRef.current.inProgress) {
         const { pos, lookAt } = cameraTargetRef.current;
         camera.position.lerp(pos, 0.055);
@@ -732,7 +766,6 @@ export default function ThreeDModelViewer({
     };
     animate();
 
-    // Resize Observer
     const handleResize = () => {
       if (!container) return;
       const w = container.clientWidth;
@@ -769,38 +802,36 @@ export default function ThreeDModelViewer({
 
     if (sunLightRef.current && hemiLightRef.current) {
       if (nextMode === "evening") {
-        // Dramatic warm evening sunset look
-        sunLightRef.current.color.setHex(0xffaa55);
-        sunLightRef.current.intensity = 0.9;
+        sunLightRef.current.color.setHex(0xffa550);
+        sunLightRef.current.intensity = 0.95;
         hemiLightRef.current.color.setHex(0xffeedd);
         hemiLightRef.current.groundColor.setHex(0x2a2535);
-        hemiLightRef.current.intensity = 0.6;
+        hemiLightRef.current.intensity = 0.65;
         interiorLightsRef.current.forEach((pl) => (pl.intensity = 2.8));
       } else {
-        // Crisp bright day look
-        sunLightRef.current.color.setHex(0xfff3db);
-        sunLightRef.current.intensity = 1.8;
+        sunLightRef.current.color.setHex(0xfff5e6);
+        sunLightRef.current.intensity = 1.85;
         hemiLightRef.current.color.setHex(0xfff8ee);
         hemiLightRef.current.groundColor.setHex(0xd0c4b4);
-        hemiLightRef.current.intensity = 1.2;
-        interiorLightsRef.current.forEach((pl) => (pl.intensity = 1.5));
+        hemiLightRef.current.intensity = 1.25;
+        interiorLightsRef.current.forEach((pl) => (pl.intensity = 1.6));
       }
     }
   };
 
-  // Handle Camera view preset clicks (Isometric, Top-Down, Front)
+  // Handle Camera View presets
   const setPresetView = (view: "iso" | "top" | "front") => {
     setCameraView(view);
     setActiveRoom(null);
-    let targetPos: [number, number, number] = [18, 20, 20];
-    let lookTarget: [number, number, number] = [0, 1, 0];
+    let targetPos: [number, number, number] = [18, 19, 20];
+    let lookTarget: [number, number, number] = [0, 0.8, 0];
 
     if (view === "top") {
-      targetPos = [0, 26, 0.1];
+      targetPos = [0, 25, 0.1];
       lookTarget = [0, 0, 0];
     } else if (view === "front") {
-      targetPos = [0, 10, 24];
-      lookTarget = [0, 1.5, 0];
+      targetPos = [0, 9, 23];
+      lookTarget = [0, 1.2, 0];
     }
 
     cameraTargetRef.current = {
@@ -821,7 +852,7 @@ export default function ThreeDModelViewer({
   };
 
   return (
-    <div className="relative w-full aspect-[16/10] min-h-[440px] md:min-h-[520px] bg-gradient-to-b from-[#FAF7F2] to-[#F2EDE4] rounded-2xl overflow-hidden border border-[#E8E4DC] select-none flex flex-col">
+    <div className="relative w-full aspect-[16/10] min-h-[440px] md:min-h-[530px] bg-gradient-to-b from-[#FAF7F2] to-[#F2EDE4] rounded-3xl overflow-hidden border border-[#E8E4DC] select-none flex flex-col shadow-lg">
       {/* ── 3D Canvas Mount ─────────────────────────────────────────── */}
       <div ref={containerRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
 
@@ -836,16 +867,16 @@ export default function ThreeDModelViewer({
       {/* ── TOP HUD CONTROLS BAR ─────────────────────────────────────── */}
       <div className="absolute top-4 inset-x-4 flex items-center justify-between pointer-events-none">
         {/* Left: 3D Badge & Status */}
-        <div className="pointer-events-auto flex items-center gap-2 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#E8E4DC] shadow-sm">
+        <div className="pointer-events-auto flex items-center gap-2 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#E8E4DC] shadow-sm">
           <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
           <span className="text-[10.5px] font-bold tracking-[0.2em] uppercase text-[#1c1b1b]">
-            Interactive 3D Cutaway
+            Architectural Cutaway 3D
           </span>
-          <span className="text-[10px] text-[#72716d]">· 360° Orbit</span>
+          <span className="text-[10px] text-[#72716d] hidden sm:inline">· 360° Real-time Orbit</span>
         </div>
 
         {/* Right: View & Lighting Controls */}
-        <div className="pointer-events-auto flex items-center gap-1.5 bg-white/90 backdrop-blur-md p-1 rounded-full border border-[#E8E4DC] shadow-sm">
+        <div className="pointer-events-auto flex items-center gap-1.5 bg-white/95 backdrop-blur-md p-1 rounded-full border border-[#E8E4DC] shadow-sm">
           {/* Day / Evening Lighting Mode */}
           <button
             onClick={toggleLighting}
@@ -876,7 +907,7 @@ export default function ThreeDModelViewer({
           <div className="hidden md:flex items-center gap-1 pl-1 border-l border-[#E8E4DC]">
             <button
               onClick={() => setPresetView("iso")}
-              className={`px-2 py-0.5 rounded text-[10px] uppercase font-semibold transition-all cursor-pointer ${
+              className={`px-2.5 py-0.5 rounded text-[10px] uppercase font-semibold transition-all cursor-pointer ${
                 cameraView === "iso" && !activeRoom
                   ? "bg-[#B08D57] text-white"
                   : "text-[#72716d] hover:text-[#1c1b1b]"
@@ -886,7 +917,7 @@ export default function ThreeDModelViewer({
             </button>
             <button
               onClick={() => setPresetView("top")}
-              className={`px-2 py-0.5 rounded text-[10px] uppercase font-semibold transition-all cursor-pointer ${
+              className={`px-2.5 py-0.5 rounded text-[10px] uppercase font-semibold transition-all cursor-pointer ${
                 cameraView === "top" && !activeRoom
                   ? "bg-[#B08D57] text-white"
                   : "text-[#72716d] hover:text-[#1c1b1b]"
@@ -896,7 +927,7 @@ export default function ThreeDModelViewer({
             </button>
             <button
               onClick={() => setPresetView("front")}
-              className={`px-2 py-0.5 rounded text-[10px] uppercase font-semibold transition-all cursor-pointer ${
+              className={`px-2.5 py-0.5 rounded text-[10px] uppercase font-semibold transition-all cursor-pointer ${
                 cameraView === "front" && !activeRoom
                   ? "bg-[#B08D57] text-white"
                   : "text-[#72716d] hover:text-[#1c1b1b]"
@@ -911,8 +942,8 @@ export default function ThreeDModelViewer({
       {/* ── ROOM INSPECTOR PILLS (BOTTOM HUD) ────────────────────────── */}
       <div className="absolute bottom-4 inset-x-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3 pointer-events-none">
         {/* Room Navigation Pills */}
-        <div className="pointer-events-auto flex flex-wrap gap-1.5 bg-white/92 backdrop-blur-md p-1.5 rounded-xl border border-[#E8E4DC] shadow-md max-w-full overflow-x-auto">
-          <span className="text-[10px] font-bold tracking-wider uppercase text-[#72716d] px-2 py-1 hidden sm:inline self-center">
+        <div className="pointer-events-auto flex flex-wrap gap-1.5 bg-white/95 backdrop-blur-md p-1.5 rounded-2xl border border-[#E8E4DC] shadow-md max-w-full overflow-x-auto">
+          <span className="text-[10px] font-bold tracking-wider uppercase text-[#72716d] px-2.5 py-1 hidden sm:inline self-center">
             Inspect Room:
           </span>
           {roomTargets.map((r) => {
@@ -921,9 +952,9 @@ export default function ThreeDModelViewer({
               <button
                 key={r.name}
                 onClick={() => focusRoom(r)}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                className={`px-2.5 py-1 rounded-xl text-[11px] font-medium transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                   isSelected
-                    ? "bg-[#1c1b1b] text-white shadow-sm"
+                    ? "bg-[#1c1b1b] text-white shadow-xs"
                     : "bg-[#FAF7F2] text-[#474741] hover:text-[#B08D57] hover:border-[#B08D57] border border-transparent"
                 }`}
               >
@@ -940,9 +971,9 @@ export default function ThreeDModelViewer({
         </div>
 
         {/* Interaction Hint */}
-        <div className="pointer-events-none hidden lg:flex items-center gap-2 bg-black/65 backdrop-blur-sm text-white/80 text-[10px] px-3 py-1.5 rounded-full self-end shadow">
+        <div className="pointer-events-none hidden lg:flex items-center gap-2 bg-black/70 backdrop-blur-sm text-white/85 text-[10px] px-3.5 py-1.5 rounded-full self-end shadow">
           <span className="material-symbols-outlined text-xs text-[#B08D57]">touch_app</span>
-          <span>Left-click drag to orbit · Scroll to zoom · Right-click drag to pan</span>
+          <span>Left-click drag to orbit · Scroll to zoom · Right-click to pan</span>
         </div>
       </div>
     </div>

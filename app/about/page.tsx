@@ -391,31 +391,31 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* RIGHT COLUMN: Clean, High-End Advisory Form */}
-            <div className="lg:col-span-7 bg-[#FAF7F2] p-7 md:p-10 rounded-3xl border border-[#E8E4DC] shadow-sm reveal-slide-right">
+            {/* RIGHT COLUMN: Clean, High-End Compact Advisory Form */}
+            <div className="lg:col-span-7 bg-[#FAF7F2] p-6 md:p-7 rounded-3xl border border-[#E8E4DC] shadow-sm reveal-slide-right flex flex-col justify-between">
               {contactSubmitted ? (
-                <div className="py-16 flex flex-col items-center text-center gap-3">
-                  <div className="size-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mb-2 animate-bounce">
-                    <span className="material-symbols-outlined text-3xl">check_circle</span>
+                <div className="py-12 flex flex-col items-center text-center gap-3 my-auto">
+                  <div className="size-14 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mb-1 animate-bounce">
+                    <span className="material-symbols-outlined text-2xl">check_circle</span>
                   </div>
                   <h3
-                    className="text-2xl md:text-3xl font-normal text-[#1c1b1b]"
+                    className="text-2xl font-normal text-[#1c1b1b]"
                     style={{ fontFamily: "'Playfair Display', serif" }}
                   >
                     Inquiry Dispatched
                   </h3>
-                  <p className="text-sm text-[#72716d] max-w-md leading-relaxed">
+                  <p className="text-xs text-[#72716d] max-w-md leading-relaxed">
                     Thank you, {formData.name || "esteemed client"}. A senior relationship partner from the Kokapet Neopolis advisory desk will contact you within 2 business hours.
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmitContact} className="flex flex-col gap-5">
+                <form onSubmit={handleSubmitContact} className="flex flex-col gap-3.5">
                   <div>
-                    <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-[#B08D57] block mb-1">
+                    <span className="text-[9.5px] uppercase tracking-[0.25em] font-semibold text-[#B08D57] block mb-0.5">
                       Direct Communication
                     </span>
                     <h3
-                      className="text-2xl md:text-3xl font-normal text-[#1c1b1b]"
+                      className="text-xl md:text-2xl font-normal text-[#1c1b1b]"
                       style={{ fontFamily: "'Playfair Display', serif" }}
                     >
                       Send Confidential Advisory Message
@@ -424,7 +424,7 @@ export default function AboutPage() {
 
                   {/* Full Name */}
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#474741] mb-1.5">
+                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#474741] mb-1">
                       Full Name *
                     </label>
                     <input
@@ -433,14 +433,14 @@ export default function AboutPage() {
                       placeholder="e.g. Vikram Reddy"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] placeholder-[#72716d]/50 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors"
+                      className="w-full px-3.5 py-2 rounded-xl border border-[#E8E4DC] bg-white text-xs text-[#1c1b1b] placeholder-[#72716d]/50 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors"
                     />
                   </div>
 
                   {/* Email & Phone */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#474741] mb-1.5">
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#474741] mb-1">
                         Corporate Email *
                       </label>
                       <input
@@ -449,11 +449,11 @@ export default function AboutPage() {
                         placeholder="name@company.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] placeholder-[#72716d]/50 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors"
+                        className="w-full px-3.5 py-2 rounded-xl border border-[#E8E4DC] bg-white text-xs text-[#1c1b1b] placeholder-[#72716d]/50 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#474741] mb-1.5">
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#474741] mb-1">
                         Phone / WhatsApp *
                       </label>
                       <input
@@ -462,48 +462,46 @@ export default function AboutPage() {
                         placeholder="+91 98765 43210"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] placeholder-[#72716d]/50 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors"
+                        className="w-full px-3.5 py-2 rounded-xl border border-[#E8E4DC] bg-white text-xs text-[#1c1b1b] placeholder-[#72716d]/50 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors"
                       />
                     </div>
                   </div>
 
                   {/* Primary Interest Dropdown */}
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#474741] mb-1.5">
+                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#474741] mb-1">
                       Target Corridor / Property
                     </label>
                     <select
                       value={formData.interest}
                       onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors cursor-pointer"
+                      className="w-full px-3.5 py-2 rounded-xl border border-[#E8E4DC] bg-white text-xs text-[#1c1b1b] focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors cursor-pointer"
                     >
                       <option value="kokapet-neopolis">Kokapet (Neopolis Corridor) — Flagship Residences</option>
-                      <option value="financial-district">Financial District (Nanakramguda)</option>
-                      <option value="gachibowli">Gachibowli IT Corridor</option>
-                      <option value="banjara-hills">Banjara Hills Heritage Enclave</option>
-                      <option value="jubilee-hills">Jubilee Hills Panoramic Residences</option>
-                      <option value="tellapur-plots">Tellapur Freehold Estate Plots</option>
-                      <option value="general-consultation">Private Site Walkthrough Consultation</option>
+                      <option value="financial-district">Financial District (Nanakramguda) — Corporate Tech Core</option>
+                      <option value="gachibowli">Gachibowli — IT Corridor Residences</option>
+                      <option value="banjara-hills">Banjara Hills — Heritage Prestige Enclave</option>
+                      <option value="jubilee-hills">Jubilee Hills — Elite Topography Villas</option>
+                      <option value="tellapur">Tellapur — Master Planned Green Corridor</option>
                     </select>
                   </div>
 
-                  {/* Message */}
+                  {/* Message / Custom Requirements */}
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#474741] mb-1.5">
+                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#474741] mb-1">
                       Viewing Notes / Custom Criteria
                     </label>
                     <textarea
-                      rows={3}
+                      rows={2}
                       placeholder="Specify your preferred floor band, Vastu direction, or preferred date for a private walkthrough..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] placeholder-[#72716d]/50 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors resize-none"
+                      className="w-full px-3.5 py-2 rounded-xl border border-[#E8E4DC] bg-white text-xs text-[#1c1b1b] placeholder-[#72716d]/50 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors resize-none"
                     />
                   </div>
 
-                  {/* Privacy note */}
-                  <div className="flex items-center gap-2 text-[11px] text-[#72716d]">
-                    <span className="material-symbols-outlined text-sm text-[#B08D57]">lock</span>
+                  <div className="flex items-center gap-2 text-[10.5px] text-[#72716d]">
+                    <span className="material-symbols-outlined text-xs text-[#B08D57]">lock</span>
                     <span>Protected by client confidentiality protocol. Zero spam guarantee.</span>
                   </div>
 

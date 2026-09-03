@@ -117,15 +117,15 @@ export default function FloatingContactWidgets() {
   return (
     <>
       {/* ───────────────────────────────────────────────────────────────── */}
-      {/* 1. FLOATING ACTION DOCK (BOTTOM-RIGHT)                            */}
+      {/* 1. FLOATING LUXURY CONCIERGE DOCK (BOTTOM-RIGHT)                  */}
       {/* ───────────────────────────────────────────────────────────────── */}
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 pointer-events-auto">
+      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2.5 pointer-events-auto select-none">
 
-        {/* WhatsApp Direct Concierge Button */}
+        {/* WhatsApp Direct Concierge Button (Refined Quiet Luxury Styling) */}
         <div className="relative group">
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b] text-white text-[11px] font-medium px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center gap-1.5 border border-white/10">
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b]/95 backdrop-blur-md text-white text-[10.5px] font-medium tracking-wide px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center gap-1.5 border border-[#B08D57]/30">
             <span className="size-1.5 rounded-full bg-emerald-400" />
-            <span>Chat on WhatsApp · Private Client Concierge</span>
+            <span>Private WhatsApp Concierge</span>
           </div>
 
           <a
@@ -133,14 +133,14 @@ export default function FloatingContactWidgets() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Chat on WhatsApp"
-            className="size-13 md:size-14 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border-2 border-white/40 cursor-pointer relative"
+            className="size-11 md:size-12 rounded-full bg-[#1c1b1b] hover:bg-[#25D366] text-[#25D366] hover:text-white border border-[#B08D57]/50 hover:border-[#25D366] shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer relative group/wa"
           >
-            {/* Pulsing ring */}
-            <span className="absolute -inset-1 rounded-full bg-[#25D366]/35 animate-ping pointer-events-none" />
+            {/* Subtle live status dot */}
+            <span className="absolute top-0.5 right-0.5 size-2 rounded-full bg-emerald-500 border border-[#1c1b1b]" />
 
-            {/* WhatsApp SVG Icon */}
+            {/* Refined WhatsApp SVG Icon */}
             <svg
-              className="size-7 fill-current relative z-10"
+              className="size-5 fill-current transition-transform duration-300 group-hover/wa:scale-110"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -149,28 +149,28 @@ export default function FloatingContactWidgets() {
           </a>
         </div>
 
-        {/* AI Concierge Chatbot Trigger Button */}
+        {/* AI Concierge Chatbot Trigger Button (Refined Luxury Styling) */}
         <div className="relative group">
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b] text-white text-[11px] font-medium px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center gap-1.5 border border-white/10">
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b]/95 backdrop-blur-md text-white text-[10.5px] font-medium tracking-wide px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center gap-1.5 border border-[#B08D57]/30">
             <span className="size-1.5 rounded-full bg-[#B08D57]" />
-            <span>Ask Luxe AI Concierge</span>
+            <span>Luxe AI Concierge</span>
           </div>
 
           <button
             onClick={() => setChatOpen((prev) => !prev)}
             aria-label="Toggle AI Concierge Chat"
-            className={`size-13 md:size-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border-2 cursor-pointer relative ${
+            className={`size-11 md:size-12 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 border cursor-pointer relative ${
               chatOpen
-                ? "bg-[#1c1b1b] text-white border-[#B08D57]"
-                : "bg-gradient-to-br from-[#1c1b1b] to-[#2b2724] text-[#B08D57] border-[#B08D57]/70"
+                ? "bg-[#B08D57] text-white border-[#B08D57]"
+                : "bg-[#1c1b1b] text-[#B08D57] hover:bg-[#B08D57] hover:text-white border-[#B08D57]/50 hover:border-[#B08D57]"
             }`}
           >
             {chatOpen ? (
-              <span className="material-symbols-outlined text-2xl text-white">close</span>
+              <span className="material-symbols-outlined text-lg">close</span>
             ) : (
               <div className="relative flex items-center justify-center">
-                <span className="material-symbols-outlined text-2xl text-[#B08D57]">auto_awesome</span>
-                <span className="absolute -top-1 -right-1 size-2.5 rounded-full bg-[#B08D57] animate-pulse" />
+                <span className="material-symbols-outlined text-xl">auto_awesome</span>
+                <span className="absolute -top-1 -right-1 size-1.5 rounded-full bg-[#B08D57]" />
               </div>
             )}
           </button>
