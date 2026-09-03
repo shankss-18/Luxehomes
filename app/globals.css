@@ -200,6 +200,16 @@ body {
   50%       { box-shadow: 0 0 16px 4px rgba(176,141,87,0.25); }
 }
 
+/* Continuous smooth right-to-left marquee glide */
+@keyframes marqueeGlide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333333%);
+  }
+}
+
 .animate-fade-in-up    { animation: fadeInUp    0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
 .animate-fade-in-down  { animation: fadeInDown  0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
 .animate-fade-in-scale { animation: fadeInScale 0.7s cubic-bezier(0.16,1,0.3,1) forwards; }

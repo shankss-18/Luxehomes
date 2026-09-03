@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import propertiesData from "@/data/properties.json";
 import locationsData from "@/data/locations.json";
-import ParallaxStatCards from "@/components/ParallaxStatCards";
+import MarqueeStatCards from "@/components/MarqueeStatCards";
 
 interface FAQItem {
   id: string;
@@ -58,6 +58,7 @@ export default function AboutPage() {
     name: "",
     email: "",
     phone: "",
+    interest: "kokapet-neopolis",
     message: "",
   });
 
@@ -66,8 +67,14 @@ export default function AboutPage() {
     setContactSubmitted(true);
     setTimeout(() => {
       setContactSubmitted(false);
-      setFormData({ name: "", email: "", phone: "", message: "" });
-    }, 3500);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        interest: "kokapet-neopolis",
+        message: "",
+      });
+    }, 4000);
   };
 
   return (
@@ -76,11 +83,11 @@ export default function AboutPage() {
       {/* ───────────────────────────────────────────────────────────────── */}
       {/* 1. COMPANY STORY SECTION                                          */}
       {/* ───────────────────────────────────────────────────────────────── */}
-      <section className="w-full py-12 md:py-20 border-b border-[#E8E4DC]/80">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col gap-12">
+      <section className="w-full py-16 md:py-24 border-b border-[#E8E4DC]/80">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col gap-14">
           {/* Header */}
           <div className="flex flex-col items-center text-center gap-3 reveal-item">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#E8E4DC] text-[#B08D57] text-[10px] tracking-[0.25em] uppercase font-semibold">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-[#E8E4DC] text-[#B08D57] text-[10px] tracking-[0.28em] uppercase font-semibold shadow-xs">
               <span className="size-1.5 rounded-full bg-[#B08D57] animate-pulse" />
               <span>OUR HERITAGE &amp; PHILOSOPHY</span>
             </div>
@@ -92,20 +99,22 @@ export default function AboutPage() {
             </h1>
             <div className="flex items-center gap-2">
               <div className="h-px w-10 bg-[#B08D57]/40" />
-              <svg width="6" height="6" viewBox="0 0 6 6"><polygon points="3,0 6,3 3,6 0,3" fill="#B08D57" /></svg>
+              <svg width="6" height="6" viewBox="0 0 6 6">
+                <polygon points="3,0 6,3 3,6 0,3" fill="#B08D57" />
+              </svg>
               <div className="h-px w-10 bg-[#B08D57]/40" />
             </div>
           </div>
 
           {/* Split Image & Narrative Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Story Text */}
-            <div className="lg:col-span-6 flex flex-col gap-5 text-[#474741] font-light leading-relaxed reveal-slide-left">
+            <div className="lg:col-span-6 flex flex-col gap-6 text-[#474741] font-light leading-relaxed reveal-slide-left">
               <p
-                className="text-lg md:text-xl text-[#1c1b1b] font-normal leading-snug"
+                className="text-xl md:text-2xl text-[#1c1b1b] font-normal leading-snug"
                 style={{ fontFamily: "'Cormorant Garant', serif" }}
               >
-                Founded on the belief that true luxury lies in serene restraint, expansive volume, and verified governance.
+                Founded on the premise that true luxury lies in serene restraint, expansive volume, and verified governance.
               </p>
               <p className="text-sm text-[#72716d] leading-relaxed">
                 For over 15 years, Luxehomes has spearheaded ultra-luxury development across Hyderabad&apos;s most coveted residential corridors — Kokapet, Financial District, Banjara Hills, and Jubilee Hills.
@@ -113,27 +122,32 @@ export default function AboutPage() {
               <p className="text-sm text-[#72716d] leading-relaxed">
                 Every residential footprint is meticulously planned on HMDA-sanctioned land parcels, with 100% Vastu alignment, dedicated multi-lane arterial road connectivity, and institutional-grade construction quality.
               </p>
-              <div className="pt-3 border-t border-[#E8E4DC] flex items-center gap-6 text-xs text-[#1c1b1b]">
-                <div>
-                  <span className="font-semibold text-[#B08D57] block">15+ Years</span>
-                  <span className="text-[#72716d]">Of Verified Trust</span>
+
+              <div className="pt-5 border-t border-[#E8E4DC] grid grid-cols-3 gap-4 text-center">
+                <div className="p-3 rounded-xl bg-white/70 border border-[#E8E4DC]">
+                  <span className="font-semibold text-base text-[#B08D57] block" style={{ fontFamily: "'Cormorant Garant', serif" }}>
+                    15+ Years
+                  </span>
+                  <span className="text-[10.5px] text-[#72716d] uppercase tracking-wider">Verified Trust</span>
                 </div>
-                <div className="h-8 w-px bg-[#E8E4DC]" />
-                <div>
-                  <span className="font-semibold text-[#B08D57] block">6 Acres</span>
-                  <span className="text-[#72716d]">Neopolis Corridor</span>
+                <div className="p-3 rounded-xl bg-white/70 border border-[#E8E4DC]">
+                  <span className="font-semibold text-base text-[#B08D57] block" style={{ fontFamily: "'Cormorant Garant', serif" }}>
+                    6 Acres
+                  </span>
+                  <span className="text-[10.5px] text-[#72716d] uppercase tracking-wider">Neopolis Hub</span>
                 </div>
-                <div className="h-8 w-px bg-[#E8E4DC]" />
-                <div>
-                  <span className="font-semibold text-[#B08D57] block">100% Vastu</span>
-                  <span className="text-[#72716d]">Harmonious Design</span>
+                <div className="p-3 rounded-xl bg-white/70 border border-[#E8E4DC]">
+                  <span className="font-semibold text-base text-[#B08D57] block" style={{ fontFamily: "'Cormorant Garant', serif" }}>
+                    100% Vastu
+                  </span>
+                  <span className="text-[10.5px] text-[#72716d] uppercase tracking-wider">Oriented</span>
                 </div>
               </div>
             </div>
 
             {/* Visual Frame */}
             <div className="lg:col-span-6 relative reveal-slide-right">
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#E8E4DC] shadow-xl bg-white group">
+              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-[#E8E4DC] shadow-2xl bg-white group">
                 <div
                   className="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
                   style={{
@@ -141,17 +155,22 @@ export default function AboutPage() {
                       "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCrBdPj9oxtI9eBHXHVpAcaTAr33Y36nn5EGz4-TulcAC7JtGbmaCIu5Opkv4vHLqGPYBNJjRueiqJQmTd_wGTreZGlm9dpGxpNfLbAFrxRZpCc0MzW-TJwpKraMHYgTrCr20RoSRAvOIEwKU-b1tgBkdMbeRUzLbrrSWdmqU0USymV9RMm2CzQtZFa0GVS7d9-CDmi2p1dmQekILGVn6WrdjCkT13uIlOMMqahvRlY3QOezDei7LN8')",
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-                <div className="absolute bottom-5 left-6 text-white">
-                  <p className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B08D57]">
-                    The Luxe Heritage
-                  </p>
-                  <p
-                    className="text-lg md:text-xl font-normal mt-0.5"
-                    style={{ fontFamily: "'Cormorant Garant', serif" }}
-                  >
-                    Architectural Restraint &amp; Refined Volume
-                  </p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6 text-white flex items-end justify-between">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-[0.25em] font-semibold text-[#B08D57]">
+                      The Luxe Architecture
+                    </p>
+                    <p
+                      className="text-xl md:text-2xl font-normal mt-0.5"
+                      style={{ fontFamily: "'Cormorant Garant', serif" }}
+                    >
+                      Architectural Restraint &amp; Refined Volume
+                    </p>
+                  </div>
+                  <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[10px] uppercase tracking-wider text-white border border-white/20">
+                    Est. 2011
+                  </span>
                 </div>
               </div>
             </div>
@@ -160,25 +179,32 @@ export default function AboutPage() {
       </section>
 
       {/* ───────────────────────────────────────────────────────────────── */}
-      {/* 2. ACHIEVEMENTS / MILESTONES PARALLAX SCROLLING CARDS             */}
+      {/* 2. ACHIEVEMENTS / MILESTONES — CONTINUOUS RIGHT-TO-LEFT MARQUEE   */}
       {/* ───────────────────────────────────────────────────────────────── */}
-      <ParallaxStatCards />
+      <MarqueeStatCards />
 
       {/* ───────────────────────────────────────────────────────────────── */}
       {/* 3. BUYER FAQS ACCORDION                                           */}
       {/* ───────────────────────────────────────────────────────────────── */}
-      <section className="w-full py-16 md:py-20 border-b border-[#E8E4DC]/80">
-        <div className="max-w-[900px] mx-auto px-6 md:px-12 flex flex-col gap-10">
-          <div className="text-center flex flex-col items-center gap-2 reveal-item">
-            <span className="text-[#B08D57] font-semibold text-xs tracking-[0.25em] uppercase">
+      <section className="w-full py-16 md:py-24 border-b border-[#E8E4DC]/80">
+        <div className="max-w-[900px] mx-auto px-6 md:px-12 flex flex-col gap-12">
+          <div className="text-center flex flex-col items-center gap-3 reveal-item">
+            <span className="text-[#B08D57] font-semibold text-xs tracking-[0.28em] uppercase">
               Transparency First
             </span>
             <h2
-              className="text-[#1c1b1b] text-2xl md:text-4xl font-normal"
+              className="text-[#1c1b1b] text-3xl md:text-4xl font-normal"
               style={{ fontFamily: "'Cormorant Garant', serif" }}
             >
               Frequently Asked Questions
             </h2>
+            <div className="flex items-center gap-2">
+              <div className="h-px w-8 bg-[#B08D57]/40" />
+              <svg width="6" height="6" viewBox="0 0 6 6">
+                <polygon points="3,0 6,3 3,6 0,3" fill="#B08D57" />
+              </svg>
+              <div className="h-px w-8 bg-[#B08D57]/40" />
+            </div>
             <p className="text-xs md:text-sm text-[#72716d]">
               Key statutory, commercial, and legal policies for prospective purchasers.
             </p>
@@ -191,25 +217,25 @@ export default function AboutPage() {
               return (
                 <div
                   key={faq.id}
-                  className={`reveal-item ${delayClass} rounded-xl border transition-all duration-300 bg-white ${
+                  className={`reveal-item ${delayClass} rounded-2xl border transition-all duration-300 bg-white ${
                     isOpen
-                      ? "border-[#B08D57] shadow-md ring-1 ring-[#B08D57]/20"
-                      : "border-[#E8E4DC] hover:border-[#B08D57]/60"
+                      ? "border-[#B08D57] shadow-lg ring-1 ring-[#B08D57]/20"
+                      : "border-[#E8E4DC] hover:border-[#B08D57]/60 shadow-xs"
                   }`}
                 >
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : faq.id)}
                     className="w-full flex items-center justify-between p-5 md:p-6 text-left cursor-pointer gap-4"
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3.5">
                       <span
-                        className={`size-2 rounded-full transition-colors ${
-                          isOpen ? "bg-[#B08D57]" : "bg-[#72716d]"
+                        className={`size-2 rounded-full transition-colors shrink-0 ${
+                          isOpen ? "bg-[#B08D57]" : "bg-[#E8E4DC]"
                         }`}
                       />
                       <span
-                        className={`text-sm md:text-base font-medium transition-colors ${
-                          isOpen ? "text-[#1c1b1b]" : "text-[#474741]"
+                        className={`text-sm md:text-base font-normal transition-colors ${
+                          isOpen ? "text-[#1c1b1b] font-medium" : "text-[#474741]"
                         }`}
                         style={{ fontFamily: "'Playfair Display', serif" }}
                       >
@@ -238,198 +264,165 @@ export default function AboutPage() {
       </section>
 
       {/* ───────────────────────────────────────────────────────────────── */}
-      {/* 4. CONTACT US SECTION                                             */}
+      {/* 4. CONTACT US — REDESIGNED PRIVATE CLIENT DESK                    */}
       {/* ───────────────────────────────────────────────────────────────── */}
       <section id="contact" className="w-full py-16 md:py-24 bg-white scroll-mt-24">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col gap-12">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col gap-14">
           {/* Header */}
-          <div className="text-center flex flex-col items-center gap-2 reveal-item">
-            <span className="text-[#B08D57] font-semibold text-xs tracking-[0.25em] uppercase">
+          <div className="text-center flex flex-col items-center gap-3 reveal-item">
+            <span className="text-[#B08D57] font-semibold text-xs tracking-[0.28em] uppercase">
               Private Client Desk
             </span>
             <h2
-              className="text-[#1c1b1b] text-3xl md:text-4xl font-normal"
+              className="text-[#1c1b1b] text-3xl md:text-5xl font-normal"
               style={{ fontFamily: "'Cormorant Garant', serif" }}
             >
               Connect With Our Advisory Team
             </h2>
-            <p className="text-xs md:text-sm text-[#72716d] max-w-xl">
+            <div className="flex items-center gap-2">
+              <div className="h-px w-8 bg-[#B08D57]/40" />
+              <svg width="6" height="6" viewBox="0 0 6 6">
+                <polygon points="3,0 6,3 3,6 0,3" fill="#B08D57" />
+              </svg>
+              <div className="h-px w-8 bg-[#B08D57]/40" />
+            </div>
+            <p className="text-xs md:text-sm text-[#72716d] max-w-xl font-light">
               Schedule a confidential walk-in consultation at the Kokapet Advisory Office or request portfolio literature.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            {/* Left Column: Office Details + Map */}
+          {/* Clean 2-Column Split: Left Office Details / Right Advisory Form */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            {/* LEFT COLUMN: Kokapet Advisory Office Card + Corridor Preview */}
             <div className="lg:col-span-5 flex flex-col gap-6 reveal-slide-left">
-              <div className="bg-[#FAF7F2] p-6 md:p-8 rounded-2xl border border-[#E8E4DC] flex flex-col gap-6 shadow-sm">
-                <div>
-                  <h3 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B08D57] mb-2">
-                    Kokapet Advisory Office
-                  </h3>
-                  <p className="text-sm text-[#1c1b1b] leading-relaxed">
-                    The Luxe Tower, Neopolis Corridor<br />
-                    Kokapet, Hyderabad, Telangana 500075<br />
-                    India
-                  </p>
+              {/* Office Details Card */}
+              <div className="bg-[#FAF7F2] p-7 md:p-8 rounded-3xl border border-[#E8E4DC] shadow-sm flex flex-col gap-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <span className="text-[10px] uppercase tracking-[0.22em] font-semibold text-[#B08D57] block mb-1">
+                      Flagship Experience Center
+                    </span>
+                    <h3
+                      className="text-2xl font-normal text-[#1c1b1b]"
+                      style={{ fontFamily: "'Playfair Display', serif" }}
+                    >
+                      Kokapet Advisory Office
+                    </h3>
+                  </div>
+                  <div className="size-10 rounded-full bg-white border border-[#E8E4DC] text-[#B08D57] flex items-center justify-center shadow-xs shrink-0">
+                    <span className="material-symbols-outlined text-lg">apartment</span>
+                  </div>
                 </div>
+
+                <p className="text-sm text-[#474741] leading-relaxed">
+                  The Luxe Tower, Neopolis Corridor<br />
+                  Kokapet, Hyderabad, Telangana 500075<br />
+                  India
+                </p>
 
                 <div className="h-px bg-[#E8E4DC]" />
 
-                <div className="flex flex-col gap-2">
-                  <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#72716d]">
-                    Direct Advisory
-                  </h4>
+                {/* Direct Contact Links */}
+                <div className="flex flex-col gap-3">
                   <a
                     href="tel:+914045678900"
-                    className="text-sm font-medium text-[#1c1b1b] hover:text-[#B08D57] transition-colors"
+                    className="flex items-center gap-3 text-sm text-[#1c1b1b] hover:text-[#B08D57] transition-colors group"
                   >
-                    +91 40 4567 8900
+                    <div className="size-8 rounded-lg bg-white border border-[#E8E4DC] flex items-center justify-center text-[#72716d] group-hover:text-[#B08D57] group-hover:border-[#B08D57] transition-colors">
+                      <span className="material-symbols-outlined text-base">call</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] uppercase tracking-wider text-[#72716d] block">Telephone</span>
+                      <span className="font-medium">+91 40 4567 8900</span>
+                    </div>
                   </a>
+
                   <a
                     href="mailto:concierge@luxehomes.com"
-                    className="text-sm text-[#72716d] hover:text-[#B08D57] transition-colors"
+                    className="flex items-center gap-3 text-sm text-[#1c1b1b] hover:text-[#B08D57] transition-colors group"
                   >
-                    concierge@luxehomes.com
+                    <div className="size-8 rounded-lg bg-white border border-[#E8E4DC] flex items-center justify-center text-[#72716d] group-hover:text-[#B08D57] group-hover:border-[#B08D57] transition-colors">
+                      <span className="material-symbols-outlined text-base">mail</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] uppercase tracking-wider text-[#72716d] block">Private Concierge</span>
+                      <span className="font-medium">concierge@luxehomes.com</span>
+                    </div>
                   </a>
                 </div>
 
                 <div className="h-px bg-[#E8E4DC]" />
 
-                <div>
-                  <span className="text-[11px] text-[#72716d] leading-relaxed block">
-                    Working Hours: Monday – Saturday, 10:00 AM – 7:00 PM IST.<br />
-                    RERA Registration: Status TBD · HMDA Approved Master Plan.
-                  </span>
+                <div className="flex items-center justify-between text-[11px] text-[#72716d]">
+                  <span>Mon – Sat: 10:00 AM – 7:00 PM IST</span>
+                  <span className="text-[#B08D57] font-semibold">HMDA Approved</span>
                 </div>
               </div>
 
-              {/* Stylized Corridor Map Snippet */}
-              <div className="h-56 rounded-2xl overflow-hidden relative border border-[#E8E4DC] shadow-sm group">
+              {/* Corridor Preview Card with Link to /location */}
+              <div className="h-48 rounded-3xl overflow-hidden relative border border-[#E8E4DC] shadow-md group">
                 <div
-                  className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                   style={{
                     backgroundImage:
                       "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnuktRK27yvXgij5paYhzTzZ4XLQu_5rGB9LGp67vM7FqY2Hkkgv2M0sD1Afj4ZZx9EZeTwn3nZg3An_yJae-X-m-ETzP_VnIJI2Z6D3MHsNXzFUNNmNxEUFiuH07OJrMxlxfE0Xu_a-GNEhWdqWLfMM86rq1kOb_VUzpBRjWl-62tjafTus5OK6OI74YOAjDqxgFvH7rCrgTFhx7m22_GnJ9twD0xHu-axGSMOmWLpHCFJX6LFgBE')",
                   }}
                 />
-                <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] flex items-center justify-center p-4 text-center">
-                  <div className="bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-[#E8E4DC] shadow-md flex items-center gap-2.5">
-                    <span className="size-2 rounded-full bg-[#B08D57] animate-pulse" />
-                    <span className="text-xs font-semibold text-[#1c1b1b]">
-                      The Luxe Tower · Kokapet
-                    </span>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent flex items-end p-5">
+                  <div className="w-full flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] uppercase tracking-wider text-[#B08D57] font-bold block">
+                        Interactive Map
+                      </span>
+                      <p className="text-white text-sm font-medium" style={{ fontFamily: "'Playfair Display', serif" }}>
+                        Explore 6 Hyderabad Corridors
+                      </p>
+                    </div>
                     <Link
                       href="/location"
-                      className="text-[10px] font-bold text-[#B08D57] uppercase tracking-wider pl-1 hover:underline"
+                      className="px-3.5 py-1.5 rounded-full bg-white/95 hover:bg-white text-[#1c1b1b] text-xs font-semibold uppercase tracking-wider shadow-md hover:text-[#B08D57] transition-all flex items-center gap-1"
                     >
-                      View Map →
+                      <span>View Map</span>
+                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
                     </Link>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Contact Inquiry Form */}
-            <div className="lg:col-span-7 bg-[#FAF7F2] p-6 md:p-10 rounded-2xl border border-[#E8E4DC] shadow-sm reveal-slide-right">
-              <div className="bg-[#FAF7F2] p-6 md:p-8 rounded-2xl border border-[#E8E4DC] flex flex-col gap-6 shadow-sm">
-                <div>
-                  <h3 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B08D57] mb-2">
-                    Kokapet Advisory Office
-                  </h3>
-                  <p className="text-sm text-[#1c1b1b] leading-relaxed">
-                    The Luxe Tower, Neopolis Corridor<br />
-                    Kokapet, Hyderabad, Telangana 500075<br />
-                    India
-                  </p>
-                </div>
-
-                <div className="h-px bg-[#E8E4DC]" />
-
-                <div className="flex flex-col gap-2">
-                  <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#72716d]">
-                    Direct Advisory
-                  </h4>
-                  <a
-                    href="tel:+914045678900"
-                    className="text-sm font-medium text-[#1c1b1b] hover:text-[#B08D57] transition-colors"
-                  >
-                    +91 40 4567 8900
-                  </a>
-                  <a
-                    href="mailto:concierge@luxehomes.com"
-                    className="text-sm text-[#72716d] hover:text-[#B08D57] transition-colors"
-                  >
-                    concierge@luxehomes.com
-                  </a>
-                </div>
-
-                <div className="h-px bg-[#E8E4DC]" />
-
-                <div>
-                  <span className="text-[11px] text-[#72716d] leading-relaxed block">
-                    Working Hours: Monday – Saturday, 10:00 AM – 7:00 PM IST.<br />
-                    RERA Registration: Status TBD · HMDA Approved Master Plan.
-                  </span>
-                </div>
-              </div>
-
-              {/* Stylized Corridor Map Snippet */}
-              <div className="h-56 rounded-2xl overflow-hidden relative border border-[#E8E4DC] shadow-sm">
-                <div
-                  className="w-full h-full bg-cover bg-center"
-                  style={{
-                    backgroundImage:
-                      "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnuktRK27yvXgij5paYhzTzZ4XLQu_5rGB9LGp67vM7FqY2Hkkgv2M0sD1Afj4ZZx9EZeTwn3nZg3An_yJae-X-m-ETzP_VnIJI2Z6D3MHsNXzFUNNmNxEUFiuH07OJrMxlxfE0Xu_a-GNEhWdqWLfMM86rq1kOb_VUzpBRjWl-62tjafTus5OK6OI74YOAjDqxgFvH7rCrgTFhx7m22_GnJ9twD0xHu-axGSMOmWLpHCFJX6LFgBE')",
-                  }}
-                />
-                <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] flex items-center justify-center p-4 text-center">
-                  <div className="bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-[#E8E4DC] shadow-md flex items-center gap-2.5">
-                    <span className="size-2 rounded-full bg-[#B08D57] animate-pulse" />
-                    <span className="text-xs font-semibold text-[#1c1b1b]">
-                      The Luxe Tower · Kokapet
-                    </span>
-                    <Link
-                      href="/location"
-                      className="text-[10px] font-bold text-[#B08D57] uppercase tracking-wider pl-1 hover:underline"
-                    >
-                      View Map →
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Contact Inquiry Form */}
-            <div className="lg:col-span-7 bg-[#FAF7F2] p-6 md:p-10 rounded-2xl border border-[#E8E4DC] shadow-sm">
+            {/* RIGHT COLUMN: Clean, High-End Advisory Form */}
+            <div className="lg:col-span-7 bg-[#FAF7F2] p-7 md:p-10 rounded-3xl border border-[#E8E4DC] shadow-sm reveal-slide-right">
               {contactSubmitted ? (
-                <div className="py-12 flex flex-col items-center text-center gap-3">
-                  <div className="size-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mb-2">
+                <div className="py-16 flex flex-col items-center text-center gap-3">
+                  <div className="size-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mb-2 animate-bounce">
                     <span className="material-symbols-outlined text-3xl">check_circle</span>
                   </div>
                   <h3
-                    className="text-2xl font-normal text-[#1c1b1b]"
+                    className="text-2xl md:text-3xl font-normal text-[#1c1b1b]"
                     style={{ fontFamily: "'Playfair Display', serif" }}
                   >
                     Inquiry Dispatched
                   </h3>
-                  <p className="text-sm text-[#72716d] max-w-md">
-                    Thank you. A senior client relationship partner from the Kokapet Neopolis advisory desk will contact you within 2 business hours.
+                  <p className="text-sm text-[#72716d] max-w-md leading-relaxed">
+                    Thank you, {formData.name || "esteemed client"}. A senior relationship partner from the Kokapet Neopolis advisory desk will contact you within 2 business hours.
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmitContact} className="flex flex-col gap-4">
+                <form onSubmit={handleSubmitContact} className="flex flex-col gap-5">
                   <div>
-                    <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B08D57] block mb-1">
+                    <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-[#B08D57] block mb-1">
                       Direct Communication
                     </span>
                     <h3
-                      className="text-xl md:text-2xl font-normal text-[#1c1b1b]"
+                      className="text-2xl md:text-3xl font-normal text-[#1c1b1b]"
                       style={{ fontFamily: "'Playfair Display', serif" }}
                     >
                       Send Confidential Advisory Message
                     </h3>
                   </div>
 
+                  {/* Full Name */}
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider text-[#474741] mb-1.5">
                       Full Name *
@@ -440,10 +433,11 @@ export default function AboutPage() {
                       placeholder="e.g. Vikram Reddy"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-lg border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] placeholder-[#72716d]/60 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57]"
+                      className="w-full px-4 py-3 rounded-xl border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] placeholder-[#72716d]/50 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors"
                     />
                   </div>
 
+                  {/* Email & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-semibold uppercase tracking-wider text-[#474741] mb-1.5">
@@ -455,7 +449,7 @@ export default function AboutPage() {
                         placeholder="name@company.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-lg border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] placeholder-[#72716d]/60 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57]"
+                        className="w-full px-4 py-3 rounded-xl border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] placeholder-[#72716d]/50 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors"
                       />
                     </div>
                     <div>
@@ -468,37 +462,63 @@ export default function AboutPage() {
                         placeholder="+91 98765 43210"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-lg border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] placeholder-[#72716d]/60 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57]"
+                        className="w-full px-4 py-3 rounded-xl border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] placeholder-[#72716d]/50 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors"
                       />
                     </div>
                   </div>
 
+                  {/* Primary Interest Dropdown */}
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider text-[#474741] mb-1.5">
-                      Message / Viewing Preferences
+                      Target Corridor / Property
+                    </label>
+                    <select
+                      value={formData.interest}
+                      onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors cursor-pointer"
+                    >
+                      <option value="kokapet-neopolis">Kokapet (Neopolis Corridor) — Flagship Residences</option>
+                      <option value="financial-district">Financial District (Nanakramguda)</option>
+                      <option value="gachibowli">Gachibowli IT Corridor</option>
+                      <option value="banjara-hills">Banjara Hills Heritage Enclave</option>
+                      <option value="jubilee-hills">Jubilee Hills Panoramic Residences</option>
+                      <option value="tellapur-plots">Tellapur Freehold Estate Plots</option>
+                      <option value="general-consultation">Private Site Walkthrough Consultation</option>
+                    </select>
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#474741] mb-1.5">
+                      Viewing Notes / Custom Criteria
                     </label>
                     <textarea
                       rows={3}
-                      placeholder="Specify your preferred corridor, unit size, or schedule a site visit..."
+                      placeholder="Specify your preferred floor band, Vastu direction, or preferred date for a private walkthrough..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-lg border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] placeholder-[#72716d]/60 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57]"
+                      className="w-full px-4 py-3 rounded-xl border border-[#E8E4DC] bg-white text-sm text-[#1c1b1b] placeholder-[#72716d]/50 focus:outline-none focus:border-[#B08D57] focus:ring-1 focus:ring-[#B08D57] transition-colors resize-none"
                     />
                   </div>
 
-                  <p className="text-[11px] text-[#72716d]">
-                    Your information is protected under strict client confidentiality. No spam or unsolicited marketing.
-                  </p>
+                  {/* Privacy note */}
+                  <div className="flex items-center gap-2 text-[11px] text-[#72716d]">
+                    <span className="material-symbols-outlined text-sm text-[#B08D57]">lock</span>
+                    <span>Protected by client confidentiality protocol. Zero spam guarantee.</span>
+                  </div>
 
+                  {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-lg bg-[#B08D57] hover:bg-[#967645] text-white text-xs font-semibold tracking-[0.2em] uppercase transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer mt-1"
+                    className="w-full py-3.5 rounded-xl bg-[#B08D57] hover:bg-[#967645] text-white text-xs font-semibold tracking-[0.22em] uppercase transition-all duration-300 shadow-md hover:shadow-xl cursor-pointer mt-1 flex items-center justify-center gap-2"
                   >
-                    Submit Advisory Request
+                    <span>Submit Advisory Request</span>
+                    <span className="material-symbols-outlined text-sm">send</span>
                   </button>
                 </form>
               )}
             </div>
+
           </div>
         </div>
       </section>
