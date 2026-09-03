@@ -273,34 +273,41 @@ export default function LocationPage() {
         {/* ───────────────────────────────────────────────────────────────── */}
         <div id="interactive-map" className="flex flex-col gap-4 reveal-item">
 
-          {/* Filter Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 px-1">
-            <div className="flex items-center gap-1.5 p-1 bg-white border border-[#E8E4DC] rounded-full shadow-xs overflow-x-auto max-w-full">
-              {[
-                { id: "all", label: "All Corridors (7)" },
-                { id: "office", label: "Advisory Office" },
-                { id: "flagship", label: "Flagship Hubs" },
-                { id: "tech", label: "Corporate Tech Core" },
-                { id: "heritage", label: "Heritage Enclaves" },
-              ].map((filter) => {
-                const isActive = activeFilter === filter.id;
-                return (
-                  <button
-                    key={filter.id}
-                    onClick={() => setActiveFilter(filter.id as any)}
-                    className={`px-4 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition-all duration-200 whitespace-nowrap cursor-pointer ${
-                      isActive
-                        ? "bg-[#B08D57] text-white font-semibold shadow-xs"
-                        : "text-[#72716d] hover:text-[#1c1b1b] hover:bg-[#FAF7F2]"
-                    }`}
-                  >
-                    {filter.label}
-                  </button>
-                );
-              })}
+          {/* Filter Bar — Redesigned for Pixel-Perfect Mobile & Desktop Alignment */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full">
+            {/* Filter Pills with No Scrollbar & Subtle Gradient Edge Indicator */}
+            <div className="relative max-w-full overflow-hidden w-full sm:w-auto">
+              {/* Subtle edge fade indicator for mobile horizontal swiping */}
+              <div className="sm:hidden absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#FAF7F2] to-transparent pointer-events-none z-10" />
+
+              <div className="flex items-center gap-1.5 p-1 bg-white border border-[#E8E4DC] rounded-full shadow-xs overflow-x-auto no-scrollbar scroll-smooth w-full sm:w-auto">
+                {[
+                  { id: "all", label: "All Corridors (7)" },
+                  { id: "office", label: "Advisory Office" },
+                  { id: "flagship", label: "Flagship Hubs" },
+                  { id: "tech", label: "Tech Core" },
+                  { id: "heritage", label: "Heritage Enclaves" },
+                ].map((filter) => {
+                  const isActive = activeFilter === filter.id;
+                  return (
+                    <button
+                      key={filter.id}
+                      onClick={() => setActiveFilter(filter.id as any)}
+                      className={`px-3 sm:px-4 py-1.5 rounded-full text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer shrink-0 active:scale-95 ${
+                        isActive
+                          ? "bg-[#B08D57] text-white font-semibold shadow-xs ring-2 ring-[#B08D57]/20"
+                          : "text-[#72716d] hover:text-[#1c1b1b] hover:bg-[#FAF7F2]"
+                      }`}
+                    >
+                      {filter.label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
-            <div className="hidden sm:flex items-center gap-4 text-xs text-[#72716d]">
+            {/* Geographic Radar Legend (Desktop) */}
+            <div className="hidden sm:flex items-center gap-4 text-xs text-[#72716d] shrink-0">
               <div className="flex items-center gap-2">
                 <span className="size-2 rounded-full bg-[#B08D57] animate-pulse" />
                 <span className="text-[11px] font-medium text-[#1c1b1b]">Flagship Advisory Hub</span>
