@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
 /* ─── Base Styles ─────────────────────────────────────────────────────────── */
 html {
@@ -126,75 +127,97 @@ body {
 
 /* ─── Animations & Transitions ────────────────────────────────────────────── */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(32px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes pulseRing {
-  0% {
-    transform: scale(0.85);
-    opacity: 0.8;
-  }
-  70% {
-    transform: scale(2.2);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(2.2);
-    opacity: 0;
-  }
+  0%   { transform: scale(0.85); opacity: 0.8; }
+  70%  { transform: scale(2.2);  opacity: 0; }
+  100% { transform: scale(2.2);  opacity: 0; }
 }
 
 @keyframes floatGentle {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* SVG luxury line draw animation */
+@keyframes svgLineDraw {
+  from { stroke-dashoffset: 1000; opacity: 0.3; }
+  to   { stroke-dashoffset: 0;    opacity: 1; }
 }
 
-.animate-fade-in-scale {
-  animation: fadeInScale 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Gold line sweep across a heading */
+@keyframes goldLineSweep {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
 }
 
-.animate-pulse-ring {
-  animation: pulseRing 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+/* Hero particle drift */
+@keyframes driftUp {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.4; }
+  90%  { opacity: 0.15; }
+  100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
 }
 
-.animate-float-gentle {
-  animation: floatGentle 3s ease-in-out infinite;
+/* Slow pan on hero BG */
+@keyframes heroPan {
+  0%   { background-position: 50% 60%; }
+  50%  { background-position: 52% 55%; }
+  100% { background-position: 50% 60%; }
 }
+
+/* Subtle border shimmer for gold CTAs */
+@keyframes borderPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(176,141,87,0); }
+  50%       { box-shadow: 0 0 16px 4px rgba(176,141,87,0.25); }
+}
+
+.animate-fade-in-up    { animation: fadeInUp    0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-fade-in-down  { animation: fadeInDown  0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-fade-in-scale { animation: fadeInScale 0.7s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-fade-in-left  { animation: fadeInLeft  0.85s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-fade-in-right { animation: fadeInRight 0.85s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-pulse-ring    { animation: pulseRing   2.4s cubic-bezier(0.215,0.61,0.355,1) infinite; }
+.animate-float-gentle  { animation: floatGentle 3s ease-in-out infinite; }
+.animate-svg-draw      { animation: svgLineDraw 1.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-gold-sweep    { animation: goldLineSweep 1.2s cubic-bezier(0.16,1,0.3,1) 0.4s both; }
+.animate-hero-pan      { animation: heroPan 18s ease-in-out infinite; }
+.animate-border-pulse  { animation: borderPulse 3s ease-in-out infinite; }
+
+/* Stagger delays for reveal items */
+.reveal-delay-1 { transition-delay: 80ms !important; }
+.reveal-delay-2 { transition-delay: 160ms !important; }
+.reveal-delay-3 { transition-delay: 240ms !important; }
+.reveal-delay-4 { transition-delay: 320ms !important; }
+.reveal-delay-5 { transition-delay: 400ms !important; }
 
 /* Scroll reveal helper classes */
 .reveal-item {

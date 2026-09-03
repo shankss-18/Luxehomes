@@ -143,7 +143,7 @@ export default function HomePage() {
     : allFacilities.filter((f) => f.category === activeFacilityCategory);
 
   return (
-    <div className="relative flex h-auto min-h-screen w-full flex-col bg-luxury-pattern-subtle overflow-x-hidden pt-[76px]">
+    <div className="relative flex h-auto min-h-screen w-full flex-col bg-luxury-pattern-subtle overflow-x-hidden pt-[60px]">
       {/* Hidden button for Navbar to trigger enquire modal */}
       <button
         id="enquiry-modal-trigger"
@@ -153,97 +153,145 @@ export default function HomePage() {
       />
 
       {/* ─────────────────────────────────────────────────────────────────── */}
-      {/* 1. HERO SECTION (Real Hyderabad Kokapet Copy & Verified Trust Bar) */}
+      {/* 1. HERO SECTION — Premium Cinematic Experience                        */}
       {/* ─────────────────────────────────────────────────────────────────── */}
       <section
-        className="w-full min-h-[720px] lg:h-[90vh] relative bg-cover bg-center flex flex-col justify-center items-center pb-12"
-        style={{
-          backgroundImage:
-            "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnuktRK27yvXgij5paYhzTzZ4XLQu_5rGB9LGp67vM7FqY2Hkkgv2M0sD1Afj4ZZx9EZeTwn3nZg3An_yJae-X-m-ETzP_VnIJI2Z6D3MHsNXzFUNNmNxEUFiuH07OJrMxlxfE0Xu_a-GNEhWdqWLfMM86rq1kOb_VUzpBRjWl-62tjafTus5OK6OI74YOAjDqxgFvH7rCrgTFhx7m22_GnJ9twD0xHu-axGSMOmWLpHCFJX6LFgBE')",
-        }}
+        className="w-full min-h-[88vh] lg:h-[94vh] relative overflow-hidden flex flex-col justify-center items-center"
       >
-        {/* Soft Dark Vignette Overlay for High Readability */}
-        <div className="absolute inset-0 bg-black/50 backdrop-brightness-95" />
+        {/* —— Slow-panning background image —— */}
+        <div
+          className="absolute inset-0 bg-cover animate-hero-pan"
+          style={{
+            backgroundImage:
+              "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnuktRK27yvXgij5paYhzTzZ4XLQu_5rGB9LGp67vM7FqY2Hkkgv2M0sD1Afj4ZZx9EZeTwn3nZg3An_yJae-X-m-ETzP_VnIJI2Z6D3MHsNXzFUNNmNxEUFiuH07OJrMxlxfE0Xu_a-GNEhWdqWLfMM86rq1kOb_VUzpBRjWl-62tjafTus5OK6OI74YOAjDqxgFvH7rCrgTFhx7m22_GnJ9twD0xHu-axGSMOmWLpHCFJX6LFgBE')",
+            backgroundPosition: "50% 60%",
+          }}
+        />
 
-        {/* Content Container */}
-        <div className="relative z-10 flex flex-col items-center text-center px-6 gap-6 w-full max-w-4xl mx-auto mt-8">
-          {/* Location Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/30 text-white text-xs tracking-[0.2em] uppercase animate-fade-in-up">
-            <span className="inline-block size-2 rounded-full bg-[#B08D57] animate-pulse" />
-            <span>Neopolis Corridor · Kokapet, Hyderabad</span>
+        {/* Layered gradient overlays for premium depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/40 to-black/75" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/20" />
+
+        {/* —— Decorative SVG corner ornament (top-left) —— */}
+        <div className="absolute top-8 left-8 opacity-40 animate-fade-in-scale [animation-delay:800ms]">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2 L40 2 L40 2" stroke="#B08D57" strokeWidth="0.8"
+              strokeDasharray="200" className="animate-svg-draw" style={{ animationDelay: "600ms" }} />
+            <path d="M2 2 L2 40" stroke="#B08D57" strokeWidth="0.8"
+              strokeDasharray="200" className="animate-svg-draw" style={{ animationDelay: "750ms" }} />
+            <circle cx="2" cy="2" r="2" fill="#B08D57" />
+            <path d="M10 2 L10 10 L2 10" stroke="#B08D57" strokeWidth="0.4" opacity="0.5"
+              strokeDasharray="100" className="animate-svg-draw" style={{ animationDelay: "900ms" }} />
+          </svg>
+        </div>
+
+        {/* —— Decorative SVG corner ornament (top-right) —— */}
+        <div className="absolute top-8 right-8 opacity-40 animate-fade-in-scale [animation-delay:900ms]">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M78 2 L40 2" stroke="#B08D57" strokeWidth="0.8"
+              strokeDasharray="200" className="animate-svg-draw" style={{ animationDelay: "700ms" }} />
+            <path d="M78 2 L78 40" stroke="#B08D57" strokeWidth="0.8"
+              strokeDasharray="200" className="animate-svg-draw" style={{ animationDelay: "850ms" }} />
+            <circle cx="78" cy="2" r="2" fill="#B08D57" />
+            <path d="M70 2 L70 10 L78 10" stroke="#B08D57" strokeWidth="0.4" opacity="0.5"
+              strokeDasharray="100" className="animate-svg-draw" style={{ animationDelay: "1000ms" }} />
+          </svg>
+        </div>
+
+        {/* —— Thin gold diagonal accent line —— */}
+        <div className="absolute bottom-0 left-0 w-full h-px overflow-hidden opacity-30">
+          <div className="h-px bg-gradient-to-r from-transparent via-[#B08D57] to-transparent animate-gold-sweep" />
+        </div>
+
+        {/* —— Content —— */}
+        <div className="relative z-10 flex flex-col items-center text-center px-6 gap-7 w-full max-w-5xl mx-auto">
+
+          {/* Location badge with animated dot */}
+          <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/90 text-[10px] tracking-[0.25em] uppercase animate-fade-in-down">
+            <span className="inline-block size-1.5 rounded-full bg-[#B08D57] animate-pulse" />
+            <span style={{ fontFamily: "'Cormorant Garant', serif", fontWeight: 500, fontSize: "11px", letterSpacing: "0.22em" }}>Neopolis Corridor · Kokapet, Hyderabad</span>
           </div>
 
-          {/* Luxehomes Luxury Headline */}
-          <h1
-            className="text-white text-4xl sm:text-5xl md:text-7xl font-normal leading-[1.12] tracking-tight animate-fade-in-up [animation-delay:150ms]"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
-            Where Address Becomes<br />Legacy
-          </h1>
+          {/* Main luxury headline */}
+          <div className="flex flex-col items-center gap-2">
+            <h1
+              className="text-white leading-[1.06] tracking-tight animate-fade-in-up [animation-delay:200ms]"
+              style={{ fontFamily: "'Cormorant Garant', serif", fontWeight: 300, fontSize: "clamp(3.2rem, 8vw, 6.5rem)" }}
+            >
+              Where Address
+            </h1>
+            {/* Gold divider line with SVG diamond */}
+            <div className="flex items-center gap-3 w-full justify-center animate-fade-in-up [animation-delay:350ms]">
+              <div className="h-px flex-1 max-w-[120px] bg-gradient-to-r from-transparent to-[#B08D57]/60" />
+              <svg width="10" height="10" viewBox="0 0 10 10" className="text-[#B08D57]">
+                <polygon points="5,0 10,5 5,10 0,5" fill="currentColor" />
+              </svg>
+              <div className="h-px flex-1 max-w-[120px] bg-gradient-to-l from-transparent to-[#B08D57]/60" />
+            </div>
+            <h1
+              className="text-white leading-[1.06] tracking-tight animate-fade-in-up [animation-delay:350ms]"
+              style={{ fontFamily: "'Cormorant Garant', serif", fontWeight: 400, fontStyle: "italic", fontSize: "clamp(3.2rem, 8vw, 6.5rem)" }}
+            >
+              Becomes Legacy
+            </h1>
+          </div>
 
-          {/* Branded Luxury Subhead */}
-          <p className="text-white/90 text-sm md:text-base font-normal max-w-2xl leading-relaxed tracking-wide animate-fade-in-up [animation-delay:300ms]">
+          {/* Subhead */}
+          <p
+            className="text-white/75 font-light max-w-2xl leading-[1.85] animate-fade-in-up [animation-delay:500ms]"
+            style={{ fontFamily: "'Inter', sans-serif", fontSize: "14.5px", letterSpacing: "0.02em" }}
+          >
             Luxehomes, Kokapet, Hyderabad — Discover HMDA-planned ultra-luxury residences in the heart of Hyderabad&apos;s most premium residential corridor, just 5 minutes from the Financial District.
           </p>
 
-          {/* Dual CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-2 animate-fade-in-up [animation-delay:450ms]">
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-4 mt-1 animate-fade-in-up [animation-delay:650ms]">
             <button
               onClick={() => setEnquireOpen(true)}
-              className="bg-[#B08D57] hover:bg-[#967645] text-white text-xs tracking-[0.2em] font-semibold py-4 px-8 transition-all duration-300 shadow-md hover:shadow-xl hover:scale-[1.02] cursor-pointer"
+              className="bg-[#B08D57] hover:bg-[#967645] text-white text-[11px] tracking-[0.22em] font-semibold py-4 px-10 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(176,141,87,0.4)] hover:scale-[1.03] cursor-pointer animate-border-pulse"
             >
               ENQUIRE NOW
             </button>
             <button
               onClick={() => setBrochureOpen(true)}
-              className="border border-white/60 bg-black/30 hover:bg-white/15 text-white text-xs tracking-[0.2em] font-semibold py-4 px-8 transition-all duration-300 backdrop-blur-sm hover:scale-[1.02] cursor-pointer"
+              className="border border-white/50 bg-white/8 hover:bg-white/15 text-white text-[11px] tracking-[0.22em] font-semibold py-4 px-10 transition-all duration-300 backdrop-blur-sm hover:scale-[1.03] cursor-pointer"
             >
               DOWNLOAD BROCHURE
             </button>
           </div>
 
-          {/* Verified Indian Real Estate Trust Bar */}
-          <div className="w-full max-w-3xl mt-6 pt-6 border-t border-white/25 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center animate-fade-in-up [animation-delay:600ms]">
-            <div className="flex flex-col items-center">
-              <span className="text-[#B08D57] font-semibold text-xs tracking-[0.18em] uppercase">
-                RERA Registered
-              </span>
-              <p className="text-white text-xs md:text-sm font-medium mt-1">Status: TBD</p>
-              <span className="text-white/60 text-[11px]">HMDA Master Plan</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-[#B08D57] font-semibold text-xs tracking-[0.18em] uppercase">
-                Land Parcel
-              </span>
-              <p className="text-white text-xs md:text-sm font-medium mt-1">{propertiesData.trustStats.acresDeveloped}</p>
-              <span className="text-white/60 text-[11px]">Neopolis Corridor</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-[#B08D57] font-semibold text-xs tracking-[0.18em] uppercase">
-                Presence
-              </span>
-              <p className="text-white text-xs md:text-sm font-medium mt-1">{propertiesData.trustStats.locationsCount}</p>
-              <span className="text-white/60 text-[11px]">Kokapet · Banjara · Jubilee</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-[#B08D57] font-semibold text-xs tracking-[0.18em] uppercase">
-                Track Record
-              </span>
-              <p className="text-white text-xs md:text-sm font-medium mt-1">{propertiesData.trustStats.yearsOfTrust}</p>
-              <span className="text-white/60 text-[11px]">Verified Governance</span>
-            </div>
+          {/* Trust bar */}
+          <div className="w-full max-w-3xl mt-4 pt-6 border-t border-white/15 grid grid-cols-2 md:grid-cols-4 gap-5 text-center animate-fade-in-up [animation-delay:800ms]">
+            {[
+              { label: "RERA Registered", value: "Status: TBD", sub: "HMDA Master Plan" },
+              { label: "Land Parcel", value: propertiesData.trustStats.acresDeveloped, sub: "Neopolis Corridor" },
+              { label: "Presence", value: propertiesData.trustStats.locationsCount, sub: "Kokapet · Banjara · Jubilee" },
+              { label: "Track Record", value: propertiesData.trustStats.yearsOfTrust, sub: "Verified Governance" },
+            ].map((stat) => (
+              <div key={stat.label} className="flex flex-col items-center">
+                <span className="text-[#B08D57] font-semibold text-[10px] tracking-[0.2em] uppercase" style={{ fontFamily: "'Inter', sans-serif" }}>
+                  {stat.label}
+                </span>
+                <p className="text-white text-xs md:text-sm font-medium mt-1" style={{ fontFamily: "'Cormorant Garant', serif", fontSize: "1rem" }}>{stat.value}</p>
+                <span className="text-white/50 text-[10px] mt-0.5">{stat.sub}</span>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Bouncing Downward Arrow */}
+        {/* Animated scroll indicator */}
         <a
           href="#collections"
-          aria-label="Scroll down to Masterplans"
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white animate-bounce hover:opacity-80 transition-opacity p-2 cursor-pointer"
+          aria-label="Scroll down"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-white/60 hover:text-white/90 transition-colors animate-fade-in-up [animation-delay:1000ms] group"
         >
-          <span className="material-symbols-outlined text-3xl font-light">
-            arrow_downward
-          </span>
+          <span className="text-[9px] tracking-[0.3em] uppercase" style={{ fontFamily: "'Inter', sans-serif" }}>Scroll</span>
+          {/* Animated SVG scroll arrow */}
+          <svg width="20" height="28" viewBox="0 0 20 28" fill="none" className="group-hover:translate-y-1 transition-transform duration-300">
+            <rect x="7" y="1" width="6" height="14" rx="3" stroke="currentColor" strokeWidth="1.2" />
+            <circle cx="10" cy="5" r="2" fill="currentColor" className="animate-bounce" style={{ animationDuration: "1.5s" }} />
+            <path d="M5 21 L10 26 L15 21" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </a>
       </section>
 
@@ -906,79 +954,66 @@ export default function HomePage() {
       )}
 
       {/* ─────────────────────────────────────────────────────────────────── */}
-      {/* 7. VIDEO PLAYER MODAL (Luxehomes, Kokapet)                          */}
+      {/* 7. VIDEO PLAYER MODAL — YouTube Embed                                  */}
       {/* ─────────────────────────────────────────────────────────────────── */}
       {videoModalOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 md:p-8 animate-fade-in-scale"
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 md:p-8 animate-fade-in-scale"
           onClick={() => setVideoModalOpen(false)}
         >
           <div
-            className="bg-[#14130F] rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl border border-white/10 relative"
+            className="bg-[#0a0906] rounded-xl max-w-5xl w-full overflow-hidden shadow-[0_25px_80px_rgba(0,0,0,0.8)] border border-[#B08D57]/20 relative"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Top Bar */}
-            <div className="bg-black/50 px-6 py-4 flex items-center justify-between border-b border-white/10 text-white">
+            <div className="bg-black/60 px-6 py-3.5 flex items-center justify-between border-b border-white/8 text-white">
               <div className="flex items-center gap-3">
-                <span className="size-2 rounded-full bg-red-500 animate-pulse" />
+                {/* SVG diamond ornament */}
+                <svg width="8" height="8" viewBox="0 0 8 8" className="text-[#B08D57]">
+                  <polygon points="4,0 8,4 4,8 0,4" fill="currentColor" />
+                </svg>
                 <span
-                  className="text-base tracking-wide font-normal"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
+                  className="text-sm tracking-widest font-light"
+                  style={{ fontFamily: "'Cormorant Garant', serif", fontSize: "1rem" }}
                 >
-                  Luxehomes, Kokapet — Virtual Walkthrough Experience
+                  Luxehomes, Kokapet — Virtual Walkthrough
                 </span>
               </div>
               <button
                 onClick={() => setVideoModalOpen(false)}
-                className="text-white/70 hover:text-white transition-colors cursor-pointer"
+                className="text-white/60 hover:text-white transition-colors cursor-pointer w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"
                 aria-label="Close video"
               >
-                <span className="material-symbols-outlined text-2xl">close</span>
+                <span className="material-symbols-outlined text-xl">close</span>
               </button>
             </div>
 
-            {/* Video Stage */}
-            <div className="relative aspect-video w-full bg-black flex items-center justify-center">
-              <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{
-                  backgroundImage:
-                    "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBTSb6angQ7EmFDDTOUg5zzRs1sw6A7DR0GRB0MP86xPN-ntQCbTMBUV4PGOMv90YJ38eOEL36kt-GSKVbeGq_0l4PpyOA8g3nOfADhyisPiwua3wD9VpuIZqF2kBHLRMFSjgFI4ehYA_25xzUWtO3bNnLJAsg4d5cjusYK446d_vfKNjaYBlUy0JfZZYW5v7cU8T5eouxna1tCHQQDWQxK8PJj8jojVNWfdCL0BKt5LiCh13JW7W8w')",
-                }}
+            {/* YouTube Embed */}
+            <div className="relative aspect-video w-full bg-black">
+              <iframe
+                src="https://www.youtube.com/embed/L0PSxBh31NI?autoplay=1&rel=0&modestbranding=1&controls=1&si=rGx06JX19krDOhF0"
+                title="Luxehomes Kokapet Virtual Walkthrough"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+                style={{ border: "none" }}
               />
-              <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-6 text-center text-white">
-                <div className="size-20 rounded-full bg-[#B08D57] flex items-center justify-center shadow-2xl mb-4">
-                  <span className="material-symbols-outlined text-4xl text-white pl-1">
-                    play_arrow
-                  </span>
-                </div>
-                <h4
-                  className="text-2xl font-normal mb-2"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  Luxehomes, Kokapet • 4K Neopolis Tour
-                </h4>
-                <p className="text-white/75 text-sm max-w-md">
-                  Experience the HMDA-planned Neopolis corridor, internal avenue roads, view corridors, and model apartments.
-                </p>
-                <div className="flex gap-4 mt-6">
-                  <button
-                    onClick={() => {
-                      setVideoModalOpen(false);
-                      setEnquireOpen(true);
-                    }}
-                    className="bg-[#B08D57] text-white text-xs tracking-widest font-semibold px-6 py-2.5 rounded uppercase hover:bg-[#967645] transition-colors cursor-pointer"
-                  >
-                    Schedule Private Site Visit
-                  </button>
-                  <button
-                    onClick={() => setVideoModalOpen(false)}
-                    className="border border-white/60 text-white text-xs tracking-widest font-semibold px-6 py-2.5 rounded uppercase hover:bg-white/10 transition-colors cursor-pointer"
-                  >
-                    Close Preview
-                  </button>
-                </div>
-              </div>
+            </div>
+
+            {/* Bottom action bar */}
+            <div className="bg-black/60 px-6 py-4 flex items-center justify-between border-t border-white/8">
+              <p className="text-white/50 text-xs tracking-wider" style={{ fontFamily: "'Inter', sans-serif" }}>
+                Kokapet, Hyderabad · Neopolis Corridor
+              </p>
+              <button
+                onClick={() => {
+                  setVideoModalOpen(false);
+                  setEnquireOpen(true);
+                }}
+                className="bg-[#B08D57] text-white text-[10px] tracking-[0.2em] font-semibold px-5 py-2 hover:bg-[#967645] transition-colors cursor-pointer"
+              >
+                SCHEDULE VISIT
+              </button>
             </div>
           </div>
         </div>
