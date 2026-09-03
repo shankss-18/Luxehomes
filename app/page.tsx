@@ -20,6 +20,17 @@ export default function HomePage() {
   const [enquireSuccess, setEnquireSuccess] = useState(false);
   const [brochureSuccess, setBrochureSuccess] = useState(false);
 
+  // ─── Scroll State to Fade Out Discover Cue ────────────────────────────────
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 30);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // ─── Scroll Reveal Observer ────────────────────────────────────────────────
   const videoRef = useRef<HTMLDivElement>(null);
   const facilitiesRef = useRef<HTMLDivElement>(null);
@@ -250,11 +261,13 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* Scroll cue */}
+        {/* Scroll cue — Smoothly disappears as user scrolls down */}
         <a
           href="#experience"
-          className="absolute bottom-20 lg:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors group"
-          style={{ animation: "fadeInUp 1s ease 1.2s both" }}
+          className={`absolute bottom-20 lg:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-all duration-500 group ${
+            hasScrolled ? "opacity-0 translate-y-4 pointer-events-none" : "opacity-100 translate-y-0 pointer-events-auto"
+          }`}
+          style={{ animation: !hasScrolled ? "fadeInUp 1s ease 1.2s both" : "none" }}
           aria-label="Scroll to experience"
         >
           <span className="text-[8px] tracking-[0.35em] uppercase" style={{ fontFamily: "'Inter', sans-serif" }}>Discover</span>
