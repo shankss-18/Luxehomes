@@ -154,11 +154,6 @@ export default function FloatingContactWidgets() {
             aria-label="Chat on WhatsApp (+91 95509 60744)"
             className="relative size-12 sm:size-13 rounded-full bg-gradient-to-tr from-[#1EBE5D] via-[#22ca61] to-[#2BF074] text-white shadow-[0_10px_28px_-3px_rgba(37,211,102,0.45)] hover:shadow-[0_14px_38px_0px_rgba(37,211,102,0.65)] flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer border border-white/25"
           >
-            {/* Live Online Beacon Dot */}
-            <span className="absolute -top-0.5 -right-0.5 size-3.5 rounded-full bg-[#1c1b1b] border-2 border-white flex items-center justify-center shadow-xs">
-              <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            </span>
-
             {/* Official WhatsApp Logo SVG with Gentle Hover Scale */}
             <svg
               className="size-6.5 sm:size-7 fill-white transition-transform duration-300 group-hover:scale-110"
@@ -191,10 +186,6 @@ export default function FloatingContactWidgets() {
             aria-label="Toggle AI Concierge Chat"
             className="relative size-12 sm:size-13 rounded-full bg-gradient-to-b from-[#25221e] via-[#1c1b1b] to-[#121110] text-white border-2 border-[#B08D57] shadow-[0_10px_28px_-3px_rgba(176,141,87,0.45)] hover:shadow-[0_14px_38px_0px_rgba(176,141,87,0.7)] flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer"
           >
-            {/* Live AI Pulse Sparkle Badge */}
-            <span className="absolute -top-0.5 -right-0.5 size-3.5 rounded-full bg-[#1c1b1b] border-2 border-[#B08D57] flex items-center justify-center shadow-xs">
-              <span className="size-1.5 rounded-full bg-[#B08D57] animate-ping" />
-            </span>
 
             {chatOpen ? (
               <svg className="size-5.5 text-[#B08D57] transition-transform duration-300 rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
