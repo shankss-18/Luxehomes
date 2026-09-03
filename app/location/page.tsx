@@ -566,14 +566,13 @@ export default function LocationPage() {
             </p>
           </div>
 
-          {/* Master-Detail Architectural Stage (Equal Height on Desktop) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch lg:h-[690px]">
+          {/* Master-Detail Architectural Stage (Natural Symmetrical Equal-Height Grid) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
             {/* LEFT COLUMN (5 cols): Interactive Enclave Directory Ledger */}
             <div className="lg:col-span-5 flex flex-col justify-between gap-2.5 h-full">
               {locationList.map((loc) => {
                 const isSelected = loc.id === activeLocationId;
-                const isOffice = loc.type === "office";
 
                 return (
                   <div
@@ -582,7 +581,7 @@ export default function LocationPage() {
                       setActiveLocationId(loc.id);
                       scrollToMap();
                     }}
-                    className={`flex-1 p-3.5 md:px-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between gap-4 relative overflow-hidden ${
+                    className={`flex-1 min-h-[72px] p-3.5 md:px-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between gap-4 relative overflow-hidden ${
                       isSelected
                         ? "bg-white border-[#B08D57] shadow-md ring-1 ring-[#B08D57]/20"
                         : "bg-white/70 hover:bg-white border-[#E8E4DC] hover:border-[#B08D57]/60 shadow-xs"
@@ -631,11 +630,11 @@ export default function LocationPage() {
               })}
             </div>
 
-            {/* RIGHT COLUMN (7 cols): Grand Panoramic Architectural Stage */}
+            {/* RIGHT COLUMN (7 cols): Grand Panoramic Architectural Stage (Fully Shown, No Clipping) */}
             <div className="lg:col-span-7 bg-white rounded-3xl border border-[#E8E4DC] shadow-xl overflow-hidden flex flex-col justify-between h-full">
-              <div>
+              <div className="flex flex-col">
                 {/* Widescreen Photography Visual Header */}
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#1c1b1b]">
+                <div className="relative h-56 md:h-64 w-full overflow-hidden bg-[#1c1b1b]">
                   <img
                     src={activeLocation.image}
                     alt={activeLocation.name}
@@ -669,7 +668,7 @@ export default function LocationPage() {
                 </div>
 
                 {/* Content Details */}
-                <div className="p-6 md:p-8 flex flex-col gap-6">
+                <div className="p-6 md:p-7 flex flex-col gap-5">
                   <div>
                     <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B08D57] block mb-1">
                       Masterplan Positioning
@@ -680,15 +679,15 @@ export default function LocationPage() {
                   </div>
 
                   {/* Transit Milestones Timeline */}
-                  <div className="pt-4 border-t border-[#E8E4DC]">
-                    <span className="text-[11px] uppercase tracking-[0.2em] font-semibold text-[#72716d] block mb-3">
+                  <div className="pt-3 border-t border-[#E8E4DC]">
+                    <span className="text-[11px] uppercase tracking-[0.2em] font-semibold text-[#72716d] block mb-2.5">
                       Key Transit &amp; Hub Connectivity
                     </span>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {activeLocation.driveTimes.map((item) => (
                         <div
                           key={item.label}
-                          className="p-3.5 rounded-xl bg-[#FAF7F2] border border-[#E8E4DC] flex flex-col gap-0.5"
+                          className="p-3 rounded-xl bg-[#FAF7F2] border border-[#E8E4DC] flex flex-col gap-0.5"
                         >
                           <span className="text-[10px] uppercase tracking-wider text-[#72716d]">
                             {item.label}
@@ -704,8 +703,8 @@ export default function LocationPage() {
                 </div>
               </div>
 
-              {/* Bottom Actions Bar */}
-              <div className="p-5 md:px-8 bg-[#FAF7F2] border-t border-[#E8E4DC] flex flex-wrap items-center justify-between gap-4">
+              {/* Bottom Actions Bar (Fully Rendered & Visible) */}
+              <div className="p-4 md:px-7 bg-[#FAF7F2] border-t border-[#E8E4DC] flex flex-wrap items-center justify-between gap-3 mt-auto">
                 <button
                   type="button"
                   onClick={scrollToMap}
