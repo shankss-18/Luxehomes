@@ -78,15 +78,15 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col bg-luxury-pattern-subtle overflow-x-hidden pt-[90px] md:pt-[105px]">
+    <div className="relative flex min-h-screen w-full flex-col bg-luxury-pattern-subtle overflow-x-hidden pt-[76px] md:pt-[84px]">
 
       {/* ───────────────────────────────────────────────────────────────── */}
       {/* 1. COMPANY STORY SECTION                                          */}
       {/* ───────────────────────────────────────────────────────────────── */}
-      <section className="w-full py-16 md:py-24 border-b border-[#E8E4DC]/80">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col gap-14">
+      <section className="w-full py-8 md:py-12 border-b border-[#E8E4DC]/80">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col gap-8 md:gap-10">
           {/* Header */}
-          <div className="flex flex-col items-center text-center gap-3 reveal-item">
+          <div className="flex flex-col items-center text-center gap-2.5 reveal-item">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-[#E8E4DC] text-[#B08D57] text-[10px] tracking-[0.28em] uppercase font-semibold shadow-xs">
               <span className="size-1.5 rounded-full bg-[#B08D57] animate-pulse" />
               <span>OUR HERITAGE &amp; PHILOSOPHY</span>
@@ -107,7 +107,7 @@ export default function AboutPage() {
           </div>
 
           {/* Split Image & Narrative Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 items-center">
             {/* Story Text */}
             <div className="lg:col-span-6 flex flex-col gap-6 text-[#474741] font-light leading-relaxed reveal-slide-left">
               <p
