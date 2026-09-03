@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import propertiesData from "@/data/properties.json";
 import locationsData from "@/data/locations.json";
+import ParallaxStatCards from "@/components/ParallaxStatCards";
 
 interface FAQItem {
   id: string;
@@ -78,7 +79,7 @@ export default function AboutPage() {
       <section className="w-full py-12 md:py-20 border-b border-[#E8E4DC]/80">
         <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col gap-12">
           {/* Header */}
-          <div className="flex flex-col items-center text-center gap-3">
+          <div className="flex flex-col items-center text-center gap-3 reveal-item">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#E8E4DC] text-[#B08D57] text-[10px] tracking-[0.25em] uppercase font-semibold">
               <span className="size-1.5 rounded-full bg-[#B08D57] animate-pulse" />
               <span>OUR HERITAGE &amp; PHILOSOPHY</span>
@@ -99,7 +100,7 @@ export default function AboutPage() {
           {/* Split Image & Narrative Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Story Text */}
-            <div className="lg:col-span-6 flex flex-col gap-5 text-[#474741] font-light leading-relaxed">
+            <div className="lg:col-span-6 flex flex-col gap-5 text-[#474741] font-light leading-relaxed reveal-slide-left">
               <p
                 className="text-lg md:text-xl text-[#1c1b1b] font-normal leading-snug"
                 style={{ fontFamily: "'Cormorant Garant', serif" }}
@@ -131,7 +132,7 @@ export default function AboutPage() {
             </div>
 
             {/* Visual Frame */}
-            <div className="lg:col-span-6 relative">
+            <div className="lg:col-span-6 relative reveal-slide-right">
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#E8E4DC] shadow-xl bg-white group">
                 <div
                   className="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
@@ -159,64 +160,16 @@ export default function AboutPage() {
       </section>
 
       {/* ───────────────────────────────────────────────────────────────── */}
-      {/* 2. ACHIEVEMENTS / MILESTONES STAT CARDS                           */}
+      {/* 2. ACHIEVEMENTS / MILESTONES PARALLAX SCROLLING CARDS             */}
       {/* ───────────────────────────────────────────────────────────────── */}
-      <section className="w-full py-16 bg-white border-b border-[#E8E4DC]/80">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col gap-10">
-          <div className="text-center flex flex-col items-center gap-2">
-            <span className="text-[#B08D57] font-semibold text-xs tracking-[0.25em] uppercase">
-              Proven Governance
-            </span>
-            <h2
-              className="text-[#1c1b1b] text-2xl md:text-4xl font-normal"
-              style={{ fontFamily: "'Cormorant Garant', serif" }}
-            >
-              Institutional Standards of Excellence
-            </h2>
-            <p className="text-xs md:text-sm text-[#72716d] max-w-xl">
-              Factual benchmarks grounded in statutory compliance, strategic landholdings, and multi-decade client satisfaction.
-            </p>
-          </div>
-
-          {/* Cards Grid: Reusing Home Hero stat card styling */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {[
-              { label: "RERA Registered", value: "Status: TBD", sub: "HMDA Master Plan" },
-              { label: "Land Parcel", value: propertiesData.trustStats.acresDeveloped, sub: "Neopolis Corridor" },
-              { label: "Presence", value: propertiesData.trustStats.locationsCount, sub: "Kokapet · Banjara · Jubilee" },
-              { label: "Track Record", value: propertiesData.trustStats.yearsOfTrust, sub: "Verified Governance" },
-              { label: "Vastu Norms", value: "100% Compliant", sub: "Ancient Sthapatya Veda" },
-              { label: "Connectivity", value: "3 Min to ORR", sub: "Multi-Lane Arterial Road" },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="bg-[#FAF7F2] p-5 rounded-xl border border-[#E8E4DC] flex flex-col items-center text-center shadow-xs hover:border-[#B08D57] hover:shadow-md transition-all duration-300"
-              >
-                <span
-                  className="text-[#B08D57] font-semibold text-[9.5px] tracking-[0.2em] uppercase mb-1"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  {stat.label}
-                </span>
-                <p
-                  className="text-[#1c1b1b] font-normal text-base md:text-lg my-0.5"
-                  style={{ fontFamily: "'Cormorant Garant', serif" }}
-                >
-                  {stat.value}
-                </p>
-                <span className="text-[#72716d] text-[10px]">{stat.sub}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ParallaxStatCards />
 
       {/* ───────────────────────────────────────────────────────────────── */}
       {/* 3. BUYER FAQS ACCORDION                                           */}
       {/* ───────────────────────────────────────────────────────────────── */}
       <section className="w-full py-16 md:py-20 border-b border-[#E8E4DC]/80">
         <div className="max-w-[900px] mx-auto px-6 md:px-12 flex flex-col gap-10">
-          <div className="text-center flex flex-col items-center gap-2">
+          <div className="text-center flex flex-col items-center gap-2 reveal-item">
             <span className="text-[#B08D57] font-semibold text-xs tracking-[0.25em] uppercase">
               Transparency First
             </span>
@@ -232,12 +185,13 @@ export default function AboutPage() {
           </div>
 
           <div className="space-y-3">
-            {faqs.map((faq) => {
+            {faqs.map((faq, idx) => {
               const isOpen = openFaq === faq.id;
+              const delayClass = `reveal-delay-${(idx % 5) + 1}`;
               return (
                 <div
                   key={faq.id}
-                  className={`rounded-xl border transition-all duration-300 bg-white ${
+                  className={`reveal-item ${delayClass} rounded-xl border transition-all duration-300 bg-white ${
                     isOpen
                       ? "border-[#B08D57] shadow-md ring-1 ring-[#B08D57]/20"
                       : "border-[#E8E4DC] hover:border-[#B08D57]/60"
@@ -272,7 +226,7 @@ export default function AboutPage() {
                   </button>
 
                   {isOpen && (
-                    <div className="px-6 pb-6 pt-1 border-t border-[#E8E4DC]/60 text-xs md:text-sm text-[#72716d] leading-relaxed">
+                    <div className="px-6 pb-6 pt-1 border-t border-[#E8E4DC]/60 text-xs md:text-sm text-[#72716d] leading-relaxed animate-fade-in-up">
                       {faq.answer}
                     </div>
                   )}
@@ -289,7 +243,7 @@ export default function AboutPage() {
       <section id="contact" className="w-full py-16 md:py-24 bg-white scroll-mt-24">
         <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col gap-12">
           {/* Header */}
-          <div className="text-center flex flex-col items-center gap-2">
+          <div className="text-center flex flex-col items-center gap-2 reveal-item">
             <span className="text-[#B08D57] font-semibold text-xs tracking-[0.25em] uppercase">
               Private Client Desk
             </span>
@@ -306,7 +260,77 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
             {/* Left Column: Office Details + Map */}
-            <div className="lg:col-span-5 flex flex-col gap-6">
+            <div className="lg:col-span-5 flex flex-col gap-6 reveal-slide-left">
+              <div className="bg-[#FAF7F2] p-6 md:p-8 rounded-2xl border border-[#E8E4DC] flex flex-col gap-6 shadow-sm">
+                <div>
+                  <h3 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B08D57] mb-2">
+                    Kokapet Advisory Office
+                  </h3>
+                  <p className="text-sm text-[#1c1b1b] leading-relaxed">
+                    The Luxe Tower, Neopolis Corridor<br />
+                    Kokapet, Hyderabad, Telangana 500075<br />
+                    India
+                  </p>
+                </div>
+
+                <div className="h-px bg-[#E8E4DC]" />
+
+                <div className="flex flex-col gap-2">
+                  <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#72716d]">
+                    Direct Advisory
+                  </h4>
+                  <a
+                    href="tel:+914045678900"
+                    className="text-sm font-medium text-[#1c1b1b] hover:text-[#B08D57] transition-colors"
+                  >
+                    +91 40 4567 8900
+                  </a>
+                  <a
+                    href="mailto:concierge@luxehomes.com"
+                    className="text-sm text-[#72716d] hover:text-[#B08D57] transition-colors"
+                  >
+                    concierge@luxehomes.com
+                  </a>
+                </div>
+
+                <div className="h-px bg-[#E8E4DC]" />
+
+                <div>
+                  <span className="text-[11px] text-[#72716d] leading-relaxed block">
+                    Working Hours: Monday – Saturday, 10:00 AM – 7:00 PM IST.<br />
+                    RERA Registration: Status TBD · HMDA Approved Master Plan.
+                  </span>
+                </div>
+              </div>
+
+              {/* Stylized Corridor Map Snippet */}
+              <div className="h-56 rounded-2xl overflow-hidden relative border border-[#E8E4DC] shadow-sm group">
+                <div
+                  className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                  style={{
+                    backgroundImage:
+                      "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnuktRK27yvXgij5paYhzTzZ4XLQu_5rGB9LGp67vM7FqY2Hkkgv2M0sD1Afj4ZZx9EZeTwn3nZg3An_yJae-X-m-ETzP_VnIJI2Z6D3MHsNXzFUNNmNxEUFiuH07OJrMxlxfE0Xu_a-GNEhWdqWLfMM86rq1kOb_VUzpBRjWl-62tjafTus5OK6OI74YOAjDqxgFvH7rCrgTFhx7m22_GnJ9twD0xHu-axGSMOmWLpHCFJX6LFgBE')",
+                  }}
+                />
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] flex items-center justify-center p-4 text-center">
+                  <div className="bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-[#E8E4DC] shadow-md flex items-center gap-2.5">
+                    <span className="size-2 rounded-full bg-[#B08D57] animate-pulse" />
+                    <span className="text-xs font-semibold text-[#1c1b1b]">
+                      The Luxe Tower · Kokapet
+                    </span>
+                    <Link
+                      href="/location"
+                      className="text-[10px] font-bold text-[#B08D57] uppercase tracking-wider pl-1 hover:underline"
+                    >
+                      View Map →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Contact Inquiry Form */}
+            <div className="lg:col-span-7 bg-[#FAF7F2] p-6 md:p-10 rounded-2xl border border-[#E8E4DC] shadow-sm reveal-slide-right">
               <div className="bg-[#FAF7F2] p-6 md:p-8 rounded-2xl border border-[#E8E4DC] flex flex-col gap-6 shadow-sm">
                 <div>
                   <h3 className="text-xs uppercase tracking-[0.2em] font-semibold text-[#B08D57] mb-2">

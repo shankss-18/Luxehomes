@@ -162,7 +162,7 @@ export default function LocationPage() {
     <div className="relative flex min-h-screen w-full flex-col bg-luxury-pattern-subtle overflow-x-hidden pt-[90px] md:pt-[105px]">
       {/* ── Page Header ────────────────────────────────────────────────── */}
       <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 pt-8 pb-6">
-        <div className="flex flex-col items-center text-center gap-3">
+        <div className="flex flex-col items-center text-center gap-3 reveal-item">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#E8E4DC] text-[#B08D57] text-[10px] tracking-[0.25em] uppercase font-semibold">
             <span className="size-1.5 rounded-full bg-[#B08D57] animate-pulse" />
             <span>STRATEGIC GEOGRAPHY</span>
@@ -194,7 +194,7 @@ export default function LocationPage() {
         {/* ───────────────────────────────────────────────────────────────── */}
         {/* 1. FULL INTERACTIVE MAP CANVAS                                    */}
         {/* ───────────────────────────────────────────────────────────────── */}
-        <div className="relative w-full h-[420px] md:h-[500px] rounded-2xl overflow-hidden border border-[#E8E4DC] shadow-xl bg-white">
+        <div className="relative w-full h-[420px] md:h-[500px] rounded-2xl overflow-hidden border border-[#E8E4DC] shadow-xl bg-white reveal-item reveal-delay-1">
           {/* Stylized Muted Hyderabad Map Canvas */}
           <div
             className="absolute inset-0 bg-cover bg-center transition-all duration-700"
@@ -326,7 +326,7 @@ export default function LocationPage() {
         {/* ───────────────────────────────────────────────────────────────── */}
         {/* 2. LOCATION CARDS GRID                                            */}
         {/* ───────────────────────────────────────────────────────────────── */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 reveal-item">
           <div className="flex items-center justify-between border-b border-[#E8E4DC] pb-4">
             <div>
               <span className="text-[#B08D57] font-semibold text-xs tracking-[0.2em] uppercase block">
@@ -345,18 +345,19 @@ export default function LocationPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {locationList.map((loc) => {
+            {locationList.map((loc, idx) => {
               const isSelected = loc.id === activeLocationId;
               const isOffice = loc.type === "office";
+              const delayClass = `reveal-delay-${(idx % 3) + 1}`;
 
               return (
                 <div
                   key={loc.id}
                   onClick={() => setActiveLocationId(loc.id)}
-                  className={`bg-white p-6 rounded-2xl border transition-all duration-300 flex flex-col justify-between cursor-pointer group shadow-sm ${
+                  className={`reveal-item ${delayClass} bg-white p-6 rounded-2xl border transition-all duration-300 flex flex-col justify-between cursor-pointer group shadow-sm ${
                     isSelected
                       ? "border-[#B08D57] ring-2 ring-[#B08D57]/20 shadow-md scale-[1.01]"
-                      : "border-[#E8E4DC] hover:border-[#B08D57]/70 hover:shadow-md"
+                      : "border-[#E8E4DC] hover:border-[#B08D57]/70 hover:shadow-md hover:-translate-y-1"
                   }`}
                 >
                   <div>

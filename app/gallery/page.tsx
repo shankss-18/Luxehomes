@@ -120,7 +120,7 @@ export default function GalleryPage() {
 
       {/* ── Page Header / Intro ────────────────────────────────────────── */}
       <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 pt-8 pb-4">
-        <div className="flex flex-col items-center text-center gap-3">
+        <div className="flex flex-col items-center text-center gap-3 reveal-item">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#E8E4DC] text-[#B08D57] text-[10px] tracking-[0.25em] uppercase font-semibold">
             <span className="size-1.5 rounded-full bg-[#B08D57] animate-pulse" />
             <span>OUR RESIDENCES</span>
@@ -155,7 +155,7 @@ export default function GalleryPage() {
 
           <section id="configurations" className="flex flex-col gap-8 scroll-mt-24">
             {/* Section Sub-Header with Tab Selector */}
-            <div className="flex flex-wrap justify-between items-end gap-4">
+            <div className="flex flex-wrap justify-between items-end gap-4 reveal-item">
               <div className="flex min-w-72 flex-col gap-1">
                 <span className="text-[#B08D57] font-semibold text-xs tracking-[0.2em] uppercase">
                   Isometric 3D Masterplan
@@ -195,7 +195,7 @@ export default function GalleryPage() {
             </div>
 
             {/* ── Per-Tab Live Computed Summary Card ──────────────────────── */}
-            <div className="bg-white rounded-2xl border border-[#E8E4DC] p-6 md:p-8 shadow-sm">
+            <div className="bg-white rounded-2xl border border-[#E8E4DC] p-6 md:p-8 shadow-sm reveal-item reveal-delay-1">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-[#E8E4DC]">
                 <div>
                   <div className="flex items-center gap-2 mb-1">

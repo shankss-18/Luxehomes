@@ -254,6 +254,22 @@ body {
   transform: translateX(0);
 }
 
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
 /* ─── Luxury Arch Pattern (User-Provided Design) ────────────────────────── */
 .bg-luxury-pattern {
   background-color: #FAF7F2;

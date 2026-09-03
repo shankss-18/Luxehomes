@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollAnimationProvider from "@/components/ScrollAnimationProvider";
 
 export const metadata: Metadata = {
   title: "LUXEHOMES — The Epitome of Quiet Luxury",
@@ -37,6 +38,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-background text-on-surface antialiased">
+        <ScrollAnimationProvider />
         <Navbar />
         <main>{children}</main>
         <Footer />
