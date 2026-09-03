@@ -131,24 +131,37 @@ export default function FloatingContactWidgets() {
       {/* ───────────────────────────────────────────────────────────────── */}
       {/* 1. FLOATING LUXURY CONCIERGE DOCK (BOTTOM-RIGHT)                  */}
       {/* ───────────────────────────────────────────────────────────────── */}
-      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2.5 sm:gap-3 pointer-events-auto select-none">
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-3 sm:gap-3.5 pointer-events-auto select-none">
 
-        {/* WhatsApp Direct Concierge Button (Official Brand Logo) */}
-        <div className="relative group">
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b] text-white text-[11px] font-medium tracking-wide px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden sm:flex items-center gap-1.5 border border-white/10">
-            <span>Chat on WhatsApp · Private Concierge</span>
+        {/* WhatsApp Direct Concierge Button with Floating & Ripple Aura */}
+        <div className="relative group animate-luxury-float">
+          {/* Animated Emerald Ripple Aura Ring */}
+          <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ripple-emerald pointer-events-none -z-10" />
+
+          {/* Luxury Rich Tooltip (Desktop Hover) */}
+          <div className="absolute right-full mr-3.5 top-1/2 -translate-y-1/2 bg-[#1c1b1b]/95 backdrop-blur-md text-white px-3.5 py-2 rounded-2xl shadow-2xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none hidden sm:flex flex-col gap-0.5 border border-[#B08D57]/30">
+            <div className="flex items-center gap-2">
+              <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-xs font-semibold tracking-wide">WhatsApp Concierge · +91 95509 60744</span>
+            </div>
+            <span className="text-[10px] text-[#E8E4DC]/70">Direct enquiry for floor plans, pricing &amp; site visits</span>
           </div>
 
           <a
-            href="https://wa.me/914045678900?text=Hello%20Luxehomes%2C%20I%20would%20like%20to%20inquire%20about%20your%20luxury%20residences%20and%20schedule%20a%20private%20site%20visit."
+            href="https://wa.me/919550960744?text=Hello%20Luxe%20Homes%2C%20I%20am%20interested%20in%20exploring%20your%20luxury%20residences%20(2%2C%203%20%26%204%20BHK)%20and%20freehold%20villa%20plots%20at%20Kokapet%20(Neopolis%20Corridor).%20Please%20share%20floor%20plan%20brochures%2C%20pricing%20details%2C%20and%20schedule%20a%20private%20site%20visit."
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Chat on WhatsApp"
-            className="size-11 sm:size-12 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-lg hover:shadow-2xl hover:shadow-emerald-500/35 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+            aria-label="Chat on WhatsApp (+91 95509 60744)"
+            className="relative size-12 sm:size-13 rounded-full bg-gradient-to-tr from-[#1EBE5D] via-[#22ca61] to-[#2BF074] text-white shadow-[0_10px_28px_-3px_rgba(37,211,102,0.45)] hover:shadow-[0_14px_38px_0px_rgba(37,211,102,0.65)] flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer border border-white/25"
           >
-            {/* Official WhatsApp Logo SVG */}
+            {/* Live Online Beacon Dot */}
+            <span className="absolute -top-0.5 -right-0.5 size-3.5 rounded-full bg-[#1c1b1b] border-2 border-white flex items-center justify-center shadow-xs">
+              <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            </span>
+
+            {/* Official WhatsApp Logo SVG with Gentle Hover Scale */}
             <svg
-              className="size-6 sm:size-6.5 fill-white"
+              className="size-6.5 sm:size-7 fill-white transition-transform duration-300 group-hover:scale-110"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -157,34 +170,60 @@ export default function FloatingContactWidgets() {
           </a>
         </div>
 
-        {/* AI Concierge Chatbot Trigger Button (Official AI Bot Vector Icon) */}
-        <div className="relative group">
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b] text-white text-[11px] font-medium tracking-wide px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden sm:flex items-center gap-1.5 border border-white/10">
-            <span>{chatOpen ? "Close AI Concierge" : "Luxe AI Concierge · Live Assistant"}</span>
+        {/* AI Concierge Chatbot Trigger Button with Delayed Float & Gold Ripple */}
+        <div className="relative group animate-luxury-float-delayed">
+          {/* Animated Gold Ripple Aura Ring */}
+          <span className="absolute inset-0 rounded-full bg-[#B08D57] animate-ripple-gold pointer-events-none -z-10 opacity-70" />
+
+          {/* Luxury Rich Tooltip (Desktop Hover) */}
+          <div className="absolute right-full mr-3.5 top-1/2 -translate-y-1/2 bg-[#1c1b1b]/95 backdrop-blur-md text-white px-3.5 py-2 rounded-2xl shadow-2xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none hidden sm:flex flex-col gap-0.5 border border-[#B08D57]/30">
+            <div className="flex items-center gap-2">
+              <span className="size-2 rounded-full bg-[#B08D57] animate-ping" />
+              <span className="text-xs font-semibold tracking-wide">
+                {chatOpen ? "Close AI Concierge" : "Luxe AI Concierge · Available 24/7"}
+              </span>
+            </div>
+            <span className="text-[10px] text-[#E8E4DC]/70">Instant answers for pricing, Vastu, and 3D cutaways</span>
           </div>
 
           <button
             onClick={() => setChatOpen((prev) => !prev)}
             aria-label="Toggle AI Concierge Chat"
-            className="size-11 sm:size-12 rounded-full bg-[#1c1b1b] hover:bg-[#282420] text-white border border-[#B08D57]/70 shadow-lg hover:shadow-2xl hover:shadow-[#B08D57]/25 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+            className="relative size-12 sm:size-13 rounded-full bg-gradient-to-b from-[#25221e] via-[#1c1b1b] to-[#121110] text-white border-2 border-[#B08D57] shadow-[0_10px_28px_-3px_rgba(176,141,87,0.45)] hover:shadow-[0_14px_38px_0px_rgba(176,141,87,0.7)] flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer"
           >
+            {/* Live AI Pulse Sparkle Badge */}
+            <span className="absolute -top-0.5 -right-0.5 size-3.5 rounded-full bg-[#1c1b1b] border-2 border-[#B08D57] flex items-center justify-center shadow-xs">
+              <span className="size-1.5 rounded-full bg-[#B08D57] animate-ping" />
+            </span>
+
             {chatOpen ? (
-              <svg className="size-5 text-[#B08D57]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="size-5.5 text-[#B08D57] transition-transform duration-300 rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             ) : (
-              /* Authentic Modern AI Chatbot Vector Logo */
-              <svg className="size-6 sm:size-6.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="3" y="6" width="18" height="14" rx="5" fill="#1c1b1b" stroke="#B08D57" strokeWidth="1.8"/>
-                <line x1="12" y1="2" x2="12" y2="6" stroke="#B08D57" strokeWidth="1.8" strokeLinecap="round"/>
-                <circle cx="12" cy="2" r="1.5" fill="#B08D57"/>
-                <rect x="1" y="10" width="2" height="6" rx="1" fill="#B08D57"/>
-                <rect x="21" y="10" width="2" height="6" rx="1" fill="#B08D57"/>
-                <rect x="6.5" y="9.5" width="11" height="4" rx="2" fill="#FAF7F2"/>
-                <circle cx="9.2" cy="11.5" r="1.2" fill="#B08D57"/>
-                <circle cx="14.8" cy="11.5" r="1.2" fill="#B08D57"/>
-                <path d="M9 16C10 17 14 17 15 16" stroke="#B08D57" strokeWidth="1.6" strokeLinecap="round"/>
+              /* Enhanced Animated AI Robot SVG */
+              <svg className="size-7 sm:size-7.5 animate-bot-head" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Glowing Antenna */}
+                <line x1="12" y1="1.5" x2="12" y2="5.5" stroke="#B08D57" strokeWidth="1.8" strokeLinecap="round"/>
+                <circle cx="12" cy="1.5" r="1.5" fill="#E8C98E" className="animate-bot-antenna"/>
+                
+                {/* Outer Head Chassis */}
+                <rect x="3" y="5.5" width="18" height="14.5" rx="5" fill="#1c1b1b" stroke="#B08D57" strokeWidth="1.8"/>
+                
+                {/* Left/Right Ear Nodes */}
+                <rect x="1" y="9.5" width="2" height="6.5" rx="1" fill="#B08D57"/>
+                <rect x="21" y="9.5" width="2" height="6.5" rx="1" fill="#B08D57"/>
+                
+                {/* Cyber Visor Screen */}
+                <rect x="6.2" y="9" width="11.6" height="4.5" rx="2" fill="#FAF7F2"/>
+                
+                {/* Illuminated Digital Eyes */}
+                <circle cx="9.2" cy="11.2" r="1.3" fill="#B08D57" className="animate-pulse"/>
+                <circle cx="14.8" cy="11.2" r="1.3" fill="#B08D57" className="animate-pulse"/>
+                
+                {/* Expressive Waveform Mouth */}
+                <path d="M8.5 16.2C10 17.4 14 17.4 15.5 16.2" stroke="#B08D57" strokeWidth="1.6" strokeLinecap="round"/>
               </svg>
             )}
           </button>

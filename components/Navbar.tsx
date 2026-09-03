@@ -160,14 +160,14 @@ export default function Navbar({ onOpenEnquire }: NavbarProps) {
           {/* Quick Advisory Contact Row on Mobile */}
           <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#E8E4DC]/80">
             <a
-              href="tel:+914045678900"
+              href="tel:+919550960744"
               className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-white border border-[#E8E4DC] text-[#1c1b1b] text-[10.5px] font-semibold tracking-wider uppercase shadow-xs active:scale-95 transition-all"
             >
               <span className="material-symbols-outlined text-sm text-[#B08D57]">call</span>
               <span>Direct Call</span>
             </a>
             <a
-              href="https://wa.me/914045678900"
+              href="https://wa.me/919550960744?text=Hello%20Luxe%20Homes%2C%20I%20am%20interested%20in%20exploring%20your%20luxury%20residences%20(2%2C%203%20%26%204%20BHK)%20and%20freehold%20villa%20plots%20at%20Kokapet%20(Neopolis%20Corridor).%20Please%20share%20floor%20plan%20brochures%2C%20pricing%20details%2C%20and%20schedule%20a%20private%20site%20visit."
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#25D366] text-white text-[10.5px] font-semibold tracking-wider uppercase shadow-xs active:scale-95 transition-all"

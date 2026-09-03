@@ -325,7 +325,7 @@ export default function AboutPage() {
                 {/* Direct Contact Links */}
                 <div className="flex flex-col gap-3.5">
                   <a
-                    href="tel:+914045678900"
+                    href="tel:+919550960744"
                     className="flex items-center gap-3.5 text-sm text-[#1c1b1b] hover:text-[#B08D57] transition-colors group p-2.5 rounded-2xl hover:bg-[#FAF7F2]"
                   >
                     <div className="size-9 rounded-xl bg-[#FAF7F2] border border-[#E8E4DC] flex items-center justify-center text-[#72716d] group-hover:text-[#B08D57] group-hover:border-[#B08D57] transition-colors">
@@ -333,7 +333,7 @@ export default function AboutPage() {
                     </div>
                     <div>
                       <span className="text-[10px] uppercase tracking-wider text-[#72716d] block font-medium">Telephone</span>
-                      <span className="font-semibold text-sm">+91 40 4567 8900</span>
+                      <span className="font-semibold text-sm">+91 95509 60744</span>
                     </div>
                   </a>
 

@@ -376,4 +376,98 @@ body {
   scrollbar-width: none;
 }
 
+/* ─── Luxury Floating Widgets & Micro-Animations ────────────────────────── */
+@keyframes luxury-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes luxury-float-delayed {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes luxury-ripple-emerald {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes luxury-ripple-gold {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes bot-head-bob {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-1px) rotate(-2deg);
+  }
+  75% {
+    transform: translateY(-0.5px) rotate(2deg);
+  }
+}
+
+@keyframes bot-antenna-ping {
+  0%, 100% {
+    filter: drop-shadow(0 0 1px #B08D57);
+    opacity: 0.7;
+  }
+  50% {
+    filter: drop-shadow(0 0 6px #F3E0B5);
+    opacity: 1;
+  }
+}
+
+.animate-luxury-float {
+  animation: luxury-float 4.2s ease-in-out infinite;
+}
+
+.animate-luxury-float-delayed {
+  animation: luxury-float-delayed 3.6s ease-in-out infinite 0.7s;
+}
+
+.animate-ripple-emerald {
+  animation: luxury-ripple-emerald 2.6s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.animate-ripple-gold {
+  animation: luxury-ripple-gold 2.9s cubic-bezier(0, 0.2, 0.8, 1) infinite 0.5s;
+}
+
+.animate-bot-head {
+  animation: bot-head-bob 4s ease-in-out infinite;
+}
+
+.animate-bot-antenna {
+  animation: bot-antenna-ping 2s ease-in-out infinite;
+}
+
 

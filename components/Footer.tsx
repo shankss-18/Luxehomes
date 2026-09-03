@@ -78,10 +78,10 @@ export default function Footer() {
               concierge@luxehomes.com
             </a>
             <a
-              href="tel:+914045678900"
+              href="tel:+919550960744"
               className="text-[#72716d] text-sm hover:text-[#B08D57] transition-colors"
             >
-              +91 40 4567 8900
+              +91 95509 60744
             </a>
           </div>
 
