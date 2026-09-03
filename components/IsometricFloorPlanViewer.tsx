@@ -254,9 +254,9 @@ export default function IsometricFloorPlanViewer({
       </div>
 
       {/* ── 2. INTERACTIVE STAGE TOOLBAR (MODE TOGGLE & CONTROLS) ───────── */}
-      <div className="px-6 md:px-8 py-3.5 bg-[#FAF7F2] border-b border-[#E8E4DC] flex flex-wrap items-center justify-between gap-3 select-none">
+      <div className="px-4 sm:px-6 md:px-8 py-3 bg-[#FAF7F2] border-b border-[#E8E4DC] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3 select-none">
         {/* Left: Level Selectors & View Mode Switcher */}
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center justify-between sm:justify-start gap-2.5">
           {/* Level Tabs (if multi-level) */}
           {isMultiLevel && (
             <div className="flex items-center gap-1 bg-white p-1 rounded-lg border border-[#E8E4DC]">
@@ -279,7 +279,7 @@ export default function IsometricFloorPlanViewer({
           {!isMultiLevel && (
             <div className="flex items-center gap-2">
               <span className="size-2 rounded-full bg-[#B08D57]" />
-              <span className="font-semibold text-xs tracking-[0.2em] uppercase text-[#B08D57]">
+              <span className="font-semibold text-[11px] sm:text-xs tracking-[0.2em] uppercase text-[#B08D57]">
                 {currentLevel?.level_name || "GROUND FLOOR"}
               </span>
             </div>
@@ -289,25 +289,27 @@ export default function IsometricFloorPlanViewer({
           <div className="flex items-center gap-1 bg-white p-1 rounded-full border border-[#E8E4DC] shadow-xs">
             <button
               onClick={() => setViewMode("3d")}
-              className={`px-3.5 py-1 rounded-full text-xs font-semibold tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3 sm:px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-semibold tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
                 viewMode === "3d"
                   ? "bg-[#B08D57] text-white shadow-xs"
                   : "text-[#72716d] hover:text-[#1c1b1b]"
               }`}
             >
               <span className="material-symbols-outlined text-sm">view_in_ar</span>
-              <span>3D Interactive Model</span>
+              <span className="sm:hidden">3D Model</span>
+              <span className="hidden sm:inline">3D Interactive Model</span>
             </button>
             <button
               onClick={() => setViewMode("render")}
-              className={`px-3.5 py-1 rounded-full text-xs font-semibold tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3 sm:px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-semibold tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
                 viewMode === "render"
                   ? "bg-[#1c1b1b] text-white shadow-xs"
                   : "text-[#72716d] hover:text-[#1c1b1b]"
               }`}
             >
               <span className="material-symbols-outlined text-sm">photo</span>
-              <span>Architectural Render</span>
+              <span className="sm:hidden">2D Render</span>
+              <span className="hidden sm:inline">Architectural Render</span>
             </button>
           </div>
         </div>

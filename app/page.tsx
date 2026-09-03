@@ -149,11 +149,11 @@ export default function HomePage() {
             {/* Headline */}
             <div className="flex flex-col gap-1">
               <h1
-                className="text-white leading-[1.0] tracking-tight"
+                className="text-white leading-[1.05] tracking-tight"
                 style={{
                   fontFamily: "'Cormorant Garant', serif",
                   fontWeight: 300,
-                  fontSize: "clamp(3.4rem, 7.5vw, 7rem)",
+                  fontSize: "clamp(2.4rem, 8.5vw, 6.5rem)",
                   animation: "fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.25s both",
                 }}
               >
@@ -169,12 +169,12 @@ export default function HomePage() {
                 <div className="h-px flex-1 max-w-[180px] bg-gradient-to-l from-transparent to-[#B08D57]/50" />
               </div>
               <h1
-                className="text-white leading-[1.0] tracking-tight"
+                className="text-white leading-[1.05] tracking-tight"
                 style={{
                   fontFamily: "'Cormorant Garant', serif",
                   fontWeight: 400,
                   fontStyle: "italic",
-                  fontSize: "clamp(3.4rem, 7.5vw, 7rem)",
+                  fontSize: "clamp(2.4rem, 8.5vw, 6.5rem)",
                   animation: "fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.4s both",
                 }}
               >
@@ -184,10 +184,9 @@ export default function HomePage() {
 
             {/* Subtext */}
             <p
-              className="text-white/65 max-w-lg leading-[1.9] font-light"
+              className="text-white/65 max-w-lg leading-[1.8] font-light text-xs sm:text-sm"
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: "14px",
                 letterSpacing: "0.015em",
                 animation: "fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.55s both",
               }}
@@ -197,18 +196,18 @@ export default function HomePage() {
 
             {/* CTAs */}
             <div
-              className="flex flex-wrap gap-4"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto"
               style={{ animation: "fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.7s both" }}
             >
               <button
                 onClick={() => setEnquireOpen(true)}
-                className="bg-[#B08D57] hover:bg-[#967645] text-white text-[10.5px] tracking-[0.24em] font-semibold py-3.5 px-9 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(176,141,87,0.45)] hover:scale-[1.03] cursor-pointer"
+                className="w-full sm:w-auto text-center justify-center bg-[#B08D57] hover:bg-[#967645] text-white text-[10.5px] tracking-[0.24em] font-semibold py-3.5 px-8 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(176,141,87,0.45)] hover:scale-[1.02] active:scale-98 cursor-pointer shadow-sm"
               >
                 ENQUIRE NOW
               </button>
               <button
                 onClick={() => setBrochureOpen(true)}
-                className="border border-white/40 text-white text-[10.5px] tracking-[0.24em] font-semibold py-3.5 px-9 transition-all duration-300 hover:bg-white/10 hover:border-white/70 hover:scale-[1.03] backdrop-blur-sm cursor-pointer"
+                className="w-full sm:w-auto text-center justify-center border border-white/40 text-white text-[10.5px] tracking-[0.24em] font-semibold py-3.5 px-8 transition-all duration-300 hover:bg-white/10 hover:border-white/70 hover:scale-[1.02] active:scale-98 backdrop-blur-sm cursor-pointer"
               >
                 DOWNLOAD BROCHURE
               </button>
@@ -373,8 +372,8 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Category Filter Pills */}
-            <div className="flex items-center gap-2 border-b border-[#E8E4DC] pb-4 overflow-x-auto">
+            {/* Category Filter Pills (Mobile Smooth Swipe, No Scrollbar) */}
+            <div className="flex items-center gap-2 border-b border-[#E8E4DC] pb-4 overflow-x-auto no-scrollbar">
               {[
                 { id: "all", label: "All Facilities" },
                 { id: "schools", label: "Schools" },
@@ -385,9 +384,9 @@ export default function HomePage() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveFacilityCategory(tab.id as any)}
-                  className={`px-4 py-2 rounded-lg text-xs tracking-wider uppercase font-semibold transition-all whitespace-nowrap cursor-pointer ${
+                  className={`px-3.5 sm:px-4 py-2 rounded-lg text-xs tracking-wider uppercase font-semibold transition-all whitespace-nowrap cursor-pointer shrink-0 ${
                     activeFacilityCategory === tab.id
-                      ? "bg-[#1c1b1b] text-white"
+                      ? "bg-[#1c1b1b] text-white shadow-xs"
                       : "text-[#72716d] hover:text-[#1c1b1b] hover:bg-white"
                   }`}
                 >
@@ -397,7 +396,7 @@ export default function HomePage() {
             </div>
 
             {/* 4 Feature Columns / Facility Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {filteredFacilities.map((facility, idx) => {
                 const delayClass = ["reveal-delay-1","reveal-delay-2","reveal-delay-3","reveal-delay-4","reveal-delay-5"][idx % 4];
                 return (

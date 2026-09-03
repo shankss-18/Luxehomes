@@ -313,7 +313,7 @@ export default function LocationPage() {
           </div>
 
           {/* White-Themed Architectural Blueprint Canvas */}
-          <div className="relative w-full h-[480px] md:h-[580px] rounded-3xl overflow-hidden border border-[#E8E4DC] shadow-xl bg-[#FAF8F5] select-none">
+          <div className="relative w-full h-[440px] sm:h-[480px] md:h-[580px] rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E8E4DC] shadow-xl bg-[#FAF8F5] select-none">
 
             {/* SVG Architectural Vector Map Layer */}
             <svg
@@ -467,12 +467,12 @@ export default function LocationPage() {
             })}
 
             {/* Bottom White-Themed Spotlight HUD Card */}
-            <div className="absolute bottom-4 left-4 right-4 z-30">
-              <div className="bg-white/95 backdrop-blur-xl p-4 md:p-5 rounded-2xl border border-[#E8E4DC] shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 z-30">
+              <div className="bg-white/95 backdrop-blur-xl p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl border border-[#E8E4DC] shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
 
                 {/* Left: Corridor Thumbnail + Identity */}
-                <div className="flex items-center gap-4">
-                  <div className="size-14 md:size-16 rounded-xl overflow-hidden border border-[#E8E4DC] shrink-0 relative shadow-xs">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="size-12 sm:size-14 md:size-16 rounded-xl overflow-hidden border border-[#E8E4DC] shrink-0 relative shadow-xs">
                     <img
                       src={activeLocation.image}
                       alt={activeLocation.name}
@@ -481,22 +481,22 @@ export default function LocationPage() {
                   </div>
 
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[9.5px] uppercase font-bold tracking-widest text-[#B08D57] px-2 py-0.5 rounded-full bg-[#FAF7F2] border border-[#E8E4DC]">
+                    <div className="flex items-center gap-2 mb-0.5 sm:mb-1">
+                      <span className="text-[9px] sm:text-[9.5px] uppercase font-bold tracking-widest text-[#B08D57] px-2 py-0.5 rounded-full bg-[#FAF7F2] border border-[#E8E4DC]">
                         {activeLocation.badge}
                       </span>
                       <span className="text-[#72716d] text-xs">·</span>
-                      <span className="text-xs font-semibold text-[#B08D57]">{activeLocation.avgPriceSqFt}</span>
+                      <span className="text-[11px] sm:text-xs font-semibold text-[#B08D57]">{activeLocation.avgPriceSqFt}</span>
                     </div>
 
                     <h4
-                      className="text-lg md:text-xl font-normal text-[#1c1b1b]"
+                      className="text-base sm:text-lg md:text-xl font-normal text-[#1c1b1b]"
                       style={{ fontFamily: "'Playfair Display', serif" }}
                     >
                       {activeLocation.name}
                     </h4>
 
-                    <p className="text-xs text-[#72716d] line-clamp-1">{activeLocation.area}</p>
+                    <p className="text-[11px] sm:text-xs text-[#72716d] line-clamp-1">{activeLocation.area}</p>
                   </div>
                 </div>
 
@@ -515,12 +515,12 @@ export default function LocationPage() {
                 </div>
 
                 {/* Right: Google & Apple Maps Action Buttons */}
-                <div className="flex items-center gap-2.5 self-end md:self-auto shrink-0">
+                <div className="flex items-center gap-2 self-stretch sm:self-end md:self-auto shrink-0">
                   <a
                     href={activeLocation.googleMapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2.5 rounded-xl bg-[#1c1b1b] hover:bg-[#B08D57] text-white text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 shadow-sm"
+                    className="flex-1 sm:flex-initial text-center justify-center px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-[#1c1b1b] hover:bg-[#B08D57] text-white text-[10.5px] sm:text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 shadow-sm active:scale-95"
                   >
                     <span className="material-symbols-outlined text-sm">map</span>
                     <span>Google Maps</span>
@@ -530,7 +530,7 @@ export default function LocationPage() {
                     href={activeLocation.appleMapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2.5 rounded-xl bg-[#FAF7F2] hover:bg-white text-[#1c1b1b] border border-[#E8E4DC] hover:border-[#B08D57] text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 shadow-xs"
+                    className="flex-1 sm:flex-initial text-center justify-center px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-[#FAF7F2] hover:bg-white text-[#1c1b1b] border border-[#E8E4DC] hover:border-[#B08D57] text-[10.5px] sm:text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 shadow-xs active:scale-95"
                   >
                     <span className="material-symbols-outlined text-sm text-[#B08D57]">navigation</span>
                     <span>Apple Maps</span>

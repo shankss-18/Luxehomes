@@ -118,7 +118,7 @@ export default function HomeGalleryMarquee() {
             <Link
               key={`${item.id}-${idx}`}
               href="/gallery"
-              className="inline-flex items-center gap-5 px-5 py-3.5 rounded-2xl bg-white border-2 border-[#E8E4DC] hover:border-[#B08D57] hover:ring-1 hover:ring-[#B08D57] shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer shrink-0 group/card min-w-[340px] md:min-w-[420px] justify-between relative z-10 hover:z-20"
+              className="inline-flex items-center gap-3.5 sm:gap-5 px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl bg-white border-2 border-[#E8E4DC] hover:border-[#B08D57] hover:ring-1 hover:ring-[#B08D57] shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer shrink-0 group/card min-w-[275px] sm:min-w-[340px] md:min-w-[420px] justify-between relative z-10 hover:z-20"
             >
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-2">

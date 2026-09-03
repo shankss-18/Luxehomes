@@ -834,7 +834,7 @@ export default function ThreeDModelViewer({
   };
 
   return (
-    <div className="relative w-full aspect-[16/10] min-h-[440px] md:min-h-[530px] bg-[#FAF7F2] rounded-3xl overflow-hidden border border-[#E8E4DC] select-none flex flex-col shadow-lg">
+    <div className="relative w-full aspect-[16/10] min-h-[380px] sm:min-h-[440px] md:min-h-[530px] bg-[#FAF7F2] rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E8E4DC] select-none flex flex-col shadow-lg">
       {/* ── 3D Canvas Mount ─────────────────────────────────────────── */}
       <div ref={containerRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
 
@@ -847,23 +847,24 @@ export default function ThreeDModelViewer({
       )}
 
       {/* ── TOP HUD CONTROLS BAR ─────────────────────────────────────── */}
-      <div className="absolute top-4 inset-x-4 flex items-center justify-between pointer-events-none">
+      <div className="absolute top-3 sm:top-4 inset-x-3 sm:inset-x-4 flex items-center justify-between pointer-events-none gap-2">
         {/* Left: 3D Badge & Status */}
-        <div className="pointer-events-auto flex items-center gap-2 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#E8E4DC] shadow-sm">
+        <div className="pointer-events-auto flex items-center gap-1.5 sm:gap-2 bg-white/95 backdrop-blur-md px-2.5 sm:px-3.5 py-1.5 rounded-full border border-[#E8E4DC] shadow-sm shrink-0">
           <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-[10.5px] font-bold tracking-[0.2em] uppercase text-[#1c1b1b]">
-            Architectural Cutaway 3D
+          <span className="text-[10px] sm:text-[10.5px] font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-[#1c1b1b]">
+            <span className="sm:hidden">3D Cutaway</span>
+            <span className="hidden sm:inline">Architectural Cutaway 3D</span>
           </span>
-          <span className="text-[10px] text-[#72716d] hidden sm:inline">· 360° Real-time Orbit</span>
+          <span className="text-[10px] text-[#72716d] hidden md:inline">· 360° Real-time Orbit</span>
         </div>
 
         {/* Right: View & Lighting Controls */}
-        <div className="pointer-events-auto flex items-center gap-1.5 bg-white/95 backdrop-blur-md p-1 rounded-full border border-[#E8E4DC] shadow-sm">
+        <div className="pointer-events-auto flex items-center gap-1 sm:gap-1.5 bg-white/95 backdrop-blur-md p-1 rounded-full border border-[#E8E4DC] shadow-sm shrink-0">
           {/* Day / Evening Lighting Mode */}
           <button
             onClick={toggleLighting}
             title={lightingMode === "day" ? "Switch to Evening Lighting" : "Switch to Day Lighting"}
-            className="px-2.5 py-1 rounded-full text-[11px] font-medium transition-all flex items-center gap-1 text-[#474741] hover:text-[#B08D57] hover:bg-[#FAF7F2] cursor-pointer"
+            className="px-2 sm:px-2.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-medium transition-all flex items-center gap-1 text-[#474741] hover:text-[#B08D57] hover:bg-[#FAF7F2] cursor-pointer"
           >
             <span className="material-symbols-outlined text-sm text-[#B08D57]">
               {lightingMode === "day" ? "light_mode" : "bedtime"}
@@ -875,7 +876,7 @@ export default function ThreeDModelViewer({
           <button
             onClick={toggleAutoRotate}
             title="Auto Rotate 360°"
-            className={`px-2.5 py-1 rounded-full text-[11px] font-medium transition-all flex items-center gap-1 cursor-pointer ${
+            className={`px-2 sm:px-2.5 py-1 rounded-full text-[10.5px] sm:text-[11px] font-medium transition-all flex items-center gap-1 cursor-pointer ${
               isAutoRotating
                 ? "bg-[#1c1b1b] text-white"
                 : "text-[#474741] hover:text-[#B08D57] hover:bg-[#FAF7F2]"
@@ -921,12 +922,12 @@ export default function ThreeDModelViewer({
         </div>
       </div>
 
-      {/* ── ROOM INSPECTOR PILLS (BOTTOM HUD) ────────────────────────── */}
-      <div className="absolute bottom-4 inset-x-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3 pointer-events-none">
+      {/* ── ROOM INSPECTOR PILLS (BOTTOM HUD - MOBILE SCROLLABLE) ────── */}
+      <div className="absolute bottom-3 sm:bottom-4 inset-x-3 sm:inset-x-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2.5 sm:gap-3 pointer-events-none">
         {/* Room Navigation Pills */}
-        <div className="pointer-events-auto flex flex-wrap gap-1.5 bg-white/95 backdrop-blur-md p-1.5 rounded-2xl border border-[#E8E4DC] shadow-md max-w-full overflow-x-auto">
-          <span className="text-[10px] font-bold tracking-wider uppercase text-[#72716d] px-2.5 py-1 hidden sm:inline self-center">
-            Inspect Room:
+        <div className="pointer-events-auto flex items-center gap-1.5 bg-white/95 backdrop-blur-md p-1.5 rounded-2xl border border-[#E8E4DC] shadow-md max-w-full overflow-x-auto no-scrollbar whitespace-nowrap">
+          <span className="text-[10px] font-bold tracking-wider uppercase text-[#72716d] px-2 py-1 hidden sm:inline self-center shrink-0">
+            Inspect:
           </span>
           {roomTargets.map((r) => {
             const isSelected = activeRoom === r.name;
@@ -934,7 +935,7 @@ export default function ThreeDModelViewer({
               <button
                 key={r.name}
                 onClick={() => focusRoom(r)}
-                className={`px-2.5 py-1 rounded-xl text-[11px] font-medium transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                className={`px-2.5 py-1 rounded-xl text-[10.5px] sm:text-[11px] font-medium transition-all flex items-center gap-1.5 cursor-pointer shrink-0 ${
                   isSelected
                     ? "bg-[#1c1b1b] text-white shadow-xs"
                     : "bg-[#FAF7F2] text-[#474741] hover:text-[#B08D57] hover:border-[#B08D57] border border-transparent"

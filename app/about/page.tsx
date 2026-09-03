@@ -394,7 +394,7 @@ export default function AboutPage() {
             </div>
 
             {/* RIGHT COLUMN: Ultra-Luxury Private Advisory Form */}
-            <div className="lg:col-span-7 bg-white p-7 md:p-10 rounded-3xl border border-[#E8E4DC] shadow-md hover:border-[#B08D57]/60 transition-all reveal-slide-right flex flex-col justify-between h-full">
+            <div className="lg:col-span-7 bg-white p-5 sm:p-7 md:p-10 rounded-2xl sm:rounded-3xl border border-[#E8E4DC] shadow-md hover:border-[#B08D57]/60 transition-all reveal-slide-right flex flex-col justify-between h-full">
               {contactSubmitted ? (
                 <div className="py-16 flex flex-col items-center text-center gap-3 my-auto">
                   <div className="size-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mb-2 animate-bounce">

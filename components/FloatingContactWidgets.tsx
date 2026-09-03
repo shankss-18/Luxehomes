@@ -131,11 +131,11 @@ export default function FloatingContactWidgets() {
       {/* ───────────────────────────────────────────────────────────────── */}
       {/* 1. FLOATING LUXURY CONCIERGE DOCK (BOTTOM-RIGHT)                  */}
       {/* ───────────────────────────────────────────────────────────────── */}
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 pointer-events-auto select-none">
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2.5 sm:gap-3 pointer-events-auto select-none">
 
         {/* WhatsApp Direct Concierge Button (Official Brand Logo) */}
         <div className="relative group">
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b] text-white text-[11px] font-medium tracking-wide px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center gap-1.5 border border-white/10">
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b] text-white text-[11px] font-medium tracking-wide px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden sm:flex items-center gap-1.5 border border-white/10">
             <span>Chat on WhatsApp · Private Concierge</span>
           </div>
 
@@ -144,11 +144,11 @@ export default function FloatingContactWidgets() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Chat on WhatsApp"
-            className="size-12 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-lg hover:shadow-2xl hover:shadow-emerald-500/35 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+            className="size-11 sm:size-12 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-lg hover:shadow-2xl hover:shadow-emerald-500/35 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
           >
             {/* Official WhatsApp Logo SVG */}
             <svg
-              className="size-6.5 fill-white"
+              className="size-6 sm:size-6.5 fill-white"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -159,23 +159,23 @@ export default function FloatingContactWidgets() {
 
         {/* AI Concierge Chatbot Trigger Button (Official AI Bot Vector Icon) */}
         <div className="relative group">
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b] text-white text-[11px] font-medium tracking-wide px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center gap-1.5 border border-white/10">
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[#1c1b1b] text-white text-[11px] font-medium tracking-wide px-3 py-1.5 rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden sm:flex items-center gap-1.5 border border-white/10">
             <span>{chatOpen ? "Close AI Concierge" : "Luxe AI Concierge · Live Assistant"}</span>
           </div>
 
           <button
             onClick={() => setChatOpen((prev) => !prev)}
             aria-label="Toggle AI Concierge Chat"
-            className="size-12 rounded-full bg-[#1c1b1b] hover:bg-[#282420] text-white border border-[#B08D57]/70 shadow-lg hover:shadow-2xl hover:shadow-[#B08D57]/25 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+            className="size-11 sm:size-12 rounded-full bg-[#1c1b1b] hover:bg-[#282420] text-white border border-[#B08D57]/70 shadow-lg hover:shadow-2xl hover:shadow-[#B08D57]/25 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
           >
             {chatOpen ? (
-              <svg className="size-5.5 text-[#B08D57]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="size-5 text-[#B08D57]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             ) : (
               /* Authentic Modern AI Chatbot Vector Logo */
-              <svg className="size-6.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="size-6 sm:size-6.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="3" y="6" width="18" height="14" rx="5" fill="#1c1b1b" stroke="#B08D57" strokeWidth="1.8"/>
                 <line x1="12" y1="2" x2="12" y2="6" stroke="#B08D57" strokeWidth="1.8" strokeLinecap="round"/>
                 <circle cx="12" cy="2" r="1.5" fill="#B08D57"/>
@@ -193,10 +193,10 @@ export default function FloatingContactWidgets() {
       </div>
 
       {/* ───────────────────────────────────────────────────────────────── */}
-      {/* 2. COMPACT FLOATING LUXURY AI CHAT MODAL (OPTIMIZED UI / UX)      */}
+      {/* 2. COMPACT FLOATING LUXURY AI CHAT MODAL (RESPONSIVE SAFE AREA)   */}
       {/* ───────────────────────────────────────────────────────────────── */}
       {chatOpen && (
-        <div className="fixed bottom-22 right-6 z-50 w-[325px] sm:w-[355px] h-[435px] max-h-[72vh] bg-white rounded-3xl shadow-[0_22px_65px_-12px_rgba(28,27,27,0.35)] border border-[#E8E4DC] overflow-hidden flex flex-col animate-chat-spring select-none">
+        <div className="fixed bottom-18 right-3 sm:bottom-22 sm:right-6 z-50 w-[calc(100vw-24px)] sm:w-[350px] max-w-[350px] h-[430px] max-h-[74vh] bg-white rounded-3xl shadow-[0_22px_65px_-12px_rgba(28,27,27,0.35)] border border-[#E8E4DC] overflow-hidden flex flex-col animate-chat-spring select-none">
 
           {/* Compact Luxury Header */}
           <div className="p-3 px-4 bg-[#1c1b1b] text-white flex items-center justify-between border-b border-[#B08D57]/30 shrink-0">

@@ -18,9 +18,9 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-[#E8E4DC] pt-14 pb-10 bg-[#FAF7F2] text-[#1c1b1b]">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-14">
+    <footer className="border-t border-[#E8E4DC] pt-12 sm:pt-14 pb-8 sm:pb-10 bg-[#FAF7F2] text-[#1c1b1b]">
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-14">
           {/* ── Brand Column ─────────────────────────────────────────── */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2 text-[#B08D57]">
@@ -98,7 +98,7 @@ export default function Footer() {
                 ✓ Welcome to our inner circle. An invitation has been dispatched.
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-2">
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2">
                 <input
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -109,7 +109,7 @@ export default function Footer() {
                 />
                 <button
                   type="submit"
-                  className="bg-[#B08D57] hover:bg-[#967645] text-white px-4 py-2.5 rounded-lg text-xs font-semibold tracking-widest uppercase transition-all duration-200 shadow-sm hover:shadow"
+                  className="bg-[#B08D57] hover:bg-[#967645] text-white px-4 py-2.5 rounded-lg text-xs font-semibold tracking-widest uppercase transition-all duration-200 shadow-sm hover:shadow shrink-0 cursor-pointer"
                 >
                   Join
                 </button>
