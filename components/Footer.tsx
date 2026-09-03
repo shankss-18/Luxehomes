@@ -46,10 +46,10 @@ export default function Footer() {
             </h5>
             {[
               { href: "/", label: "Home" },
-              { href: "/properties", label: "Gallery & Residences" },
+              { href: "/gallery", label: "Gallery" },
+              { href: "/location", label: "Location" },
               { href: "/about", label: "About Us" },
-              { href: "/locations", label: "Locations" },
-              { href: "/contact", label: "Contact Us" },
+              { href: "/about#contact", label: "Contact Us" },
             ].map(({ href, label }) => (
               <Link
                 key={label}

@@ -23,9 +23,9 @@ export default function Navbar({ onOpenEnquire }: NavbarProps) {
 
   const navItems = [
     { label: "HOME", href: "/", id: "home" },
-    { label: "GALLERY", href: "/properties", id: "gallery" },
-    { label: "LOCATION", href: "/locations", id: "location" },
-    { label: "ABOUT", href: "/contact", id: "about" },
+    { label: "GALLERY", href: "/gallery", id: "gallery" },
+    { label: "LOCATION", href: "/location", id: "location" },
+    { label: "ABOUT", href: "/about", id: "about" },
   ];
 
   return (
@@ -92,7 +92,7 @@ export default function Navbar({ onOpenEnquire }: NavbarProps) {
             onClick={onOpenEnquire ? onOpenEnquire : () => {
               const el = document.getElementById("enquiry-modal-trigger");
               if (el) el.click();
-              else window.location.href = "/contact";
+              else window.location.href = "/about#contact";
             }}
             className="flex items-center justify-center border border-[#1c1b1b] text-[#1c1b1b] text-[10px] tracking-[0.22em] font-semibold py-2 px-7 hover:bg-[#1c1b1b] hover:text-white transition-all duration-300 cursor-pointer"
           >
@@ -147,7 +147,7 @@ export default function Navbar({ onOpenEnquire }: NavbarProps) {
               else {
                 const el = document.getElementById("enquiry-modal-trigger");
                 if (el) el.click();
-                else window.location.href = "/contact";
+                else window.location.href = "/about#contact";
               }
             }}
             className="w-full text-center border border-[#1c1b1b] text-[#1c1b1b] text-xs tracking-widest font-semibold py-3 hover:bg-[#1c1b1b] hover:text-white transition-colors"

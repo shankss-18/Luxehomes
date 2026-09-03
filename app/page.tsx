@@ -4,41 +4,24 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import propertiesData from "@/data/properties.json";
 import locationsData from "@/data/locations.json";
-import IsometricFloorPlanViewer, { UnitData } from "@/components/IsometricFloorPlanViewer";
 
 export default function HomePage() {
   // ─── Modal States ──────────────────────────────────────────────────────────
   const [enquireOpen, setEnquireOpen] = useState(false);
   const [brochureOpen, setBrochureOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
-  const [selectedModalUnit, setSelectedModalUnit] = useState<UnitData | null>(null);
-
-  // ─── Form Success States ───────────────────────────────────────────────────
-  const [enquireSuccess, setEnquireSuccess] = useState(false);
-  const [brochureSuccess, setBrochureSuccess] = useState(false);
-
-  // ─── Interactive BHK Masterplan Tab ────────────────────────────────────────
-  // Options: "2bhk" | "3bhk" | "4bhk" | "plots"
-  const [activeTab, setActiveTab] = useState<"2bhk" | "3bhk" | "4bhk" | "plots">("3bhk");
-
-  // Selected unit ID within the active tab
-  const [selectedUnitId, setSelectedUnitId] = useState<string>("");
 
   // ─── Facility Category Filter ──────────────────────────────────────────────
   const [activeFacilityCategory, setActiveFacilityCategory] = useState<"all" | "schools" | "hospitals" | "retail" | "itParks">("all");
   const [activeFacilityPin, setActiveFacilityPin] = useState<string | null>(null);
 
+  // ─── Form Success States ───────────────────────────────────────────────────
+  const [enquireSuccess, setEnquireSuccess] = useState(false);
+  const [brochureSuccess, setBrochureSuccess] = useState(false);
+
   // ─── Scroll Reveal Observer ────────────────────────────────────────────────
-  const collectionsRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
   const facilitiesRef = useRef<HTMLDivElement>(null);
-  const viewerRef = useRef<HTMLDivElement>(null);
-
-  const scrollToViewer = () => {
-    setTimeout(() => {
-      viewerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 80);
-  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -64,66 +47,7 @@ export default function HomePage() {
     };
   }, [activeFacilityCategory]);
 
-  // ─── Dynamic Data Filtering & Computed Summary Stats (Live from properties.json) ───
-  const unitsByTab = useMemo(() => {
-    const allUnits = propertiesData.units as UnitData[];
-    return {
-      "2bhk": allUnits.filter((u) => u.bhk === 2),
-      "3bhk": allUnits.filter((u) => u.bhk === 3),
-      "4bhk": allUnits.filter((u) => u.bhk === 4),
-      plots: allUnits.filter((u) => u.type === "plot"),
-    };
-  }, []);
 
-  const currentTabUnits = unitsByTab[activeTab];
-
-  // Auto-select first unit when tab changes
-  useEffect(() => {
-    if (currentTabUnits && currentTabUnits.length > 0) {
-      setSelectedUnitId(currentTabUnits[0].id);
-    }
-  }, [activeTab, currentTabUnits]);
-
-  // Active unit currently being viewed in the isometric floor plan
-  const activeUnit = currentTabUnits.find((u) => u.id === selectedUnitId) || currentTabUnits[0];
-
-  // ─── Live Computed Summary Metrics ─────────────────────────────────────────
-  const tabSummary = useMemo(() => {
-    if (!currentTabUnits || currentTabUnits.length === 0) {
-      return {
-        carpetRange: "—",
-        startingPrice: "Price on Request",
-        unitCount: 0,
-        facings: "—",
-      };
-    }
-
-    const carpets = currentTabUnits.map((u) => u.carpet_area_sqft);
-    const minCarpet = Math.min(...carpets);
-    const maxCarpet = Math.max(...carpets);
-
-    const prices = currentTabUnits
-      .map((u) => u.total_price_inr)
-      .filter((p): p is number => p !== null && p > 0);
-
-    let startingPrice = "Price on Request / TBD";
-    if (prices.length > 0) {
-      const minPrice = Math.min(...prices);
-      startingPrice = `₹${(minPrice / 10000000).toFixed(2)} Cr*`;
-    }
-
-    const facingsSet = Array.from(new Set(currentTabUnits.map((u) => u.facing)));
-
-    return {
-      carpetRange:
-        activeTab === "plots"
-          ? `${minCarpet.toLocaleString()} – ${maxCarpet.toLocaleString()} sq.ft (300–500 sq.yds)`
-          : `${minCarpet.toLocaleString()} – ${maxCarpet.toLocaleString()} sq.ft`,
-      startingPrice,
-      unitCount: currentTabUnits.length,
-      facings: facingsSet.join(", "),
-    };
-  }, [currentTabUnits, activeTab]);
 
   const handleEnquireSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -328,10 +252,10 @@ export default function HomePage() {
 
         {/* Scroll cue */}
         <a
-          href="#collections"
+          href="#experience"
           className="absolute bottom-20 lg:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors group"
           style={{ animation: "fadeInUp 1s ease 1.2s both" }}
-          aria-label="Scroll to collections"
+          aria-label="Scroll to experience"
         >
           <span className="text-[8px] tracking-[0.35em] uppercase" style={{ fontFamily: "'Inter', sans-serif" }}>Discover</span>
           <svg width="22" height="34" viewBox="0 0 22 34" fill="none" className="group-hover:translate-y-1.5 transition-transform duration-400">
@@ -343,175 +267,12 @@ export default function HomePage() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────── */}
-      {/* 2. MASTERPLAN / FLOOR PLAN VISUAL COMPONENT (Isometric 3D Cutaway)  */}
+      {/* 2. VIDEO SHOWCASE — Inline YouTube Embed                          */}
       {/* ─────────────────────────────────────────────────────────────────── */}
       <div className="flex justify-center px-6 md:px-12 py-16">
         <div className="flex flex-col max-w-[1200px] w-full gap-16">
 
-          <section id="collections" ref={collectionsRef} className="flex flex-col gap-8 scroll-mt-24">
-            {/* Section Header */}
-            <div className="flex flex-wrap justify-between items-end gap-4 reveal-item">
-              <div className="flex min-w-72 flex-col gap-1.5">
-                <span className="text-[#B08D57] font-semibold text-xs tracking-[0.2em] uppercase">
-                  Isometric 3D Masterplan
-                </span>
-                <h2
-                  className="text-[#1c1b1b] text-3xl md:text-4xl font-normal leading-tight"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  Layouts &amp; Unit Configurations
-                </h2>
-                <p className="text-[#72716d] text-sm max-w-xl mt-1 leading-relaxed">
-                  Presented as isometric 3D architectural cutaways with annotated room zoning, live-computed carpet area bands, and dimensional schedules.
-                </p>
-              </div>
-
-              {/* Masterplan Tabs: 2 BHK, 3 BHK, 4 BHK, Plots */}
-              <div className="flex items-center gap-2 border border-[#E8E4DC] rounded-full p-1.5 bg-white shadow-sm overflow-x-auto max-w-full">
-                {[
-                  { id: "2bhk", label: "2 BHK" },
-                  { id: "3bhk", label: "3 BHK" },
-                  { id: "4bhk", label: "4 BHK" },
-                  { id: "plots", label: "Plots" },
-                ].map((tab) => {
-                  const isActive = activeTab === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id as any)}
-                      className={`px-4 py-1.5 rounded-full text-xs tracking-wider uppercase transition-all duration-200 whitespace-nowrap cursor-pointer ${
-                        isActive
-                          ? "bg-[#B08D57] text-white font-semibold shadow-sm"
-                          : "text-[#72716d] hover:text-[#1c1b1b] hover:bg-[#FAF7F2]"
-                      }`}
-                    >
-                      {tab.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* ── Per-Tab Live Computed Summary Card ──────────────────────── */}
-            <div className="bg-white rounded-2xl border border-[#E8E4DC] p-6 md:p-8 shadow-sm reveal-item">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-[#E8E4DC]">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="size-2 rounded-full bg-[#B08D57]" />
-                    <span className="text-xs font-semibold text-[#B08D57] tracking-widest uppercase">
-                      Live Portfolio Summary · {activeTab === "plots" ? "Villa Plots" : `${activeTab.replace("bhk", "").toUpperCase()} BHK Group`}
-                    </span>
-                  </div>
-                  <h3
-                    className="text-2xl md:text-3xl font-normal text-[#1c1b1b]"
-                    style={{ fontFamily: "'Playfair Display', serif" }}
-                  >
-                    {activeTab === "plots"
-                      ? "The Neopolis Freehold Estate Plots"
-                      : `${activeTab.replace("bhk", "")} BHK Luxury Residences`}
-                  </h3>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="px-3 py-1.5 rounded-lg bg-[#FAF7F2] border border-[#E8E4DC] text-xs font-semibold text-[#1c1b1b]">
-                    {tabSummary.unitCount} Residences Available
-                  </span>
-                  <span className="px-3 py-1.5 rounded-lg bg-[#FAF7F2] border border-[#E8E4DC] text-xs text-[#72716d]">
-                    Benchmark: ₹12,800/sq.ft
-                  </span>
-                </div>
-              </div>
-
-              {/* Live Computed Metrics Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6">
-                <div>
-                  <span className="text-[11px] uppercase tracking-wider font-semibold text-[#72716d] block mb-1">
-                    Carpet Area Range
-                  </span>
-                  <p
-                    className="text-lg md:text-xl font-normal text-[#1c1b1b]"
-                    style={{ fontFamily: "'Playfair Display', serif" }}
-                  >
-                    {tabSummary.carpetRange}
-                  </p>
-                </div>
-                <div>
-                  <span className="text-[11px] uppercase tracking-wider font-semibold text-[#72716d] block mb-1">
-                    Starting Price
-                  </span>
-                  <p
-                    className="text-lg md:text-xl font-normal text-[#B08D57]"
-                    style={{ fontFamily: "'Playfair Display', serif" }}
-                  >
-                    {tabSummary.startingPrice}
-                  </p>
-                </div>
-                <div>
-                  <span className="text-[11px] uppercase tracking-wider font-semibold text-[#72716d] block mb-1">
-                    Unique Facings
-                  </span>
-                  <p className="text-xs md:text-sm font-medium text-[#1c1b1b] mt-1">
-                    {tabSummary.facings}
-                  </p>
-                </div>
-                <div>
-                  <span className="text-[11px] uppercase tracking-wider font-semibold text-[#72716d] block mb-1">
-                    Statutory Compliance
-                  </span>
-                  <p className="text-xs text-[#72716d] mt-1">
-                    100% Vastu · HMDA Approved
-                  </p>
-                </div>
-              </div>
-
-              {/* Unit Selector Pills within Active Tab */}
-              {currentTabUnits && currentTabUnits.length > 1 && (
-                <div className="mt-8 pt-6 border-t border-[#E8E4DC]/60">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-[#72716d] block mb-3">
-                    Select Residence / Tower to View Isometric 3D Cutaway:
-                  </span>
-                  <div className="flex flex-wrap gap-2.5">
-                    {currentTabUnits.map((u) => {
-                      const isSelected = activeUnit.id === u.id;
-                      return (
-                        <button
-                          key={u.id}
-                          onClick={() => { setSelectedUnitId(u.id); scrollToViewer(); }}
-                          className={`px-3.5 py-2 rounded-lg text-xs transition-all flex items-center gap-2 cursor-pointer ${
-                            isSelected
-                              ? "bg-[#1c1b1b] text-white font-medium shadow-sm"
-                              : "bg-[#FAF7F2] text-[#474741] border border-[#E8E4DC] hover:border-[#B08D57]"
-                          }`}
-                        >
-                          <span className={`size-1.5 rounded-full ${isSelected ? "bg-[#B08D57]" : "bg-[#72716d]"}`} />
-                          <span>{u.project_name}</span>
-                          <span className="opacity-70">({u.tower})</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* ── PART B: Isometric 3D Floor Plan Visual Component ────────── */}
-            {activeUnit && (
-              <div className="reveal-item scroll-mt-24" ref={viewerRef}>
-                <IsometricFloorPlanViewer
-                  unit={activeUnit}
-                  onEnquire={() => {
-                    setSelectedModalUnit(activeUnit);
-                    setEnquireOpen(true);
-                  }}
-                />
-              </div>
-            )}
-          </section>
-
-          {/* ───────────────────────────────────────────────────────────────── */}
-          {/* 3. VIDEO SHOWCASE — Inline YouTube Embed                          */}
-          {/* ───────────────────────────────────────────────────────────────── */}
-          <section ref={videoRef} className="w-full flex flex-col items-center gap-8 reveal-item">
+          <section id="experience" ref={videoRef} className="w-full flex flex-col items-center gap-8 reveal-item scroll-mt-24">
 
             {/* Section header */}
             <div className="flex flex-col items-center text-center gap-3">
@@ -865,10 +626,10 @@ export default function HomePage() {
                       Target Project / Layout
                     </label>
                     <select
-                      defaultValue={activeUnit ? activeUnit.id : "botanika-greens-ta-3bhk"}
+                      defaultValue="botanika-greens-t1-2bhk"
                       className="w-full bg-[#FAF7F2] border border-[#E8E4DC] rounded-lg px-3.5 py-2.5 text-sm text-[#1c1b1b] focus:outline-none focus:border-[#B08D57] transition-colors"
                     >
-                      {(propertiesData.units as UnitData[]).map((u) => (
+                      {propertiesData.units.map((u) => (
                         <option key={u.id} value={u.id}>
                           {u.project_name} ({u.tower}) — {u.bhk ? `${u.bhk} BHK` : "Plot"} · {u.display_price}
                         </option>
