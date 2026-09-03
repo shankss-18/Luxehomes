@@ -113,17 +113,17 @@ export default function MarqueeStatCards() {
 
       {/* ── LUXURY MARQUEE CONTAINER ─────────────────────────────────── */}
       <div
-        className="relative w-full mt-10 overflow-hidden"
+        className="relative w-full mt-6 sm:mt-10 overflow-hidden"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Gradient Edge Masks for High-End Editorial Fade */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-36 bg-gradient-to-r from-[#FAF7F2] to-transparent z-20 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-36 bg-gradient-to-l from-[#FAF7F2] to-transparent z-20 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-10 sm:w-20 md:w-36 bg-gradient-to-r from-[#FAF7F2] to-transparent z-20 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-10 sm:w-20 md:w-36 bg-gradient-to-l from-[#FAF7F2] to-transparent z-20 pointer-events-none" />
 
         {/* Scrolling Track: Right to Left */}
         <div
-          className="flex items-stretch gap-6 w-max py-4 cursor-grab active:cursor-grabbing"
+          className="flex items-stretch gap-3.5 sm:gap-5 md:gap-6 w-max py-2 sm:py-4 cursor-grab active:cursor-grabbing"
           style={{
             animation: "marqueeGlide 35s linear infinite",
             animationPlayState: isPaused ? "paused" : "running",
@@ -132,31 +132,31 @@ export default function MarqueeStatCards() {
           {marqueeItems.map((item, idx) => (
             <div
               key={`${item.id}-${idx}`}
-              className={`flex-shrink-0 w-[270px] md:w-[310px] p-6 md:p-7 rounded-2xl border transition-all duration-400 flex flex-col justify-between group relative shadow-xs hover:shadow-xl ${
+              className={`flex-shrink-0 w-[190px] sm:w-[240px] md:w-[310px] p-3.5 sm:p-5 md:p-7 rounded-xl sm:rounded-2xl border transition-all duration-400 flex flex-col justify-between group relative shadow-xs hover:shadow-xl ${
                 item.highlight
                   ? "bg-white border-[#B08D57]/60 ring-1 ring-[#B08D57]/20 hover:border-[#B08D57]"
                   : "bg-white/90 border-[#E8E4DC] hover:border-[#B08D57]/70"
               } hover:-translate-y-1.5`}
             >
               {/* Top Row: Eyebrow + Indicator */}
-              <div className="flex items-center justify-between gap-2 mb-4">
+              <div className="flex items-center justify-between gap-2 mb-2 sm:mb-4">
                 <span
-                  className="text-[#B08D57] font-semibold text-[9.5px] tracking-[0.22em] uppercase"
+                  className="text-[#B08D57] font-semibold text-[8px] sm:text-[9.5px] tracking-[0.16em] sm:tracking-[0.22em] uppercase"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   {item.label}
                 </span>
                 <span
-                  className={`size-2 rounded-full ${
+                  className={`size-1.5 sm:size-2 rounded-full ${
                     item.highlight ? "bg-[#B08D57] animate-pulse" : "bg-[#E8E4DC] group-hover:bg-[#B08D57]"
                   } transition-colors duration-300`}
                 />
               </div>
 
               {/* Main Metric Value */}
-              <div className="my-2">
+              <div className="my-1 sm:my-2">
                 <p
-                  className="text-[#1c1b1b] font-normal text-2xl md:text-3xl leading-tight group-hover:text-[#B08D57] transition-colors duration-300"
+                  className="text-[#1c1b1b] font-normal text-base sm:text-xl md:text-3xl leading-snug group-hover:text-[#B08D57] transition-colors duration-300"
                   style={{ fontFamily: "'Cormorant Garant', serif" }}
                 >
                   {item.value}
@@ -164,14 +164,14 @@ export default function MarqueeStatCards() {
               </div>
 
               {/* Bottom: Subtitle + Gold Accent Line */}
-              <div className="mt-4 pt-3 border-t border-[#E8E4DC]/60 flex flex-col gap-2">
+              <div className="mt-2.5 sm:mt-4 pt-2 sm:pt-3 border-t border-[#E8E4DC]/60 flex flex-col gap-1.5 sm:gap-2">
                 <span
-                  className="text-[#72716d] text-xs font-light group-hover:text-[#474741] transition-colors"
+                  className="text-[#72716d] text-[10px] sm:text-xs font-light group-hover:text-[#474741] transition-colors line-clamp-2"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   {item.sub}
                 </span>
-                <div className="h-0.5 w-6 bg-[#E8E4DC] group-hover:w-12 group-hover:bg-[#B08D57] transition-all duration-400 rounded-full" />
+                <div className="h-0.5 w-4 group-hover:w-8 sm:w-6 sm:group-hover:w-12 bg-[#E8E4DC] group-hover:bg-[#B08D57] transition-all duration-400 rounded-full" />
               </div>
             </div>
           ))}

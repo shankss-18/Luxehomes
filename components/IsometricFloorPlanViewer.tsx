@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ThreeDModelViewer from "./ThreeDModelViewer";
 
 export interface RoomDimension {
@@ -53,22 +53,25 @@ export default function IsometricFloorPlanViewer({
 
   // Selected level for multi-level villas/apartments (defaults to level 0)
   const [activeLevelIdx, setActiveLevelIdx] = useState(0);
-
-  // Store uploaded custom renderings
-  const [uploadedImages, setUploadedImages] = useState<Record<string, string>>({});
   const [mobileAccordionOpen, setMobileAccordionOpen] = useState(false);
   const [activePerspective, setActivePerspective] = useState<"cutaway" | "living" | "bedroom">("cutaway");
+  const [fullScreenOpen, setFullScreenOpen] = useState(false);
 
-  const handleImageUpload = (levelName: string, file: File) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const url = e.target?.result as string;
-      const key = `${unit.project_name}_${unit.tower}_${levelName}`;
-      setUploadedImages((prev) => ({ ...prev, [key]: url }));
-      setViewMode("render"); // Auto-switch to render to view upload
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFullScreenOpen(false);
     };
-    reader.readAsDataURL(file);
-  };
+    if (fullScreenOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [fullScreenOpen]);
 
   const currentLevel = unit.levels[activeLevelIdx] || unit.levels[0];
   const isMultiLevel = unit.levels.length > 1;
@@ -99,29 +102,28 @@ export default function IsometricFloorPlanViewer({
     { id: "bedroom", label: "Master Bedroom Suite", icon: "bed", src: "/images/floorplans/luxe_master_suite.jpg" },
   ];
 
-  const imageKey = `${unit.project_name}_${unit.tower}_${currentLevel?.level_name}`;
-  const uploaded = uploadedImages[imageKey];
   const currentPerspective = perspectives.find((p) => p.id === activePerspective) || perspectives[0];
-  const activeImage = uploaded || currentPerspective.src;
+  const activeImage = currentPerspective.src;
 
   return (
     /* ── SINGLE UNIFIED CONTAINER ───────────────────────────────────────── */
     <div className="w-full bg-white rounded-2xl md:rounded-3xl border border-[#E8E4DC] shadow-xl overflow-hidden flex flex-col transition-all duration-300">
       
       {/* ── 1. TOP HEADER & PRICING METRICS BAR ─────────────────────────── */}
-      <div className="p-6 md:p-8 bg-gradient-to-b from-white to-[#FAF7F2]/50 border-b border-[#E8E4DC]">
+      <div className="p-5 sm:p-6 md:p-8 bg-gradient-to-b from-white to-[#FAF7F2]/50 border-b border-[#E8E4DC]">
         {/* Top Identity Row */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-5 border-b border-[#E8E4DC]/70">
-          <div className="flex items-center gap-3">
-            <span className="size-2 rounded-full bg-[#B08D57] animate-pulse" />
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-4 sm:pb-5 mb-4 sm:mb-5 border-b border-[#E8E4DC]/70">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <span className="size-2 rounded-full bg-[#B08D57] animate-pulse shrink-0" />
             <span
-              className="text-[#1c1b1b] text-base md:text-lg font-medium tracking-tight"
-              style={{ fontFamily: "'Cormorant Garant', serif", fontSize: "1.25rem" }}
+              className="text-[#1c1b1b] text-sm sm:text-base md:text-lg font-medium tracking-tight"
+              style={{ fontFamily: "'Cormorant Garant', serif" }}
             >
               {unit.project_name} · {unit.tower} · Unit {unit.unit_number}
             </span>
-            <span className="text-[11px] font-semibold tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-[#B08D57]/10 text-[#B08D57] border border-[#B08D57]/25">
-              {unit.bhk ? `${unit.bhk} BHK Residence` : "Luxury Estate"}
+            {/* Small & Elegant Luxury Badge */}
+            <span className="text-[9px] font-bold tracking-[0.16em] uppercase px-2 py-0.5 rounded bg-[#FAF7F2] text-[#B08D57] border border-[#B08D57]/35 shrink-0 shadow-xs">
+              {unit.bhk ? `${unit.bhk} BHK` : "Estate"}
             </span>
           </div>
 
@@ -321,26 +323,13 @@ export default function IsometricFloorPlanViewer({
               <span className="hidden sm:inline">Architectural Render</span>
             </button>
           </div>
-        </div>
 
-        {/* Right: Upload Custom Render Trigger */}
-        <label
-          className="cursor-pointer inline-flex items-center gap-1.5 text-[11px] uppercase tracking-wider font-semibold text-[#72716d] hover:text-[#B08D57] transition-colors bg-white px-3 py-1.5 rounded-lg border border-[#E8E4DC] shadow-xs"
-          title="Upload / replace rendering"
-        >
-          <span className="material-symbols-outlined text-sm text-[#B08D57]">upload</span>
-          <span className="hidden sm:inline">Upload Custom Render</span>
-          <input
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={(e) => {
-              if (e.target.files?.[0] && currentLevel) {
-                handleImageUpload(currentLevel.level_name, e.target.files[0]);
-              }
-            }}
-          />
-        </label>
+          {/* Right: Verified HMDA Compliance Status */}
+          <div className="hidden sm:flex items-center gap-1.5 text-[10.5px] uppercase tracking-widest text-[#72716d] font-semibold bg-white px-3 py-1 rounded-full border border-[#E8E4DC] shadow-2xs">
+            <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Statutory HMDA Plan</span>
+          </div>
+        </div>
       </div>
 
       {/* ── 3. CENTER 3D STAGE VIEWPORT ─────────────────────────────────── */}
@@ -358,17 +347,28 @@ export default function IsometricFloorPlanViewer({
             />
           </div>
         ) : (
-          /* ── ARCHITECTURAL CUTAWAY RENDER (PHOTO WITH HOTSPOTS) ──────── */
+          /* ── ARCHITECTURAL CUTAWAY RENDER (PHOTO WITH HOTSPOTS & FULLSCREEN) ──────── */
           <div className="flex flex-col gap-3">
-            <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] min-h-[280px] sm:min-h-[380px] bg-[#FAF7F2] rounded-2xl overflow-hidden border border-[#E8E4DC] flex items-center justify-center group shadow-inner">
+            {/* Interactive Image Container with Click-to-Fullscreen */}
+            <div
+              onClick={() => setFullScreenOpen(true)}
+              className="relative w-full aspect-[4/3] sm:aspect-[16/10] min-h-[280px] sm:min-h-[380px] bg-[#FAF7F2] rounded-2xl overflow-hidden border border-[#E8E4DC] flex items-center justify-center group shadow-inner cursor-zoom-in transition-all"
+              title="Click to view full-screen architectural render"
+            >
               {activeImage ? (
                 <>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={activeImage}
                     alt={`${unit.project_name} ${unit.tower} ${currentPerspective.label}`}
-                    className="w-full h-full object-cover sm:object-contain p-1 sm:p-3 transition-transform duration-500 group-hover:scale-[1.02]"
+                    className="w-full h-full object-cover sm:object-contain p-1 sm:p-3 transition-transform duration-500 group-hover:scale-[1.03]"
                   />
+
+                  {/* Top Perspective Badge */}
+                  <div className="absolute top-3 left-3 bg-white/95 text-[#1c1b1b] text-[9.5px] sm:text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full border border-[#E8E4DC] shadow-xs backdrop-blur-md flex items-center gap-1.5 pointer-events-none">
+                    <span className="size-1.5 rounded-full bg-[#B08D57]" />
+                    <span>{currentPerspective.label}</span>
+                  </div>
 
                   {/* Hotspot callouts (shown on cutaway perspective) */}
                   {activePerspective === "cutaway" &&
@@ -394,6 +394,12 @@ export default function IsometricFloorPlanViewer({
                         </div>
                       </div>
                     ))}
+
+                  {/* Click to expand full-screen pill button */}
+                  <div className="absolute bottom-3 right-3 bg-[#1c1b1b]/80 hover:bg-[#1c1b1b] text-white text-[10.5px] tracking-wide font-medium px-3 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-md transition-all shadow-md group-hover:scale-105 pointer-events-none">
+                    <span className="material-symbols-outlined text-sm text-[#B08D57]">fullscreen</span>
+                    <span>Click for Fullscreen</span>
+                  </div>
                 </>
               ) : (
                 <div className="flex flex-col items-center justify-center p-8 text-center select-none w-full h-full relative">
@@ -413,8 +419,8 @@ export default function IsometricFloorPlanViewer({
               )}
             </div>
 
-            {/* Visual Perspective Selector (Gives plenty of required luxury images!) */}
-            <div className="flex items-center justify-center gap-1.5 sm:gap-2 pt-1 overflow-x-auto no-scrollbar">
+            {/* Visual Perspective Selector with Fullscreen Trigger */}
+            <div className="flex items-center justify-center gap-1.5 sm:gap-2 pt-1 pb-1 flex-wrap">
               {perspectives.map((p) => {
                 const isSelected = activePerspective === p.id;
                 return (
@@ -434,6 +440,14 @@ export default function IsometricFloorPlanViewer({
                   </button>
                 );
               })}
+
+              <button
+                onClick={() => setFullScreenOpen(true)}
+                className="px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-all flex items-center gap-1.5 cursor-pointer bg-white text-[#B08D57] border border-[#B08D57]/40 hover:bg-[#FAF7F2] shrink-0"
+              >
+                <span className="material-symbols-outlined text-sm">open_in_full</span>
+                <span>Fullscreen</span>
+              </button>
             </div>
           </div>
         )}
@@ -550,6 +564,77 @@ export default function IsometricFloorPlanViewer({
           </button>
         </div>
       </div>
+
+      {/* ── 6. FULLSCREEN LIGHTBOX MODAL ─────────────────────────────────── */}
+      {fullScreenOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col justify-between p-4 sm:p-6 animate-fade-in select-none"
+          onClick={() => setFullScreenOpen(false)}
+        >
+          {/* Lightbox Top Controls Bar */}
+          <div
+            className="w-full max-w-6xl mx-auto flex items-center justify-between gap-4 text-white shrink-0 pb-3 border-b border-white/15"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3">
+              <span className="size-2 rounded-full bg-[#B08D57] animate-pulse" />
+              <div>
+                <h4 className="text-sm sm:text-base font-medium" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  {unit.project_name} · {unit.tower} · Unit {unit.unit_number}
+                </h4>
+                <p className="text-[11px] text-white/60">
+                  {currentPerspective.label} · {unit.carpet_area_sqft} sq.ft · Facing {unit.facing}
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setFullScreenOpen(false)}
+              className="size-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all cursor-pointer border border-white/20 active:scale-95"
+              aria-label="Close Fullscreen"
+            >
+              <span className="material-symbols-outlined text-xl">close</span>
+            </button>
+          </div>
+
+          {/* Lightbox Center Image Viewport */}
+          <div
+            className="flex-1 flex items-center justify-center p-2 sm:p-4 overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={activeImage || ""}
+              alt={`${unit.project_name} ${currentPerspective.label} Fullscreen`}
+              className="max-h-[76vh] max-w-[95vw] sm:max-w-[88vw] object-contain rounded-xl shadow-2xl drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
+            />
+          </div>
+
+          {/* Lightbox Bottom Perspective Switcher */}
+          <div
+            className="w-full max-w-xl mx-auto flex items-center justify-center gap-2 pt-3 shrink-0 flex-wrap"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {perspectives.map((p) => {
+              const isSelected = activePerspective === p.id;
+              return (
+                <button
+                  key={p.id}
+                  onClick={() => setActivePerspective(p.id as any)}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all flex items-center gap-1.5 cursor-pointer ${
+                    isSelected
+                      ? "bg-[#B08D57] text-white shadow-lg scale-105"
+                      : "bg-white/10 text-white/80 hover:bg-white/20 border border-white/15"
+                  }`}
+                >
+                  <span className="material-symbols-outlined text-sm">{p.icon}</span>
+                  <span>{p.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

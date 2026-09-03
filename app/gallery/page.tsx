@@ -266,13 +266,19 @@ export default function GalleryPage() {
                 </div>
               </div>
 
-              {/* Unit Selector Pills within Active Tab (Centered on Mobile) */}
+              {/* Unit & Tower Selector Cards within Active Tab */}
               {currentTabUnits && currentTabUnits.length > 1 && (
-                <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#E8E4DC]/60 text-center sm:text-left">
-                  <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#72716d] block mb-3">
-                    Select Residence / Tower to View Isometric 3D Cutaway:
-                  </span>
-                  <div className="flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-2.5">
+                <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#E8E4DC]/60">
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-[#B08D57]">
+                      Select Tower &amp; Residence Cutaway
+                    </span>
+                    <span className="text-[10px] text-[#72716d] hidden sm:inline">
+                      {currentTabUnits.length} Configurations in {activeTab.replace("bhk", "").toUpperCase()} BHK
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
                     {currentTabUnits.map((u) => {
                       const isSelected = activeUnit.id === u.id;
                       return (
@@ -282,19 +288,27 @@ export default function GalleryPage() {
                             setSelectedUnitId(u.id);
                             scrollToViewer();
                           }}
-                          className={`px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg text-xs transition-all flex items-center gap-2 cursor-pointer ${
+                          className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all duration-200 cursor-pointer flex flex-col justify-between gap-1.5 relative active:scale-98 ${
                             isSelected
-                              ? "bg-[#1c1b1b] text-white font-medium shadow-sm"
-                              : "bg-[#FAF7F2] text-[#474741] border border-[#E8E4DC] hover:border-[#B08D57]"
+                              ? "bg-[#1c1b1b] text-white border-[#B08D57] shadow-md ring-1 ring-[#B08D57]/40"
+                              : "bg-[#FAF7F2] hover:bg-white text-[#1c1b1b] border-[#E8E4DC] hover:border-[#B08D57]/60 shadow-xs"
                           }`}
                         >
-                          <span
-                            className={`size-1.5 rounded-full ${
-                              isSelected ? "bg-[#B08D57]" : "bg-[#72716d]"
-                            }`}
-                          />
-                          <span>{u.project_name}</span>
-                          <span className="opacity-70">({u.tower})</span>
+                          <div className="flex items-center justify-between gap-1">
+                            <span className={`text-[9.5px] sm:text-[10.5px] font-bold tracking-wider uppercase ${isSelected ? "text-[#B08D57]" : "text-[#72716d]"}`}>
+                              {u.tower}
+                            </span>
+                            <span className={`size-1.5 rounded-full ${isSelected ? "bg-[#B08D57]" : "bg-transparent"}`} />
+                          </div>
+
+                          <div>
+                            <p className="text-xs sm:text-[13px] font-medium truncate leading-snug">
+                              {u.project_name}
+                            </p>
+                            <p className={`text-[10px] mt-0.5 ${isSelected ? "text-white/70" : "text-[#72716d]"}`}>
+                              Unit {u.unit_number} · {u.carpet_area_sqft} sq.ft
+                            </p>
+                          </div>
                         </button>
                       );
                     })}
